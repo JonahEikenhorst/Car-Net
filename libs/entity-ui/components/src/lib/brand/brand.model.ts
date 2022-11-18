@@ -7,4 +7,4 @@ export class brand {
     logourl = "";
     // carModels?: carModel;
 
-}
+}   
