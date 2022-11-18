@@ -1,1 +1,120 @@
-<p>brand-edit works!</p>
+<div class="component">
+    <p>brand-edit works!</p>
+    <form
+      #brandEditForm="ngForm"
+      name="form"
+      (ngSubmit)="brandEditForm.form.valid && onSubmit()"
+      novalidate
+    >
+      <div class="form-row">
+        <!-- Brand Name -->
+        <div class="form-group col-sm-12 col-lg-4">
+          <label for="brandname">name</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="brand.name"
+            name="brandname"
+            #brandname="ngModel"
+            [ngClass]="{
+              'is-invalid':
+                (brandname.invalid && brandname.touched) ||
+                (existingBrandName$ | async)
+            }"
+            required
+            minlength="3"
+            id="brandname"
+            placeholder="The name of the brand"
+          />
+          <!-- Show invalidity message -->
+          <div
+            *ngIf="brandname.invalid && brandname.touched"
+            class="invalid-feedback"
+          >
+            <div *ngIf="brandname.errors?.['required']">
+              A name is required.
+            </div>
+            <div *ngIf="brandname.errors?.['minlength']">
+              Minimal name lenght is 3 characters long.
+            </div>
+          </div>
+          <!-- end -->
+        </div>
+        <br />
+        <!-- estasblished -->
+        <div class="form-group col-sm-12 col-lg-4">
+          <label for="established">established</label>
+          <input
+            type="year"
+            class="form-control"
+            [(ngModel)]="brand.established"
+            name="established"
+            #established="ngModel"
+            [ngClass]="{
+              'is-invalid':
+                (established.invalid && established.touched) ||
+                (existingBrandName$ | async)
+            }"
+            required
+            minlength="4"
+            maxlength="4"
+            id="established"
+            placeholder="The brand is established in"
+          />
+          <!-- Show invalidity message -->
+          <div
+            *ngIf="established.invalid && established.touched"
+            class="invalid-feedback"
+          >
+            <div *ngIf="established.errors?.['required']">
+              Year is required.
+            </div>
+            <div *ngIf="established.errors?.['minlength']">
+              A year must have 4 digits
+            </div>
+            <div *ngIf="established.errors?.['maxlength']">
+              A year must have 4 digits
+            </div>
+          </div>
+          <!-- end -->
+        </div>
+        <br />
+        <!-- Brand country -->
+        <div class="form-group col-sm-12 col-lg-4">
+          <label for="countryOfOrigin">countryOfOrigin</label>
+          <select
+            class="form-control"
+            id="countryOfOrigin"
+            [(ngModel)]="brand.countryOfOrigin"
+            name="countryOfOrigin"
+            #countryOfOrigin="ngModel"
+            required
+            [ngClass]="{
+              'is-invalid': countryOfOrigin.invalid && countryOfOrigin.touched
+            }"
+          >
+            <!-- end -->
+          </select>
+          <!-- Show invalidity message -->
+          <div
+            *ngIf="countryOfOrigin.invalid && countryOfOrigin.dirty"
+            class="invalid-feedback"
+          >
+            countryOfOrigin is required
+          <!-- end -->
+          </div>
+        </div>
+        <!-- Submit buttons -->
+        <button
+          type="submit"
+          class="btn btn-primary me-1"
+          [disabled]="!brandEditForm.valid"
+        >
+          Save
+        </button>
+        <button type="submit" class="btn btn-secondary me-1" routerLink="../../">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
