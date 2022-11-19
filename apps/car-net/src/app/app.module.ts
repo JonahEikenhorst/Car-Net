@@ -5,14 +5,16 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { NavBarComponent } from './Shared/nav-bar/nav-bar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BrandModule } from '@car-net/entity-ui/components';
+
+import { AboutComponent } from './Pages/About/about.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavBarComponent,
-  ],
+  declarations: [AppComponent, NavBarComponent, AboutComponent],
   imports: [
     BrowserModule,
+    BrandModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
   ],
   providers: [],
