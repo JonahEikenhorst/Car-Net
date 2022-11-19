@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { BrandService } from 'apps/data-api/src/app/brand/brand.service';
 
 @Component({
-  selector: 'app-brand-list',
+  selector: 'car-net-brand-list',
   templateUrl: './brand-list.component.html',
   styleUrls: ['./brand-list.component.css'],
 })

@@ -5,7 +5,7 @@ import { brand } from '@car-net/entity-ui/components';
 import { BrandService } from 'apps/data-api/src/app/brand/brand.service';
 
 @Component({
-  selector: 'app-brand-detail',
+  selector: 'car-net-brand-detail',
   templateUrl: './brand-detail.component.html',
   styleUrls: ['./brand-detail.component.css'],
 })

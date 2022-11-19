@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { BrandModule } from '@car-net/entity-ui/components';
 import { brand } from '@car-net/entity-ui/components';
 
 @Injectable({

@@ -2,11 +2,11 @@
 
 export class brand {
     id?: number = 0;
-    name: string = '';
+    name = '';
     established: Date = new Date();
-    countryOfOrigin: string = '';
+    countryOfOrigin = '';
     brands: brand[] = [];
-    logoUrl: string = '';
+    logoUrl = '';
 }
     // // models: model[];
 
