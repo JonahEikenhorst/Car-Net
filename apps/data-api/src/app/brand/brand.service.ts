@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { BrandModule } from '@car-net/entity-ui/components';
-//tijdelijk:
-import { brand } from './brand.model';
+import { brand } from '@car-net/entity-ui/components';
 
 @Injectable({
   providedIn: 'root',
@@ -48,9 +47,17 @@ export class BrandService {
     });
   }
 
-  update(brand?: brand): Observable<any> {
+  update(brand: brand): Observable<any> {
     console.log('brand update aangeroepen');
-    // TO DO: brandList updaten
+    this.brand = { ...brand };
+    this.brandlist.forEach(t => {
+      if(this.brand != null && t.id == this.brand.id) {
+        this.brandlist.splice(this.brandId-1, 1, this.brand);
+      }
+    });
+    // if(this.brand != undefined && this.brand.id === brand?.id) {
+    // this.brandlist.splice(this.brandlist.findIndex((item) => item.id === brand?.id), 1, this.brand);
+    // }
     console.log(`brand met ID ${brand?.id} geüpdatet`);
     return of({
       status: 201,

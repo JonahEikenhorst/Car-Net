@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { catchError, Observable, of, Subscription, switchMap, tap } from 'rxjs';
-import { brand } from 'apps/data-api/src/app/brand/brand.model';
+import { brand } from '@car-net/entity-ui/components';
 import { BrandService } from 'apps/data-api/src/app/brand/brand.service';
 
 @Component({
