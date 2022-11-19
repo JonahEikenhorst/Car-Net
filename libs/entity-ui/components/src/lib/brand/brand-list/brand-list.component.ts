@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { brand } from 'apps/data-api/src/app/brand/brand.model';
+import { brand } from '@car-net/entity-ui/components';
 import { Observable } from 'rxjs';
 import { BrandService } from 'apps/data-api/src/app/brand/brand.service';
 
