@@ -88,6 +88,25 @@ export class BrandEditComponent implements OnInit, OnDestroy {
         });
     }
   }
+
+  onDelete(brandId: number): void {
+    this.brandService
+      .delete(brandId)
+      .pipe(
+        catchError((error: any) => {
+          console.log(error);
+          throw 'error in source. Details: ' + error;
+          // this.alertService.error(error.message);
+          // return of(false);
+        })
+      )
+      .subscribe((success: any) => {
+        console.log(success);
+        if (success) {
+          this.router.navigate(['../../'], { relativeTo: this.route });
+        }
+      });
+  }
   ngOnDestroy(): void {
     this.subscriptionParams?.unsubscribe;
   }

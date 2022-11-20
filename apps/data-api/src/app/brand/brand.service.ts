@@ -49,18 +49,20 @@ export class BrandService {
   update(brand: brand): Observable<any> {
     console.log('brand update aangeroepen');
     this.brand = { ...brand };
-    this.brandlist.forEach(t => {
-      if(this.brand != null && t.id == this.brand.id) {
-        this.brandlist.splice(this.brandId-1, 1, this.brand);
-      }
-    });
-    // if(this.brand != undefined && this.brand.id === brand?.id) {
-    // this.brandlist.splice(this.brandlist.findIndex((item) => item.id === brand?.id), 1, this.brand);
-    // }
+    this.brandlist.splice(this.brandlist.findIndex(b => b.id === brand.id), 1, this.brand);
     console.log(`brand met ID ${brand?.id} geüpdatet`);
     return of({
       status: 201,
       message: 'success',
     });
   }
+
+  delete(brandId: number): Observable<any> {
+    this.brandlist.splice(this.brandlist.findIndex(t => t.id === brandId), 1);
+    console.log(`brand met ID ${brandId} verwijderd`);
+      return of ({
+        status: 201,
+        message: 'success',
+      });
+    }
 }

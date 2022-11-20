@@ -81,20 +81,23 @@
         <br />
         <!-- Brand country -->
         <div class="form-group col-sm-12 col-lg-4">
-          <label for="countryOfOrigin">countryOfOrigin</label>
-          <select
+          <label for="countryOfOrigin">Country of origin</label>
+          <input
+            type="text"
             class="form-control"
-            id="countryOfOrigin"
             [(ngModel)]="brand.countryOfOrigin"
             name="countryOfOrigin"
             #countryOfOrigin="ngModel"
-            required
             [ngClass]="{
-              'is-invalid': countryOfOrigin.invalid && countryOfOrigin.touched
+              'is-invalid':
+                (countryOfOrigin.invalid && countryOfOrigin.touched) ||
+                (existingBrandName$ | async)
             }"
-          >
-            <!-- end -->
-          </select>
+            required
+            minlength="3"
+            id="countryOfOrigin"
+            placeholder="The country of origin"
+          />
           <!-- Show invalidity message -->
           <div
             *ngIf="countryOfOrigin.invalid && countryOfOrigin.dirty"
@@ -114,6 +117,9 @@
         </button>
         <button type="submit" class="btn btn-secondary me-1" routerLink="../../">
           Cancel
+        </button>
+        <button type="submit" class="btn btn-danger me-1" routerLink="../../"  (click)="onDelete(brand.id!)"> 
+          Delete
         </button>
       </div>
     </form>
