@@ -21,7 +21,7 @@ export class BrandDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.route.paramMap.subscribe((params) => {
       this.brandId = Number(params.get('id'));
-      console.log(`This is the movie ID ${this.brandId}`);
+      console.log(`This is the brand ID ${this.brandId}`);
       this.brand$ = this.brandService.getById(this.brandId);
     });
   }
