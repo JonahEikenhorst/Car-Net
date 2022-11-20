@@ -12,8 +12,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 const routes: Routes = [
    { path: 'brands', pathMatch: 'full', component: BrandListComponent },
-   { path: 'new', pathMatch: 'full', component: BrandEditComponent },
-   { path: ':id', pathMatch: 'full', component: BrandDetailComponent },
+   { path: 'brands/new', pathMatch: 'full', component: BrandEditComponent },
+   { path: 'brands/:id', pathMatch: 'full', component: BrandDetailComponent },
    { path: ':id/edit', pathMatch: 'full', component: BrandEditComponent },
 
 
