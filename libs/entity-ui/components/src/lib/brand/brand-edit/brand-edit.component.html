@@ -45,7 +45,7 @@
         <div class="form-group col-sm-12 col-lg-4">
           <label for="established">established</label>
           <input
-            type="year"
+            type="date"
             class="form-control"
             [(ngModel)]="brand.established"
             name="established"
@@ -56,8 +56,6 @@
                 (existingBrandName$ | async)
             }"
             required
-            minlength="4"
-            maxlength="4"
             id="established"
             placeholder="The brand is established in"
           />
@@ -115,10 +113,10 @@
         >
           Save
         </button>
-        <button type="submit" class="btn btn-secondary me-1" routerLink="../../">
+        <button type="submit" class="btn btn-secondary me-1" routerLink="/brands">
           Cancel
         </button>
-        <button type="submit" class="btn btn-danger me-1" routerLink="../../"  (click)="onDelete(brand.id!)"> 
+        <button type="submit" class="btn btn-danger me-1" routerLink="/brands"  (click)="onDelete(brand.id!)"> 
           Delete
         </button>
       </div>
