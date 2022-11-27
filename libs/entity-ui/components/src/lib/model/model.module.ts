@@ -21,9 +21,9 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        ModelEditComponent,
-        ModelListComponent,
-        ModelDetailComponent
+      ModelListComponent, 
+      ModelEditComponent, 
+      ModelDetailComponent
     ],
     imports: [
       CommonModule,

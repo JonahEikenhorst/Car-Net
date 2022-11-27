@@ -7,4 +7,6 @@ export const appRoutes: Route[] = [
     loadChildren: () =>
       import('@car-net/entity-ui/components').then((m) => m.BrandModule),
 },
+    { path: 'models', loadChildren: () => 
+      import('@car-net/entity-ui/components').then((m) => m.ModelModule) },
 ];

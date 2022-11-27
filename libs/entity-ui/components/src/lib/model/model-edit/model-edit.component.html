@@ -1,1 +1,127 @@
-<p>model-edit works!</p>
+<div class="component">
+    <div class="ms-5 ps-5">
+      <form
+        #modelEditForm="ngForm"
+        name="form"
+        (ngSubmit)="modelEditForm.form.valid && onSubmit()"
+        novalidate
+      >
+        <div class="form-row">
+          <!-- model Name -->
+          <div class="form-group col-sm-12 col-lg-4">
+            <label for="modelname">name</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="model.name"
+              name="modelname"
+              #modelname="ngModel"
+              [ngClass]="{
+                'is-invalid':
+                  (modelname.invalid && modelname.touched) ||
+                  (existingmodelName$ | async)
+              }"
+              required
+              minlength="2"
+              id="modelname"
+              placeholder="The name of the model"
+            />
+            <!-- Show invalidity message -->
+            <div
+              *ngIf="modelname.invalid && modelname.touched"
+              class="invalid-feedback"
+            >
+              <div *ngIf="modelname.errors?.['required']">
+                A name is required.
+              </div>
+              <div *ngIf="modelname.errors?.['minlength']">
+                Minimal name lenght is 3 characters long.
+              </div>
+            </div>
+            <!-- end -->
+          </div>
+          <br />
+          
+          <!-- estasblished -->
+          <!-- <div class="form-group col-sm-12 col-lg-4">
+            <label for="established">established</label>
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="model.established"
+              name="established"
+              #established="ngModel"
+              [ngClass]="{
+                'is-invalid':
+                  (established.invalid && established.touched) ||
+                  (existingmodelName$ | async)
+              }"
+              required
+              id="established"
+              placeholder="The model is established in"
+            /> -->
+            <!-- Show invalidity message -->
+            <!-- <div
+              *ngIf="established.invalid && established.touched"
+              class="invalid-feedback"
+            >
+              <div *ngIf="established.errors?.['required']">
+                Year is required.
+              </div>
+              <div *ngIf="established.errors?.['minlength']">
+                A year must have 4 digits
+              </div>
+              <div *ngIf="established.errors?.['maxlength']">
+                A year must have 4 digits
+              </div>
+            </div> -->
+            <!-- end -->
+          <!-- </div>
+          <br /> -->
+          <!-- model country -->
+          <!-- <div class="form-group col-sm-12 col-lg-4">
+            <label for="countryOfOrigin">Country of origin</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="model.countryOfOrigin"
+              name="countryOfOrigin"
+              #countryOfOrigin="ngModel"
+              [ngClass]="{
+                'is-invalid':
+                  (countryOfOrigin.invalid && countryOfOrigin.touched) ||
+                  (existingmodelName$ | async)
+              }"
+              required
+              minlength="3"
+              id="countryOfOrigin"
+              placeholder="The country of origin"
+            /> -->
+            <!-- Show invalidity message -->
+            <!-- <div
+              *ngIf="countryOfOrigin.invalid && countryOfOrigin.dirty"
+              class="invalid-feedback" -->
+            <!-- >
+              countryOfOrigin is required -->
+            <!-- end -->
+            <!-- </div>
+          </div> -->
+        
+          <!-- Submit buttons -->
+          <button
+            type="submit"
+            class="btn btn-primary me-1"
+            [disabled]="!modelEditForm.valid"
+          >
+            Save
+          </button>
+          <button type="submit" class="btn btn-secondary me-1" routerLink="/models">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-danger me-1" routerLink="/models"  (click)="onDelete(model.id!)"> 
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
+    </div>

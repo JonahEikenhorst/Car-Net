@@ -18,8 +18,9 @@ export enum CarType {
 }
 
 export class model {
+    id?: number = 0;
     name = '';
-    carType = CarType ;
-    brand = brand;
+    carType = CarType.Other;
+    brand = '';
     imageUrl = '';
 }
