@@ -51,6 +51,11 @@ Start the backend
   npm run dev:data-api
 ```
 
+Or start both
+```bash
+  nx serve
+```
+
 ## Running Tests
 
 To run tests for the frontend, run the following command
