@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { CarType, model } from '@car-net/entity-ui/components';
 import { ModelDetailComponent } from 'libs/entity-ui/components/src/lib/model/model-detail/model-detail.component';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +15,7 @@ export class ModelService {
         name: 'A3',
         carType: CarType.Hatchback,
         brand: 'Audi',
-        imageUrl: 'https://www.audi.nl/content/dam/nemo/models/a3-sportback/2019/overview/1920x1080/1920x1080_A3_Sportback_Overview.jpg',
+        imageUrl: process.env.CARIMAGE_API_URL + '&make=audi&modelFamily=e-tron&modelRange=e-tron&modelVariant=od&modelYear=2019&powerTrain=electric&transmission=0&bodySize=5&trim=eu&paintId=pspc0004sspc0199&angle=51',
     },
   ];
 

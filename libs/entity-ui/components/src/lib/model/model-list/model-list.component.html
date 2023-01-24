@@ -12,20 +12,16 @@
         <div class="row">
           <div class="col-md-4" *ngFor="let model of models$ | async">
             <div class="card mb-4 shadow-sm">
-              <svg
-                class="bd-placeholder-img card-img-top"
+              <img
+                class="card-img-top"
+                src="{{model.imageUrl}}"
                 width="100%"
                 height="225"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="xMidYMid slice"
-                focusable="false"
-                role="img"
-                aria-label="Placeholder: Thumbnail"
+
               >
-                <title>{{ model.name }}</title>
+                <!-- <title>{{ model.name }}</title>
                 <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-              </svg>
+                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text> -->
               <div class="card-body">
                 <p class="card-text">
                   {{ model.name }}

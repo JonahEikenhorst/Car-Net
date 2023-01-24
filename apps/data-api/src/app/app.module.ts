@@ -4,6 +4,7 @@ import { ModelModule } from '@car-net/entity-ui/components';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+
 @Module({
   imports: [BrandModule, ModelModule],
   controllers: [AppController],
