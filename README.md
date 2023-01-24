@@ -15,6 +15,9 @@ Angular, TailwindCSS
 **Server API, databases:** 
 NestJS, MongoDB, Neo4j
 
+**Monorepo:**
+NX
+
 ## Environment Variables
 
 This project includes .env.example files in both apps: Car-Net and Data-API. 
