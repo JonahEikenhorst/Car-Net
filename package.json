@@ -57,6 +57,7 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "bootstrap-icons": "^1.10.2",
+    "mongoose": "^6.8.4",
     "ngx-bootstrap": "^9.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
