@@ -7,21 +7,18 @@
       Add New
     </button>
   
-    <div class="album py-5 bg-light">
+    <div class="album py-5 bg-dark">
       <div class="container">
         <div class="row">
           <div class="col-md-4" *ngFor="let model of models$ | async">
-            <div class="card mb-4 shadow-sm">
+            <div class="card mb-4 shadow-sm border border-danger bg-dark">
               <img
                 class="card-img-top"
-                src="{{model.imageUrl}}"
+                src="{{ model.imageUrl }}"
                 width="100%"
                 height="225"
 
               >
-                <!-- <title>{{ model.name }}</title>
-                <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text> -->
               <div class="card-body">
                 <p class="card-text">
                   {{ model.name }}

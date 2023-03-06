@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { brand } from '@car-net/entity-ui/components';
+// import { Brand, BrandDocument } from './brand.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable({
   providedIn: 'root',
@@ -14,14 +17,15 @@ export class BrandService {
       established: new Date('1909-5-16'),
       countryOfOrigin: 'Germany',
       brands: [],
+      models: [],
       logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Audi_Logo.svg/1200px-Audi_Logo.svg.png',
     },
   ];
 
   brandId: number = this.brandlist.length;
 
-  constructor() {console.log('BrandService aangemaakt');}
-
+   constructor() {console.log('BrandService aangemaakt');}
+//@InjectModel(Brand.name) private exerciseModel: Model<BrandDocument> IN CONSTRUCTOR TUSSEN ()
   getList(): Observable<brand[]> {
     console.log('Brand getList aangeroepen');
     console.log(this.brandlist);

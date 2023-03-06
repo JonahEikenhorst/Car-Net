@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CarType, model } from '@car-net/entity-ui/components';
 import { ModelDetailComponent } from 'libs/entity-ui/components/src/lib/model/model-detail/model-detail.component';
+import { modelImage } from './modelImageHandler';
+import { constants } from '../../../constants';
 
 
 @Injectable({
@@ -15,7 +17,7 @@ export class ModelService {
         name: 'A3',
         carType: CarType.Hatchback,
         brand: 'Audi',
-        imageUrl: process.env.CARIMAGE_API_URL + '&make=audi&modelFamily=e-tron&modelRange=e-tron&modelVariant=od&modelYear=2019&powerTrain=electric&transmission=0&bodySize=5&trim=eu&paintId=pspc0004sspc0199&angle=51',
+        imageUrl: modelImage.getUrl(),
     },
   ];
 
