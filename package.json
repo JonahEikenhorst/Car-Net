@@ -60,7 +60,7 @@
     "bootstrap-icons": "^1.10.2",
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
-    "mongoose": "^6.8.4",
+    "mongoose": "^6.10.1",
     "ngx-bootstrap": "^9.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
@@ -68,3 +68,4 @@
     "zone.js": "~0.11.4"
   }
 }
+
