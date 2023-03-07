@@ -1,17 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { CarType, model } from '@car-net/entity-ui/components';
-import { ModelDetailComponent } from 'libs/entity-ui/components/src/lib/model/model-detail/model-detail.component';
+import { CarType, ModelInterface } from '@car-net/interfaces';
+import { Model } from './model.schema';
+import { ModelDetailComponent } from 'apps/car-net/src/app/Components/model/model-detail/model-detail.component';
 import { modelImage } from './modelImageHandler';
-import { constants } from '../../../constants';
+import { model } from 'mongoose';
+
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModelService {
-  private model?: model;
-  private modellist: model[] = [
+  private model?: Model;
+  private modellist: Model[] = [
     {
         id: 1,
         name: 'A3',
@@ -25,19 +29,19 @@ export class ModelService {
 
   constructor() {console.log('modelService aangemaakt');}
 
-  getList(): Observable<model[]> {
+  getList(): Observable<Model[]> {
     console.log('model getList aangeroepen');
     console.log(this.modellist);
     return of(this.modellist);
   }
 
-  getById(id: number): Observable<model> {
+  getById(id: number): Observable<Model> {
     console.log('model getById aangeroepen');
     console.log(`model met ID ${id} gezocht`);
     return of(this.modellist.filter((item) => item.id === id)[0]);
   }
 
-  create(model: model): Observable<any> {
+  create(model: Model): Observable<any> {
     console.log('model create aangeroepen');
     this.model = { ...model };
     this.model.id = ++this.modelId;
@@ -49,7 +53,7 @@ export class ModelService {
     });
   }
 
-  update(model: model): Observable<any> {
+  update(model: Model): Observable<any> {
     console.log('model update aangeroepen');
     this.model = { ...model };
     this.modellist.splice(this.modellist.findIndex(b => b.id === model.id), 1, this.model);

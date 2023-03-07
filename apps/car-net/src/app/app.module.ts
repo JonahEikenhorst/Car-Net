@@ -5,9 +5,9 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { NavBarComponent } from './Shared/nav-bar/nav-bar.component';
-import { ModelModule } from '@car-net/entity-ui/components';
+import { ModelModule } from './Components/model/model.module``';
 import { HttpClientModule } from '@angular/common/http';
-import { BrandModule } from '@car-net/entity-ui/components';
+import { BrandModule } from './Components/brand/brand.module';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AboutComponent } from './Pages/About/about.component';
 
@@ -24,3 +24,4 @@ import { AboutComponent } from './Pages/About/about.component';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+``

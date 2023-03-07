@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
-import { BrandModule } from '@car-net/entity-ui/components';
-import { ModelModule } from '@car-net/entity-ui/components';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { CarModule } from './car/car.module';
 
 
 @Module({
-  imports: [BrandModule, ModelModule],
+  imports: [
+    MongooseModule.forRoot(process.env.MONGO_CONNECTION), 
+    CarModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
