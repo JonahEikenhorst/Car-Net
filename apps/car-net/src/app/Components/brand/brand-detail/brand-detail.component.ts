@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { brand } from '@car-net/entity-ui/components';
+import { Brand } from 'apps/data-api/src/app/brand/brand.schema';
 import { BrandService } from 'apps/data-api/src/app/brand/brand.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { BrandService } from 'apps/data-api/src/app/brand/brand.service';
 export class BrandDetailComponent implements OnInit, OnDestroy {
   subscription?: Subscription;
   brandId: number | undefined;
-  brand$: Observable<brand> | undefined;
+  brand$: Observable<Brand> | undefined;
   constructor(
     private route: ActivatedRoute,
     private brandService: BrandService

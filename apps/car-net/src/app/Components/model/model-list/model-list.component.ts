@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { model } from '@car-net/entity-ui/components';
+import { Model } from 'apps/data-api/src/app/model/model.schema';
 import { Observable } from 'rxjs';
 import { ModelService } from 'apps/data-api/src/app/model/model.service';
 
@@ -9,8 +9,8 @@ import { ModelService } from 'apps/data-api/src/app/model/model.service';
   styleUrls: ['./model-list.component.css'],
 })
 export class ModelListComponent implements OnInit {
-  models: model[] | undefined;
-  models$: Observable<model[]> | undefined;
+  models: Model[] | undefined;
+  models$: Observable<Model[]> | undefined;
 
   constructor(private modelService: ModelService) {}
 

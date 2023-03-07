@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { brand } from '@car-net/entity-ui/components';
 import { Observable } from 'rxjs';
 import { BrandService } from 'apps/data-api/src/app/brand/brand.service';
+import { Brand } from 'apps/data-api/src/app/brand/brand.schema'
 
 @Component({
   selector: 'car-net-brand-list',
@@ -9,8 +9,8 @@ import { BrandService } from 'apps/data-api/src/app/brand/brand.service';
   styleUrls: ['./brand-list.component.css'],
 })
 export class BrandListComponent implements OnInit {
-  brands: brand[] | undefined;
-  brands$: Observable<brand[]> | undefined;
+  brands: Brand[] | undefined;
+  brands$: Observable<Brand[]> | undefined;
 
   constructor(private brandService: BrandService) {}
 

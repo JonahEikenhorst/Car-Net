@@ -1,58 +1,58 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { catchError, Observable, of, Subscription, switchMap, tap } from 'rxjs';
-import { model } from '@car-net/entity-ui/components';
-import { ModelService } from 'apps/data-api/src/app/model/model.service';
+import { Brand } from 'apps/data-api/src/app/brand/brand.schema';
+import { BrandService } from 'apps/data-api/src/app/brand/brand.service';
 
 @Component({
-  selector: 'car-net-model-edit',
-  templateUrl: './model-edit.component.html',
-  styleUrls: ['./model-edit.component.css'],
+  selector: 'car-net-brand-edit',
+  templateUrl: './brand-edit.component.html',
+  styleUrls: ['./brand-edit.component.css'],
 })
-export class ModelEditComponent implements OnInit, OnDestroy {
+export class BrandEditComponent implements OnInit, OnDestroy {
   subscriptionParams?: Subscription;
-  model = new model();
-  model$?: Observable<model>;
-  existingmodelName$?: Observable<string>;
+  brand = new Brand();
+  brand$?: Observable<Brand>;
+  existingBrandName$?: Observable<string>;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private modelService: ModelService,
+    private brandService: BrandService,
 
   ) {}
 
   ngOnInit(): void {
-    // Haal de model op voor edit
+    // Haal de brand op voor edit
     this.subscriptionParams = this.route.paramMap
       .pipe(
         tap(console.log),
         switchMap((params: ParamMap) => {
           // als we een nieuw item maken is er geen 'id'
           if (!params.get('id')) {
-            // maak een lege model
-            // return of(this.model);
-            return of(this.model);
+            // maak een lege brand
+            // return of(this.brand);
+            return of(this.brand);
           } else {
-            // haal de model met gevraagde id via de api
-            return this.modelService.getById(Number(params.get('id')));
+            // haal de brand met gevraagde id via de api
+            return this.brandService.getById(Number(params.get('id')));
           }
         }),
         tap(console.log)
       )
-      .subscribe((model) => {
-        // Spread operator om deep copy van model te maken => op deze manier wordt
-        // de model niet geupdatet bij een "Cancel" of zonder dat een update() uitegevoerd wordt.
-        this.model = { ...model };
+      .subscribe((brand) => {
+        // Spread operator om deep copy van brand te maken => op deze manier wordt
+        // de brand niet geupdatet bij een "Cancel" of zonder dat een update() uitegevoerd wordt.
+        this.brand = { ...brand };
       });
   }
-  // Save model via the service
+  // Save brand via the service
   onSubmit(): void {
-    console.log('onSubmit', this.model);
-    // Update exiting model
-    if (this.model.id != 0) {
-      this.modelService
-        .update(this.model)
+    console.log('onSubmit', this.brand);
+    // Update exiting brand
+    if (this.brand.id != 0) {
+      this.brandService
+        .update(this.brand)
         .pipe(
           catchError((error: any) => {
             console.log(error);
@@ -68,10 +68,10 @@ export class ModelEditComponent implements OnInit, OnDestroy {
           }
         });
     }
-    // Create a new model
+    // Create a new brand
     else {
-      this.modelService
-        .create(this.model)
+      this.brandService
+        .create(this.brand)
         .pipe(
           catchError((error: any) => {
             console.log(error);
@@ -89,9 +89,9 @@ export class ModelEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  onDelete(modelId: number): void {
-    this.modelService
-      .delete(modelId)
+  onDelete(brandId: number): void {
+    this.brandService
+      .delete(brandId)
       .pipe(
         catchError((error: any) => {
           console.log(error);

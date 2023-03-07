@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { model } from '@car-net/entity-ui/components';
+import { Model } from 'apps/data-api/src/app/model/model.schema';
 import { ModelService } from 'apps/data-api/src/app/model/model.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { ModelService } from 'apps/data-api/src/app/model/model.service';
 export class ModelDetailComponent implements OnInit, OnDestroy {
   subscription?: Subscription;
   modelId: number | undefined;
-  model$: Observable<model> | undefined;
+  model$: Observable<Model> | undefined;
   constructor(
     private route: ActivatedRoute,
     private modelService: ModelService
