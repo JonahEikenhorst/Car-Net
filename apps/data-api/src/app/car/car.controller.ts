@@ -1,7 +1,7 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { CarService } from "./car.service";
-import { Car } from "@car-net/entity-ui/components";
+import { Car } from "./car.schema";
 
 @Controller("cars")
 export class CarController {
