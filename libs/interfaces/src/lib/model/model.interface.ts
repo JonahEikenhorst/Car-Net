@@ -20,6 +20,6 @@ export class ModelInterface {
     id?: number = 0;
     name = '';
     carType = CarType.Other;
-    brand = '';
+    // brand = '';
     imageUrl = '';
 }

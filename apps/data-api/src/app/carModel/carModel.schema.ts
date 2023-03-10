@@ -1,30 +1,29 @@
 import { Document } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { isString } from "class-validator";
-import { Brand } from "../brand/brand.schema";
 import { CarType } from "@car-net/interfaces";
 
-export type ModelDocument = Model & Document;
+export type ModelDocument = CarModel & Document;
 
 @Schema()
-export class Model {
+export class CarModel {
   @Prop({ required: true, validate: isString })
-  id: number;
+  id!: number;
 
   @Prop({ required: true, validate: isString })
-  name: string;
+  name!: string;
 
   @Prop({ required: true, validate: isString })
-  carType: CarType;
+  carType!: CarType;
+
+  // @Prop({ required: true, validate: isString })
+  // brand!: string;   // BRAND IS A SCHEMA, NOT A STRING
 
   @Prop({ required: true, validate: isString })
-  brand: string;   // BRAND IS A SCHEMA, NOT A STRING
-
-  @Prop({ required: true, validate: isString })
-  imageUrl: string;
+  imageUrl!: string;
 
 }
 
-export const ModelSchema = SchemaFactory.createForClass(Model);
+export const CarModelSchema = SchemaFactory.createForClass(CarModel);
 
 
