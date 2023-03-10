@@ -4,9 +4,9 @@ import { Router } from "@angular/router";
 import  { AuthService } from "../auth.service";
 
 @Component({
-    selector: 'login',
+    selector: 'car-net-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+    styleUrls: ['./login.component.css']
 })
 
 export class LoginComponent implements OnInit {

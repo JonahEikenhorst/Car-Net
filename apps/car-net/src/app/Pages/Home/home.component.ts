@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
-import { Observable } from "rxjs";
+
 
 
 @Component({
-  selector: "Car-Net-home",
+  selector: "car-net-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.css"]
 })

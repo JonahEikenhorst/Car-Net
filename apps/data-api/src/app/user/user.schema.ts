@@ -1,7 +1,6 @@
-import { Document, Schema as MongooseSchema } from "mongoose";
+import { Document } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { isEmail, isString } from "class-validator";
-import { Car } from "../car/car.schema";
 
 
 export type UserDocument = User & Document;
@@ -15,9 +14,10 @@ export class User {
   email: string;
 
   @Prop({ required: true, default: false })
-  admin: boolean;
+  roles: Array<string>;
 
-
+  @Prop()
+  passwordHash: string;
 // REFERENCE   
 //   @Prop({ required: false, type: [MongooseSchema.Types.ObjectId], ref: "Car" })
 //   cars: Car[];
