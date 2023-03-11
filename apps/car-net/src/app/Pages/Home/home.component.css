@@ -23,10 +23,8 @@ p{
         background-image: url("./background.svg")
     }
 
-    img { 
-        position: absolute;
-        margin: auto;
-            /* top: 48%;
-            margin-left: 20%; */
 
+    button {
+        border-color: red;
+        font-family: CustomFont;
     }
