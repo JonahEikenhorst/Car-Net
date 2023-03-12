@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     }
     
 
-    ngOnInit() { }
+    ngOnInit(): void {}
 
     login() {
         const val = this.form.value;
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         .subscribe(
             (reply:any) => {
                 localStorage.setItem('authJwtToken', reply.authJwtToken);
-            this.router.navigateByUrl('/garages');
+            this.router.navigateByUrl('/home');
         },
         err => {
             console.log("Error logging in: " + err);	
