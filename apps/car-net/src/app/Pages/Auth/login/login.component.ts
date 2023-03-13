@@ -19,26 +19,34 @@ export class LoginComponent implements OnInit {
         private router: Router
     ) {
         this.form = this.fb.group({
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(8)]]
+          email: ['test@gmail.com', [Validators.required, Validators.email]],
+          password: ['testtest', [Validators.required, Validators.minLength(8)]]
         });
-    }
+    }    
     
 
     ngOnInit(): void {}
 
-    login() {
-        const val = this.form.value;
-        this.authService.login(val.email, val.password)
-        .subscribe(
-            (reply:any) => {
-                localStorage.setItem('authJwtToken', reply.authJwtToken);
-            this.router.navigateByUrl('/home');
-        },
-        err => {
-            console.log("Error logging in: " + err);	
-            alert('Login Failed. Please try again.');
-        }
-        );
-    }
+login() {
+
+      const val = this.form.value;
+
+      this.authService.login(val.email, val.password)
+          .subscribe(
+              (reply:any) => {
+
+                  localStorage.setItem("authJwtToken",
+                      reply.authJwtToken);
+
+                  this.router.navigateByUrl('/courses');
+
+              },
+              err => {
+                  console.log("Login failed:", err);
+                  alert('Login failed.');
+              }
+          );
+
+
+  }
 }

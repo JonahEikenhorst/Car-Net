@@ -12,6 +12,9 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AboutComponent } from './Pages/About/about.component';
 import { AuthService } from './Pages/Auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthModule } from './Pages/Auth/auth.module';
+
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, AboutComponent],
@@ -19,6 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     BrandModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AuthModule,
     // ModelModule,
     TooltipModule.forRoot(),
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
