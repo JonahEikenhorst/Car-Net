@@ -1,18 +1,14 @@
-
-  <div class="component">
-    <div class="h-screen flex items-center fixed start-0 top-0" role="navigation">
-      <div class="px-2">
-        <div id="mainNav">
-          <ul class="list-none rounded-md mx-2">
-            <li><a class="vlink rounded-md border-0" routerLink=""><i class="bi bi-house"></i><span>Home</span></a></li>
-            <li><a class="vlink rounded-md border-0" routerLink="brands"><i class="bi bi-car-front-fill"></i><span>Brands</span></a></li>
-            <li><a class="vlink rounded-md" routerLink="models"><i class="bi bi-truck-front"></i><span>Models</span></a></li>
-            <li><a class="vlink rounded-md" routerLink="brands"><i class="bi bi-x-lg"></i> <span>To be added</span></a></li>
-            <li><a class="vlink rounded-md" routerLink="brands"><i class="bi bi-x-lg"></i> <span>To be added</span></a></li>
-            <li><a class="vlink rounded-md" routerLink="brands"><i class="bi bi-x-lg"></i> <span>To be added</span></a></li>
-            <li><a class="vlink rounded-md" routerLink="about"><i class="bi bi-person-circle"></i> <span>About</span></a></li>
-          </ul>
-        </div>
-      </div>
+<div id="navbar" class="sticky flex items-center justify-between">
+  <div class="flex items-center space-x-8">
+    <a routerLink="home" class="text-3xl">Car-Net</a>
+    <div class="flex items-center space-x-4">
+      <a routerLink="catalog" class="text-xl"><i class="bi bi-car-front-fill mr-2"></i>Catalog</a>
+      <a routerLink="about" class="text-xl"><i class="bi bi-question-circle mr-2"></i>About</a>
     </div>
   </div>
+  <div class="flex items-center space-x-4">
+    <a routerLink="garages" class="text-xl"><i class="bi bi-door-open mr-2"></i>Your garage</a>
+    <a routerLink="login" class="text-xl"><i class="bi bi-person-circle mr-2"></i>Login</a>
+  </div>
+</div>
+

@@ -10,17 +10,26 @@ import { NavBarComponent } from './Shared/nav-bar/nav-bar.component';
  import { BrandModule } from './Components/brand/brand.module';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AboutComponent } from './Pages/About/about.component';
+import { AuthService } from './Pages/Auth/auth.service';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthModule } from './Pages/Auth/auth.module';
+
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, AboutComponent],
   imports: [
     BrowserModule,
     BrandModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AuthModule,
     // ModelModule,
     TooltipModule.forRoot(),
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
