@@ -4,9 +4,9 @@ import { Router } from "@angular/router";
 import  { AuthService } from "../auth.service";
 
 @Component({
-    selector: 'login',
+    selector: 'car-net-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+    styleUrls: ['./login.component.css']
 })
 
 export class LoginComponent implements OnInit {
@@ -19,26 +19,34 @@ export class LoginComponent implements OnInit {
         private router: Router
     ) {
         this.form = this.fb.group({
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(8)]]
+          email: ['test@gmail.com', [Validators.required, Validators.email]],
+          password: ['testtest', [Validators.required, Validators.minLength(8)]]
         });
-    }
+    }    
     
 
-    ngOnInit() { }
+    ngOnInit(): void {}
 
-    login() {
-        const val = this.form.value;
-        this.authService.login(val.email, val.password)
-        .subscribe(
-            (reply:any) => {
-                localStorage.setItem('authJwtToken', reply.authJwtToken);
-            this.router.navigateByUrl('/garages');
-        },
-        err => {
-            console.log("Error logging in: " + err);	
-            alert('Login Failed. Please try again.');
-        }
-        );
-    }
+login() {
+
+      const val = this.form.value;
+
+      this.authService.login(val.email, val.password)
+          .subscribe(
+              (reply:any) => {
+
+                  localStorage.setItem("authJwtToken",
+                      reply.authJwtToken);
+
+                  this.router.navigateByUrl('/courses');
+
+              },
+              err => {
+                  console.log("Login failed:", err);
+                  alert('Login failed.');
+              }
+          );
+
+
+  }
 }

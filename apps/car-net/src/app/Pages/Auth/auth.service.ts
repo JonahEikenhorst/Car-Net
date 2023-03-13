@@ -12,6 +12,10 @@ export class AuthService {
     }
 
     login(email:string, password:string): Observable<UserInterface> {
-        return this.http.post<UserInterface>('/api/login', {email, password})
+        return this.http.post<UserInterface>('http://localhost:3333/api/login', {email, password})
+    }
+
+    register() {
+        return this.http.post('/api/register', {})
     }
 }

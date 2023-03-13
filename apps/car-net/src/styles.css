@@ -5,8 +5,29 @@
 
 body {
   margin: 20px;
+  background-color: #212529;
 }
 
 html {
   background-color: #212529;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #212529;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #FA7268;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #cd463a;
 }

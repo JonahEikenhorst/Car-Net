@@ -4,15 +4,14 @@ import { InjectModel } from "@nestjs/mongoose";
 import * as password from "password-hash-and-salt";	
 import * as jwt from "jsonwebtoken";
 import { Model } from "mongoose";
+import { User } from "../user/user.schema";
 
 
 @Controller("login")
 export class AuthController {
 
-    constructor(@InjectModel("User") private userModel: Model) {
-
-    }
-
+    constructor(@InjectModel("User") private userModel: Model<User>) {
+        }
     @Post()
     async login(@Body("email") email:string, 
         @Body("password") plaintextPassword:string) {
