@@ -5,6 +5,7 @@ import { CarModelSchema } from './carModel.schema';
 import { CarModelService } from './carModel.service';
 
 
+
 @Module({
     imports: [
         MongooseModule.forFeature([
@@ -12,6 +13,7 @@ import { CarModelService } from './carModel.service';
             name: 'CarModel', schema: CarModelSchema
         }
     ])
+
 ],
     controllers: [CarModelController],
     providers: [CarModelService],

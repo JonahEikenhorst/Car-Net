@@ -1,5 +1,7 @@
 export * from './lib/interfaces.module';
-export * from './lib/model/model.interface';
+export * from './lib/carModel/carModel.interface';
 export * from './lib/brand/brand.interface';
 export * from './lib/user/user.interface';
+export * from './lib/user/user.service';
+export * from './lib/auth/auth.interface';
 

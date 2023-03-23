@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       username: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", [Validators.required, Validators.minLength(8)]),
+      hash: new FormControl("", [Validators.required, Validators.minLength(8)]),
       repeatPassword: new FormControl("", [Validators.required, Validators.minLength(8)])
     }) as FormGroup;
   }
@@ -33,8 +33,8 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get("email")!;
   }
 
-  get password() {
-    return this.registerForm.get("password")!;
+  get hash() {
+    return this.registerForm.get("hash")!;
   }
 
   get repeatPassword() {
@@ -45,8 +45,8 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-
-    this.authService.register(/*hier moet wat*/)
+console.log(this.registerForm.value);
+    this.authService.register(this.registerForm.value)
       .pipe(
         map((token) => {
           if (token) {

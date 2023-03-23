@@ -14,6 +14,7 @@ import { AuthService } from './Pages/Auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './Pages/Auth/auth.module';
+import { Location } from '@angular/common';
 
 
 @NgModule({
@@ -29,8 +30,7 @@ import { AuthModule } from './Pages/Auth/auth.module';
     TooltipModule.forRoot(),
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
   ],
-  providers: [AuthService],
+  providers: [AuthService, Location],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-``

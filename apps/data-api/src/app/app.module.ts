@@ -12,6 +12,9 @@ import { BrandController } from './brand/brand.controller';
 import { CarModelController } from './carModel/carModel.controller';
 import { GarageController } from './garage/garage.controller';
 import { TokenMiddleware } from './auth/token.middleware';
+import { AuthController } from './auth/auth.controller';
+import { UserModule } from './user/user.module';
+import { UserController } from './user/user.controller';
 
 
 
@@ -22,7 +25,8 @@ import { TokenMiddleware } from './auth/token.middleware';
     BrandModule,
     CarModelModule,
     GarageModule,
-    AuthModule
+    AuthModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -35,7 +39,8 @@ export class AppModule implements NestModule {
         CarController,
         BrandController,
         CarModelController,
-        GarageController
+        GarageController,
+        UserController
 
       )
   }

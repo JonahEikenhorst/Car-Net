@@ -16,7 +16,7 @@ export enum CarType {
 
 }
 
-export class ModelInterface {
+export class CarModelInterface {
     id?: number = 0;
     name = '';
     carType = CarType.Other;

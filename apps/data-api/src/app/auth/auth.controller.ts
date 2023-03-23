@@ -1,82 +1,55 @@
-import { Body, Controller, Post, UnauthorizedException } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
+//
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 
-import * as password from "password-hash-and-salt";	
-import * as jwt from "jsonwebtoken";
-import { Model } from "mongoose";
-import { User } from "../user/user.schema";
+import { Token, UserCredentials } from '@car-net/interfaces';
 
+import { AuthService } from './auth.service';
+import { Identity } from './identity.schema';
+import { User } from '../user/user.schema';
 
-@Controller("login")
+@Controller()
 export class AuthController {
+  constructor(private readonly authService: AuthService) {}
 
-    constructor(@InjectModel("User") private userModel: Model<User>) {
-        }
-    @Post()
-    async login(@Body("email") email:string, 
-        @Body("password") plaintextPassword:string) {
-            
-            const user = await this.userModel.findOne({email});
+  @Post('register')
+  async register(@Body() credentials: Partial<Identity>) {
+    try {
+      await this.authService.registerUser(
+        credentials.username,
+        credentials.hash,
+        credentials.email
+      );
 
-            if (!user) {
-                throw new UnauthorizedException("User not found");
-            }
+      return await this.authService.createUser(
+        credentials.username,
+        credentials.email
+      );
+    } catch (e) {
+      throw new BadRequestException(e.message);
+    }
+  }
 
-            return new Promise((resolve, reject) => {
-                password(plaintextPassword).verifyAgainst(user.passwordHash, (err, verified) => {
-                    if (!verified) {
-                        reject(new UnauthorizedException("Invalid password"));
-                    }
-
-                    const authJwtToken = jwt.sign({email, roles: user.roles}, process.env.JWT_SECRET);
-                    resolve({authJwtToken});
-                });
-            } )
-            
-        }
+  @Post('login')
+  
+  async login(@Body() credentials: Partial<Identity>) {
+    try {
+      return {
+        token: await this.authService.generateToken(
+          credentials.email,
+          credentials.hash
+        ),
+      };
+    } catch (e) {
+      throw new HttpException('Invalid credentials', e);
+      
+    }
+  }
 }
 
-// import {
-//     BadRequestException,
-//     Body,
-//     Controller,
-//     Post,
-//     UnauthorizedException
-//   } from "@nestjs/common";
-//   import { AuthService } from "./auth.service";
-//   import { UserCredentials, UserRegistration } from '@car-net/entity-ui/components/src/lib/auth/auth.model';
-//   import { User } from "../user/user.schema";
-//   import { Identity } from "./identity.schema";
-  
-//   @Controller()
-//   export class AuthController {
-//     constructor(private readonly authService: AuthService) {
-//     }
-  
-//     @Post("register")
-//     async register(@Body() credentials: UserRegistration): Promise<User> {
-//       try {
-//         await this.authService.registerUser(credentials.username, credentials.password, credentials.email);
-  
-//         return await this.authService.createUser(credentials.username, credentials.email);
-//       } catch (e) {
-//         throw new BadRequestException(e.message);
-//       }
-//     }
-  
-//     @Post("login")
-//     async login(@Body() credentials: UserCredentials): Promise<Identity> {
-//       try {
-//         const identity = await this.authService.generateToken(credentials.email, credentials.password);
-//         identity.hash = undefined;
-//         return identity;
-//       } catch (e) {
-//         throw new UnauthorizedException("Invalid credentials");
-//       }
-//     }
-  
-//     @Post("verify")
-//     async verify(@Body() token: string): Promise<boolean> {
-//       return this.authService.verifyToken(token);
-//     }
-//   }
