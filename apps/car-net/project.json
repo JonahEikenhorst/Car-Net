@@ -58,7 +58,8 @@
           "browserTarget": "car-net:build:production"
         },
         "development": {
-          "browserTarget": "car-net:build:development"
+          "browserTarget": "car-net:build:development",
+          "proxyConfig": "apps/car-net/proxy.conf.json"
         }
       },
       "defaultConfiguration": "development"

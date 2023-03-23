@@ -9,7 +9,7 @@ import { CarModel } from "./carModel.schema";
 @Injectable()
 export class CarModelService {
 
-    constructor(@InjectModel('Model') private carModelModel: Model<CarModel>) {
+    constructor(@InjectModel('CarModel') private carModelModel: Model<CarModel>) {
     }
 
     async findAll(): Promise<CarModel[]> {

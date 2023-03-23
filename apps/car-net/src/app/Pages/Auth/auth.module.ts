@@ -7,6 +7,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { Location } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+
 
 
 @NgModule({
@@ -22,7 +26,9 @@ import { RegisterComponent } from './register/register.component';
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
       BsDatepickerModule.forRoot(),
+      RouterModule,
     ],
      exports: [LoginComponent, RegisterComponent],
+     providers: [Location],
   })
   export class AuthModule {}
