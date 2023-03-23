@@ -13,11 +13,10 @@ export class User {
   @Prop({ required: true, validate: isEmail })
   email: string;
 
-  @Prop({ required: true, default: false })
+  @Prop({ required: false })
   roles: Array<string>;
 
-  @Prop()
-  passwordHash: string;
+
 // REFERENCE   
 //   @Prop({ required: false, type: [MongooseSchema.Types.ObjectId], ref: "Car" })
 //   cars: Car[];

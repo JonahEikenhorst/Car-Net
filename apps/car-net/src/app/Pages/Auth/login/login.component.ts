@@ -1,52 +1,52 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AuthService } from "../auth.service";
 import { Router } from "@angular/router";
-import  { AuthService } from "../auth.service";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { catchError, map } from "rxjs";
 
 @Component({
-    selector: 'car-net-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+  selector: "car-net-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"]
 })
-
 export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
 
-    form: FormGroup;
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
+  }
 
-    constructor(
-        private fb: FormBuilder,
-        private authService: AuthService,
-        private router: Router
-    ) {
-        this.form = this.fb.group({
-          email: ['test@gmail.com', [Validators.required, Validators.email]],
-          password: ['testtest', [Validators.required, Validators.minLength(8)]]
-        });
-    }    
-    
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      email: new FormControl("", [Validators.required]),
+      hash: new FormControl("", [Validators.required])
+    }) as FormGroup;
+  }
 
-    ngOnInit(): void {}
+  get email() {
+    return this.loginForm.get("email")!;
+  }
 
-login() {
+  get hash() {
+    return this.loginForm.get("hash")!;
+  }
 
-      const val = this.form.value;
-
-      this.authService.login(val.email, val.password)
-          .subscribe(
-              (reply:any) => {
-
-                  localStorage.setItem("authJwtToken",
-                      reply.authJwtToken);
-
-                  this.router.navigateByUrl('/courses');
-
-              },
-              err => {
-                  console.log("Login failed:", err);
-                  alert('Login failed.');
-              }
-          );
-
-
+  async login() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+    console.log(this.loginForm.value);
+    this.authService.login(this.loginForm.value)
+      .pipe(
+        map((token) => {
+          if (token) {
+            this.router.navigate(["/"]);
+          }
+        }),
+        catchError((err) => {
+          this.loginForm.setErrors({ invalidCredentials: true, message: err.error.message });
+          throw err;
+        })
+      ).subscribe();
   }
 }
