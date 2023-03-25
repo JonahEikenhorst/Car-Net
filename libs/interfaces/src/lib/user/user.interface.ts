@@ -1,6 +1,6 @@
 export class UserInterface {
     username = '';
     email = '';
-    admin = false;
+    roles: string[] = [];
     // cars: CarInterface[] = [];
 }

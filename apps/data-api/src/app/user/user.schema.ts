@@ -13,8 +13,8 @@ export class User {
   @Prop({ required: true, validate: isEmail })
   email: string;
 
-  @Prop({ required: false })
-  roles: Array<string>;
+  @Prop({ required: false, default:[] })
+  roles: string[];
 
 
 // REFERENCE   
