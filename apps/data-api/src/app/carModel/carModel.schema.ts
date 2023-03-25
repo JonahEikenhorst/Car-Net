@@ -1,6 +1,7 @@
 import { Document } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { isString } from "class-validator";
+import { Brand } from "../brand/brand.schema";
 
 export type ModelDocument = CarModel & Document;
 
@@ -24,19 +25,16 @@ export enum CarType {
 @Schema()
 export class CarModel {
   @Prop({ required: true, validate: isString })
-  id: number;
-
-  @Prop({ required: true, validate: isString })
   name: string;
 
   @Prop({ required: true, validate: isString })
   carType: CarType;
 
-  // @Prop({ required: true, validate: isString })
-  // brand!: string;   // BRAND IS A SCHEMA, NOT A STRING
-
   @Prop({ required: false, validate: isString })
   imageUrl: string;
+
+  @Prop({ required: false})
+  brand: Brand
 
 }
 
