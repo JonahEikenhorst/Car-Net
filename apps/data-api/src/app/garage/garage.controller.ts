@@ -11,7 +11,7 @@ export class GarageController {
 
     @Post()
     async createGarage(@Body() garage: Partial<Garage>): Promise<Garage> {
-        console.log("Creating garage: " + garage);
+        // console.log("Creating garage: " + garage);
 
         return this.garageService.addGarage(garage);
 
@@ -20,6 +20,11 @@ export class GarageController {
     @Get()
     async findAllGarages(): Promise<Garage[]> {
         return this.garageService.findAll();
+    }
+
+    @Get(":id")
+    async findGarageById(@Param("id") id: string): Promise<Garage> {
+        return this.garageService.findOne(id);
     }
 
     @Put(':id')

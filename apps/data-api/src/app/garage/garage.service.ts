@@ -15,6 +15,10 @@ export class GarageService {
         return this.garageModel.find();
     }
 
+    async findOne(id: string): Promise<Garage> {
+        return this.garageModel.findOne({_id: id});
+    }
+
     async updateGarage(id: string, changes: Partial<Garage>): Promise<Garage> {
 
         return this.garageModel.findOneAndUpdate({_id: id}, changes,{new:true});
