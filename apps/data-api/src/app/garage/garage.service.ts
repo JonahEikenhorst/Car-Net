@@ -1,13 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import { CarService } from "../car/car.service";
 import { Garage } from "./garage.schema";
 
 @Injectable() 
 export class GarageService {
 
 
-    constructor(@InjectModel('Garage') private garageModel: Model<Garage>) {
+    constructor(@InjectModel('Garage') private garageModel: Model<Garage>, private carService: CarService) {
         
     }
 
@@ -33,5 +34,13 @@ export class GarageService {
         const newGarage = new this.garageModel(garage);
         await newGarage.save();
         return newGarage.toObject({versionKey: false});
+    }
+
+    async addCarToGarage(garageId: string, numberPlate: string) {
+        const garageToUpdate = await this.findOne(garageId);
+        const carToAdd = await this.carService.getCarByNumberPlate(numberPlate);
+        garageToUpdate.cars.push(carToAdd);
+        await this.updateGarage(garageToUpdate["_id"], garageToUpdate);
+
     }
 }

@@ -27,7 +27,7 @@ describe('GarageController', () => {
 
     controller = app.get<GarageController>(GarageController);
     service = app.get<GarageService>(GarageService);
-    testUser = { username: 'TestUser', email: 'Test@gmail.com', roles: ['user'] };
+    testUser = { username: 'TestUser', email: 'Test@gmail.com', roles: ['user'], garage: null };
 
   });
 
