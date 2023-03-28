@@ -15,6 +15,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './Pages/Auth/auth.module';
 import { Location } from '@angular/common';
+import { GarageModule } from './Pages/Garage/garage.module';
+import { GarageService } from './Pages/Garage/garage.service';
+
 
 
 @NgModule({
@@ -26,11 +29,11 @@ import { Location } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
-    // ModelModule,
+    GarageModule,
     TooltipModule.forRoot(),
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
   ],
-  providers: [AuthService, Location],
+  providers: [AuthService, GarageService, Location],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
