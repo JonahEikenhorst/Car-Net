@@ -1,6 +1,7 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import { EmptyError } from "rxjs";
 import { Garage } from "./garage.schema";
 
 @Injectable() 
@@ -12,7 +13,8 @@ export class GarageService {
     }
 
     async findAll(): Promise<Garage[]> {
-        return this.garageModel.find();
+        const garages = await this.garageModel.find();
+        return garages;
     }
 
     async findOne(id: string): Promise<Garage> {

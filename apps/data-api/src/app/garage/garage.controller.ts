@@ -1,25 +1,28 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from "@nestjs/common";
 import { GarageService } from "./garage.service";
 import { Garage } from "./garage.schema";
 
 @Controller("garages")
 export class GarageController {
 
-    constructor(private garageService: GarageService) {
+    constructor(private readonly garageService: GarageService) {
     }
 
     @Post()
     async createGarage(@Body() garage: Partial<Garage>): Promise<Garage> {
-        // console.log("Creating garage: " + garage);
 
-        return this.garageService.addGarage(garage);
-
+        const newGarage = await this.garageService.addGarage(garage);
+        return newGarage;
     }
 
     @Get()
     async findAllGarages(): Promise<Garage[]> {
-        return this.garageService.findAll();
+        const garages = await this.garageService.findAll();
+        if (garages.length === 0) {
+            throw new HttpException('No garages found', 404);
+          }
+        return garages;
     }
 
     @Get(":id")
@@ -31,16 +34,21 @@ export class GarageController {
     async updateGarage(
     @Param("id") id: string, 
     @Body() changes: Partial<Garage>): Promise<Garage> {
-
-        console.log("Updating garage with id: " + id);
-
-        return this.garageService.updateGarage(id, changes);
+        if (!id) {
+            throw new HttpException('No garage id provided', HttpStatus.BAD_REQUEST);
+            }
+        else if (!changes) {
+            throw new HttpException('No changes provided', HttpStatus.BAD_REQUEST);
+            } 
+        const updatedGarage = await this.garageService.updateGarage(id, changes);
+        return updatedGarage
     }
 
     @Delete(':id')
     async deleteGarage(@Param("id") id: string) {
-        console.log("Deleting garage with id: " + id);
-
+        if (!id) {
+            throw new HttpException('No garage id provided', HttpStatus.BAD_REQUEST);
+          }
         return this.garageService.deleteGarage(id);
     }
 

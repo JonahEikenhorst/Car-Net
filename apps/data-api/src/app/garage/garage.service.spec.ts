@@ -1,80 +1,96 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { getModelToken } from '@nestjs/mongoose';
-import { Garage, GarageDocument } from './garage.schema';
+import { Test } from '@nestjs/testing';
+import { getModelToken, MongooseModule } from '@nestjs/mongoose';
+import { Garage, GarageDocument, GarageSchema } from './garage.schema';
 import { GarageService } from './garage.service';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { Model } from 'mongoose';
+import { MongoClient } from 'mongodb';
+import { disconnect, Model } from 'mongoose';
+import { User, UserDocument, UserSchema } from '../user/user.schema';
 
 describe('GarageService', () => {
-  let module: TestingModule;
   let service: GarageService;
   let garageModel: Model<GarageDocument>;
+  let mongod: MongoMemoryServer;
+  let mongoc: MongoClient;
+  let userModel: Model<UserDocument>;
 
   beforeAll(async () => {
-    module = await Test.createTestingModule({
-      providers: [
-        GarageService,
-        {
-          provide: getModelToken('Garage'),
-          useValue: {
-            find: jest.fn(),
-            findOneAndUpdate: jest.fn(),
-            deleteOne: jest.fn(),
-            save: jest.fn(),
-            toObject: jest.fn(),
+    let uri: string;
+    
+    const app = await Test.createTestingModule({
+      imports: [
+        MongooseModule.forRootAsync({
+          useFactory: async () => {
+            mongod = await MongoMemoryServer.create();
+            uri = mongod.getUri();
+            return {uri};
           },
-        },
+        }),
+        MongooseModule.forFeature([{ name: Garage.name, schema: GarageSchema }]),
+        MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
       ],
+      providers: [GarageService],
     }).compile();
 
-    service = module.get<GarageService>(GarageService);
-    garageModel = module.get<Model<GarageDocument>>(getModelToken('Garage'));
+    service = app.get<GarageService>(GarageService);
+
+    garageModel = app.get<Model<GarageDocument>>(getModelToken(Garage.name));
+    userModel = app.get<Model<UserDocument>>(getModelToken(User.name));
+
+    await garageModel.ensureIndexes();
+    await userModel.ensureIndexes();
+
+    mongoc = new MongoClient(uri);
+    await mongoc.connect();
   });
+
+  beforeEach(async () => {
+    await mongoc.db('test').collection('garages').deleteMany({});
+    await mongoc.db('test').collection('users').deleteMany({});
+  })
 
   afterAll(async () => {
-    await module.close();
+    await mongoc.close();
+    await disconnect();
+    await mongod.stop();
   });
 
-  describe('findAll', () => {
+  describe('find garage(s)', () => {
     it('should return an array of garages', async () => {
-      const garages = [{ garageName: 'Garage 1' }, { garageName: 'Garage 2' }];
-      jest.spyOn(garageModel, 'find').mockResolvedValueOnce(garages);
+      const garage = await service.addGarage({ garageName: 'Garage 1' });
+      const garages = await service.findAll();
+      expect(garages[0]).toHaveProperty('garageName', garage.garageName);
+    });
 
-      const result = await service.findAll();
-      expect(result).toEqual(garages);
-      console.log(result)
+    it('should return a garage by id', async () => {
+      const garage = await service.addGarage({ garageName: 'Garage 1' });
+      const result = await service.findOne(garage['_id']);
+      expect(result).toHaveProperty('garageName', garage.garageName);
     });
   });
 
   describe('updateGarage', () => {
     it('should update a garage by id', async () => {
-      const garage = { _id: '123', garageName: 'Garage 1' };
+      const garage = await service.addGarage({ garageName: 'Garage 1' });
       const changes = { garageName: 'Garage 2' };
-      jest.spyOn(garageModel, 'findOneAndUpdate').mockResolvedValueOnce(garage);
-
-      const result = await service.updateGarage('123', changes);
-      expect(result.garageName).toEqual(changes.garageName);
+      const result = await service.updateGarage(garage['_id'], changes);
+      expect(result).toHaveProperty('garageName', changes.garageName);
     });
   });
 
-//   describe('deleteGarage', () => {
-//     it('should delete a garage by id', async () => {
-//       jest.spyOn(garageModel, 'deleteOne').mockResolvedValueOnce({});
+  describe('deleteGarage', () => {
+    it('should delete a garage by id', async () => {
+      const garage = await service.addGarage({ garageName: 'Garage 1' });
+      const result = await service.deleteGarage(garage['_id']);
+      expect(result).toHaveProperty('deletedCount', 1);
+      expect(result).toHaveProperty('acknowledged', true);
+    });
+  });
 
-//       await service.deleteGarage('123');
-//       expect(garageModel.deleteOne).toHaveBeenCalledWith({ _id: '123' });
-//     });
-//   });
-
-//   describe('addGarage', () => {
-//     it('should add a new garage', async () => {
-//       const garage = { garageName: 'Garage 1' };
-//       const newGarage = { _id: '123', garageName: 'Garage 1' };
-//       jest.spyOn(garageModel, 'save').mockResolvedValueOnce(newGarage);
-//       jest.spyOn(garageModel, 'toObject').mockReturnValueOnce(newGarage);
-
-//       const result = await service.addGarage(garage);
-//       expect(result).toEqual(newGarage);
-//     });
-//   });
+  describe('addGarage', () => {
+    it('should add a new garage', async () => {
+      const garage = await service.addGarage({ garageName: 'Garage 1' });
+      expect(garage).toHaveProperty('garageName', 'Garage 1');
+    });
+  });
 });

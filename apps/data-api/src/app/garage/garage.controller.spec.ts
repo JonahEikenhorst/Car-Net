@@ -3,6 +3,7 @@ import { GarageController } from './garage.controller';
 import { GarageService } from './garage.service';
 import { Garage } from './garage.schema';
 import { User } from '../user/user.schema';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 describe('GarageController', () => {
   let controller: GarageController;
@@ -46,63 +47,78 @@ describe('GarageController', () => {
       };
 
       jest.spyOn(service, 'addGarage').mockResolvedValueOnce(createdGarage);
-
       const result = await controller.createGarage(newGarage);
-
       expect(result).toEqual(createdGarage);
     });
   });
 
   describe('findAllGarages', () => {
     it('should return an array of garages', async () => {
-      const garages: Garage[] = [];
-
-      jest.spyOn(service, 'findAll').mockResolvedValueOnce(garages);
-
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      jest.spyOn(service, 'findAll').mockImplementation(async() => { return [{ _id: "djijsisijj" ,garageName: 'Garage 1', owner: testUser, likes: [], cars: [] }, { _id: "hjdsuhu", garageName: 'Garage 2', owner: testUser, likes: [], cars: [] }]} );
       const result = await controller.findAllGarages();
+      expect(result).toHaveLength(2);
+    });
 
-      expect(result).toEqual(garages);
+    it('should return http status 404 if no garages are found', async () => {
+      jest.spyOn(service, 'findAll').mockImplementation(async() => { return []});
+
+      try {
+        await controller.findAllGarages();
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error.status).toBe(404);
+        expect(error.message).toBe('No garages found');
+      }
     });
   });
 
   describe('updateGarage', () => {
     it('should update an existing garage', async () => {
+      jest.spyOn(service, 'updateGarage').mockImplementation(async() => { return { _id: "djijsisijj" , garageName: 'Test Garage', owner: testUser, likes: [], cars: [] }});
+      const result = await controller.updateGarage("djijsisijj", { garageName: 'Test Garage' });
+      expect(result.garageName).toEqual('Test Garage');
+    });
 
-      const changes = {
-        garageName: 'Test Garage',
-        owner: testUser,
-        likes: [],
-        cars: [],
-      };
-      const updatedGarage = {
-        garageName: 'Test Garage1',
-        owner: testUser,
-        likes: [],
-        cars: [],
+    it('should return http status 400 if no garage id is provided', async () => {
+      try {
+        await controller.updateGarage("", { garageName: 'Test Garage' });
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error.status).toBe(400);
+        expect(error.message).toBe('No garage id provided');
+      }
+    });
 
-      };
-
-      jest
-        .spyOn(service, 'updateGarage')
-        .mockResolvedValueOnce(updatedGarage);
-
-      const result = await controller.updateGarage('123', changes);
-
-      // expect(result.garageName).toEqual(firstGarage.garageName);
-      expect(result.garageName).toEqual(updatedGarage.garageName);
-
+    it('should return http status 400 if no garage data is provided', async () => {
+      try {
+        await controller.updateGarage("djijsisijj", {});
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error.status).toBe(400);
+        expect(error.message).toBe('No garage data provided');
+      }
     });
   });
 
-//   describe('deleteGarage', () => {
-//     it('should delete an existing garage', async () => {
-//       const garageId = '1';
+  describe('deleteGarage', () => {
+    it('should delete an existing garage', async () => {
+      const _id = "1";
 
-//       jest.spyOn(service, 'deleteGarage').mockResolvedValueOnce(undefined);
+      jest.spyOn(service, 'deleteGarage').mockImplementation(async() => { return { acknowledged: true, deletedCount: 1 }});
+      const result = await controller.deleteGarage(_id);
 
-//       const result = await controller.deleteGarage(garageId);
+      expect(result).toEqual({ acknowledged: true, deletedCount: 1 });
+    });
 
-//       expect(result).toBeUndefined();
-//     });
-//   });
+    it('should return http status 400 if no garage id is provided', async () => {
+      try {
+        await controller.deleteGarage("");
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error.status).toBe(400);
+        expect(error.message).toBe('No garage id provided');
+      }
+    });
+  });
 });
