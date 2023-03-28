@@ -34,7 +34,7 @@ export class CarModel {
   imageUrl: string;
 
   @Prop({ required: false})
-  brand: Brand
+  brand: string; // Index into Brand collection
 
 }
 

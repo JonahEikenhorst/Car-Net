@@ -12,7 +12,12 @@ export class GarageService {
     }
 
     async findAll(): Promise<Garage[]> {
-        return this.garageModel.find();
+        const garages = await this.garageModel.find();
+        return garages;
+    }
+
+    async findOne(id: string): Promise<Garage> {
+        return this.garageModel.findOne({_id: id});
     }
 
     async updateGarage(id: string, changes: Partial<Garage>): Promise<Garage> {
