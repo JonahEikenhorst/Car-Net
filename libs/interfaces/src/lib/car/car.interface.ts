@@ -1,13 +1,12 @@
-//TIJDELIJK DUBBEL
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { CarModel } from '../../../../../apps/data-api/src/app/carModel/carModel.schema'
 
-// import { model } from "../model/model.model";
-// import { brand } from "../brand/brand.model";
-
-export class Car {
+export class CarInterface {
     numberPlate = '';
     country = '';
-    // brand: brand = new brand();
-    // model: model = new model();
+    brand = '';
+    year = 0;
+    carModel = CarModel;
 }
-    // // models: model[];
+
 
