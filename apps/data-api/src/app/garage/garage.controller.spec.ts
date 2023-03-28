@@ -3,7 +3,7 @@ import { GarageController } from './garage.controller';
 import { GarageService } from './garage.service';
 import { Garage } from './garage.schema';
 import { User } from '../user/user.schema';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException } from '@nestjs/common';
 
 describe('GarageController', () => {
   let controller: GarageController;
