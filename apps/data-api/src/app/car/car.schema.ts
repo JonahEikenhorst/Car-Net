@@ -7,7 +7,7 @@ export type CarDocument = Car & HydratedDocument<Car>;
 
 @Schema()
 export class Car {
-    @Prop({type: String, required: true})
+    @Prop({type: String, required: true, unique: true})
     numberPlate: string;
 
     @Prop({type: String, required: true})
@@ -21,6 +21,7 @@ export class Car {
 
     @Prop({type: CarModel, required: false})
     carModel: CarModel;
+
 }
 
 export const CarSchema = SchemaFactory.createForClass(Car);
