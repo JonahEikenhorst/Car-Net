@@ -12,6 +12,10 @@ export class CarModelService {
     constructor(@InjectModel('CarModel') private carModelModel: Model<CarModel>) {
     }
 
+    async getCarModelByName(carModel: string): Promise<CarModel> {
+        return this.carModelModel.findOne({carModel: carModel});
+    }
+
     async findAll(): Promise<CarModel[]> {
       return this.carModelModel.find();
   }

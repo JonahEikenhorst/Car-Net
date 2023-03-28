@@ -1,7 +1,6 @@
 import { Document } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { isString } from "class-validator";
-import { Brand } from "../brand/brand.schema";
 
 export type ModelDocument = CarModel & Document;
 
