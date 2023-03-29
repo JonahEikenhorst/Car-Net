@@ -6,6 +6,10 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { MongoClient } from 'mongodb';
 import { disconnect, Model } from 'mongoose';
 import { User, UserDocument, UserSchema } from '../user/user.schema';
+import { CarService } from '../car/car.service';
+import { Car, CarDocument, CarSchema } from '../car/car.schema';
+import { CarModelService } from '../carModel/carModel.service';
+import { CarModel, CarModelSchema } from '../carModel/carModel.schema';
 
 describe('GarageService', () => {
   let service: GarageService;
@@ -13,6 +17,7 @@ describe('GarageService', () => {
   let mongod: MongoMemoryServer;
   let mongoc: MongoClient;
   let userModel: Model<UserDocument>;
+  let carModel: Model<CarDocument>;
 
   beforeAll(async () => {
     let uri: string;
@@ -28,8 +33,10 @@ describe('GarageService', () => {
         }),
         MongooseModule.forFeature([{ name: Garage.name, schema: GarageSchema }]),
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+        MongooseModule.forFeature([{ name: Car.name, schema: CarSchema }]),
+        MongooseModule.forFeature([{ name: CarModel.name, schema: CarModelSchema}])
       ],
-      providers: [GarageService],
+      providers: [GarageService, CarService, CarModelService],
     }).compile();
 
     service = app.get<GarageService>(GarageService);
