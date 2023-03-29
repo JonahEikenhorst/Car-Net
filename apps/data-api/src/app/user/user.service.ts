@@ -21,10 +21,6 @@ export class UserService {
     return this.userModel.find({ _id: { $ne: id } });
   }
 
-//   async addCar(id: string, carId: string): Promise<void> {
-//     return this.userModel.findByIdAndUpdate(id, { $push: { cars: carId } });
-//   }
-
 //   async findAllCar(id: string): Promise<Car[]> {
 //     const user = await this.userModel.findById(id).populate("cars");
 //     return user.cars;
