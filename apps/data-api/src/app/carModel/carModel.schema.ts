@@ -2,7 +2,7 @@ import { Document } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { isString } from "class-validator";
 
-export type ModelDocument = CarModel & Document;
+export type CarModelDocument = CarModel & Document;
 
 export enum CarType {
   SUV = 'SUV',

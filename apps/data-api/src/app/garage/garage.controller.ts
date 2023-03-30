@@ -2,6 +2,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from "@nestjs/common";
 import { GarageService } from "./garage.service";
 import { Garage } from "./garage.schema";
+import { RelationGarageInterface } from "@car-net/interfaces";
 
 @Controller("garages")
 export class GarageController {
@@ -10,9 +11,10 @@ export class GarageController {
     }
 
     @Post()
-    async createGarage(@Body() garage: Partial<Garage>): Promise<Garage> {
+    async createGarage(@Body() RelationGarage: Partial<RelationGarageInterface>): Promise<Garage> {
 
-        const newGarage = await this.garageService.addGarage(garage);
+        const newGarage = await this.garageService.addGarage(RelationGarage.garageName);
+        await this.garageService.assignGarageToUser(RelationGarage.userid, newGarage['_id']);
         return newGarage;
     }
 

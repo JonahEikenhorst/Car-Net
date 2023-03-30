@@ -19,13 +19,13 @@ import { Neo4jModule } from 'nest-neo4j';
 
 @Module({
   imports: [
-    // Neo4jModule.forRoot({
-    //   scheme: 'neo4j',
-    //   host: 'localhost',
-    //   port: 7687,
-    //   username: 'neo4j',
-    //   password: 'neo'
-    // }),
+    Neo4jModule.forRoot({
+      scheme: 'neo4j+s',
+      host: '0d73e428.databases.neo4j.io',
+      port: 7687,
+      username: 'neo4j',
+      password: '9KrdFigVn-h-E_wy7YFsF37aHWJPvb1BuXG-ueG5J54'
+    }),
     MongooseModule.forRoot(process.env.MONGO_CONNECTION), 
     CarModule,
     BrandModule,
