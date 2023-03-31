@@ -1,7 +1,8 @@
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
-import { Component } from '@angular/core';
-import { CarInterface } from '@car-net/interfaces';
+import { Component, Input } from '@angular/core';
+import { CarInterface, UserInterface } from '@car-net/interfaces';
 import { Observable } from 'rxjs';
+import { AuthService } from '../../Auth/auth.service';
 import { GarageService } from '../garage.service';
 
 @Component({
@@ -15,6 +16,12 @@ export class GarageComponent {
       this.garageService.findAll().subscribe((cars) => observer.next(cars));
     }
   );
-  constructor(private garageService: GarageService) {}
+
+  @Input()
+  user$: Observable<UserInterface> = new Observable<UserInterface>(observer => {
+    this.authService.currentUser.subscribe((user) => observer.next(user));
+  });
+  
+  constructor(private garageService: GarageService, private authService: AuthService) {}
 
 }

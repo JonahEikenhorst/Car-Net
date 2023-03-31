@@ -7,9 +7,9 @@
     
         <form
         [formGroup]="registerForm" (ngSubmit)="register()"
-          class="mt-6 mb-0 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
+          class="mt-6 mb-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
         >
-          <p class="text-center text-white text-lg font-medium">Create your account!</p>
+          <p class="text-center text-white text-lg font-medium">Please fill in the form in order to register</p>
           <div>
             <label for="username" class="sr-only">Username</label>
     
@@ -172,6 +172,10 @@
           >
             Sign up
           </button>
+          <p class="text-center text-sm text-gray-500">
+            Already have an account?
+            <a routerLink="/login" class="underline">Sign in</a>
+          </p>
         </form>
       </div>
     </div>

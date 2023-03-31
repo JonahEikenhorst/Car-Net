@@ -1,12 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../../Pages/Auth/auth.service";
+import { BehaviorSubject } from "rxjs";
+import { IdentityInterface } from "@car-net/interfaces";
+
 
 @Component({
-  selector: 'car-net-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css'],
+  selector: "car-net-nav-bar",
+  templateUrl: "./nav-bar.component.html",
+  styleUrls: ["./nav-bar.component.css"]
 })
 export class NavBarComponent implements OnInit {
-  constructor() {}
+  loggedInUser$: BehaviorSubject<IdentityInterface | undefined> = new BehaviorSubject<IdentityInterface | undefined>(undefined);
+  loggedin = false;
 
-  ngOnInit(): void {}
+  constructor(private authService: AuthService) {
+  }
+
+  ngOnInit(): void {
+    this.loggedInUser$ = this.authService.currentUser$;
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

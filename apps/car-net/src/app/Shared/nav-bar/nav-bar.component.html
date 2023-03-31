@@ -1,14 +1,18 @@
+<!-- eslint-disable @angular-eslint/template/no-negated-async -->
 <div id="navbar" class="sticky flex items-center justify-between">
   <div class="flex items-center space-x-8">
     <a routerLink="home" class="text-3xl">Car-Net</a>
     <div class="flex items-center space-x-4">
       <a routerLink="catalog" class="text-xl"><i class="bi bi-car-front-fill mr-2"></i>Catalog</a>
-      <a routerLink="about" class="text-xl"><i class="bi bi-question-circle mr-2"></i>About</a>
+      <a routerLink="garages" class="text-xl"><i class="bi bi-building mr-2"></i>Garages</a>
+
     </div>
   </div>
   <div class="flex items-center space-x-4">
-    <a routerLink="garage" class="text-xl"><i class="bi bi-door-open mr-2"></i>Your garage</a>
-    <a routerLink="login" class="text-xl"><i class="bi bi-person-circle mr-2"></i>Login</a>
+    <a routerLink="about" class="text-xl"><i class="bi bi-question-circle mr-2"></i>About</a>
+    <a *ngIf="(loggedInUser$ | async) as user" routerLink="garage" class="text-xl"><i class="bi bi-door-open mr-2"></i>Your garage</a>
+    <a *ngIf="!(loggedInUser$ | async)" routerLink="login" class="text-xl"><i class="bi bi-person-circle mr-2"></i>Login</a>
+    <a *ngIf="(loggedInUser$ | async) as user" (click)="logout()" class="text-xl"><i class="bi bi-door-closed mr-2"></i>Logout</a>
   </div>
 </div>
 
