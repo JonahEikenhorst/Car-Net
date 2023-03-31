@@ -21,6 +21,7 @@ describe('GarageController', () => {
           findAll: jest.fn(),
           updateGarage: jest.fn(),
           deleteGarage: jest.fn(),
+          assignGarageToUser: jest.fn(),
         },
         }],
     }).compile();

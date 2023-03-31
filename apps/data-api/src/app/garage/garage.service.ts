@@ -10,7 +10,7 @@ import { UserService } from "../user/user.service";
 export class GarageService {
 
 
-    constructor(@InjectModel('Garage') private garageModel: Model<Garage>, private carService: CarService, private userService: UserService, private readonly neo4jService: Neo4jService,) {
+    constructor(@InjectModel('Garage') private garageModel: Model<Garage>, private carService: CarService, private userService: UserService, private readonly neo4jService: Neo4jService) {
         
     }
 

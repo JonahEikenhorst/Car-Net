@@ -7,23 +7,33 @@ import { MongoClient } from 'mongodb';
 import { disconnect, Model } from 'mongoose';
 import { User, UserDocument, UserSchema } from '../user/user.schema';
 import { CarService } from '../car/car.service';
-import { Car, CarDocument, CarSchema } from '../car/car.schema';
-import { CarModelService } from '../carModel/carModel.service';
-import { CarModel, CarModelSchema } from '../carModel/carModel.schema';
+import { Car, CarSchema } from '../car/car.schema';
+import { UserService } from '@car-net/interfaces';
+import { Neo4jModule } from 'nest-neo4j/dist';
 
 describe('GarageService', () => {
   let service: GarageService;
-  let garageModel: Model<GarageDocument>;
+
   let mongod: MongoMemoryServer;
   let mongoc: MongoClient;
+  
+  let garageModel: Model<GarageDocument>;
   let userModel: Model<UserDocument>;
-  let carModel: Model<CarDocument>;
 
   beforeAll(async () => {
     let uri: string;
     
+    jest.mock("neo4j-driver/lib/driver");
+    
     const app = await Test.createTestingModule({
       imports: [
+        Neo4jModule.forRoot({
+          scheme: "neo4j",
+          host: "localhost",
+          port: 7687,
+          username: "neo4j",
+          password: "neo"
+        }),
         MongooseModule.forRootAsync({
           useFactory: async () => {
             mongod = await MongoMemoryServer.create();
@@ -33,10 +43,8 @@ describe('GarageService', () => {
         }),
         MongooseModule.forFeature([{ name: Garage.name, schema: GarageSchema }]),
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-        MongooseModule.forFeature([{ name: Car.name, schema: CarSchema }]),
-        MongooseModule.forFeature([{ name: CarModel.name, schema: CarModelSchema}])
       ],
-      providers: [GarageService, CarService, CarModelService],
+      providers: [GarageService, CarService, UserService],
     }).compile();
 
     service = app.get<GarageService>(GarageService);
@@ -64,13 +72,13 @@ describe('GarageService', () => {
 
   describe('find garage(s)', () => {
     it('should return an array of garages', async () => {
-      const garage = await service.addGarage({ garageName: 'Garage 1' });
+      const garage = await service.addGarage('Garage 1');
       const garages = await service.findAll();
       expect(garages[0]).toHaveProperty('garageName', garage.garageName);
     });
 
     it('should return a garage by id', async () => {
-      const garage = await service.addGarage({ garageName: 'Garage 1' });
+      const garage = await service.addGarage('Garage 1');
       const result = await service.findOne(garage['_id']);
       expect(result).toHaveProperty('garageName', garage.garageName);
     });
@@ -78,7 +86,7 @@ describe('GarageService', () => {
 
   describe('updateGarage', () => {
     it('should update a garage by id', async () => {
-      const garage = await service.addGarage({ garageName: 'Garage 1' });
+      const garage = await service.addGarage('Garage 1');
       const changes = { garageName: 'Garage 2' };
       const result = await service.updateGarage(garage['_id'], changes);
       expect(result).toHaveProperty('garageName', changes.garageName);
@@ -87,7 +95,7 @@ describe('GarageService', () => {
 
   describe('deleteGarage', () => {
     it('should delete a garage by id', async () => {
-      const garage = await service.addGarage({ garageName: 'Garage 1' });
+      const garage = await service.addGarage('Garage 1');
       const result = await service.deleteGarage(garage['_id']);
       expect(result).toHaveProperty('deletedCount', 1);
       expect(result).toHaveProperty('acknowledged', true);
@@ -96,7 +104,7 @@ describe('GarageService', () => {
 
   describe('addGarage', () => {
     it('should add a new garage', async () => {
-      const garage = await service.addGarage({ garageName: 'Garage 1' });
+      const garage = await service.addGarage('Garage 1');
       expect(garage).toHaveProperty('garageName', 'Garage 1');
     });
   });
