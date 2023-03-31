@@ -6,7 +6,7 @@ import { User, UserDocument } from "./user.schema";
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {
+  constructor(@InjectModel('User') private userModel: Model<UserDocument>) {
   }
 
   async findOne(id: string): Promise<User> {
@@ -20,6 +20,7 @@ export class UserService {
   async findAll(id: string): Promise<User[]> {
     return this.userModel.find({ _id: { $ne: id } });
   }
+
 
 //   async findAllCar(id: string): Promise<Car[]> {
 //     const user = await this.userModel.findById(id).populate("cars");
