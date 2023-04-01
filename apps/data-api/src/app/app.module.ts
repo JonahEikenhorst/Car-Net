@@ -21,10 +21,10 @@ import { Neo4jModule } from 'nest-neo4j';
   imports: [
     Neo4jModule.forRoot({
       scheme: 'neo4j+s',
-      host: '0d73e428.databases.neo4j.io',
+      host: process.env.NEO4J_HOST,
       port: 7687,
-      username: 'neo4j',
-      password: '9KrdFigVn-h-E_wy7YFsF37aHWJPvb1BuXG-ueG5J54'
+      username: process.env.NEO4J_USERNAME,
+      password: process.env.NEO4J_PASSWORD,
     }),
     MongooseModule.forRoot(process.env.MONGO_CONNECTION), 
     CarModule,
