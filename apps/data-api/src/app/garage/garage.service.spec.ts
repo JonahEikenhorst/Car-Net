@@ -8,8 +8,10 @@ import { disconnect, Model } from 'mongoose';
 import { User, UserDocument, UserSchema } from '../user/user.schema';
 import { CarService } from '../car/car.service';
 import { Car, CarSchema } from '../car/car.schema';
-import { UserService } from '@car-net/interfaces';
-import { Neo4jModule } from 'nest-neo4j/dist';
+import { UserService } from '../user/user.service';
+import { Neo4jService } from 'nest-neo4j/dist';
+import { CarModelService } from '../carModel/carModel.service';
+import { CarModel, CarModelSchema } from '../carModel/carModel.schema';
 
 describe('GarageService', () => {
   let service: GarageService;
@@ -19,21 +21,16 @@ describe('GarageService', () => {
   
   let garageModel: Model<GarageDocument>;
   let userModel: Model<UserDocument>;
+  let carModel: Model<Car>;
+  let carModelModel: Model<CarModel>;
 
   beforeAll(async () => {
     let uri: string;
-    
-    jest.mock("neo4j-driver/lib/driver");
+
+    jest.mock('neo4j-driver/lib/driver')
     
     const app = await Test.createTestingModule({
       imports: [
-        Neo4jModule.forRoot({
-          scheme: "neo4j",
-          host: "localhost",
-          port: 7687,
-          username: "neo4j",
-          password: "neo"
-        }),
         MongooseModule.forRootAsync({
           useFactory: async () => {
             mongod = await MongoMemoryServer.create();
@@ -43,17 +40,23 @@ describe('GarageService', () => {
         }),
         MongooseModule.forFeature([{ name: Garage.name, schema: GarageSchema }]),
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+        MongooseModule.forFeature([{ name: Car.name, schema: CarSchema }]),
+        MongooseModule.forFeature([{ name: CarModel.name, schema: CarModelSchema }])
       ],
-      providers: [GarageService, CarService, UserService],
+      providers: [GarageService, CarService, CarModelService, UserService, { provide: Neo4jService, useValue: {write: jest.fn(), read: jest.fn()}}],
     }).compile();
 
     service = app.get<GarageService>(GarageService);
 
     garageModel = app.get<Model<GarageDocument>>(getModelToken(Garage.name));
     userModel = app.get<Model<UserDocument>>(getModelToken(User.name));
+    carModel = app.get<Model<Car>>(getModelToken(Car.name));
+    carModelModel = app.get<Model<CarModel>>(getModelToken(CarModel.name));
 
     await garageModel.ensureIndexes();
     await userModel.ensureIndexes();
+    await carModel.ensureIndexes();
+    await carModelModel.ensureIndexes();
 
     mongoc = new MongoClient(uri);
     await mongoc.connect();
@@ -62,6 +65,8 @@ describe('GarageService', () => {
   beforeEach(async () => {
     await mongoc.db('test').collection('garages').deleteMany({});
     await mongoc.db('test').collection('users').deleteMany({});
+    await mongoc.db('test').collection('cars').deleteMany({});
+    await mongoc.db('test').collection('carModels').deleteMany({});
   })
 
   afterAll(async () => {
