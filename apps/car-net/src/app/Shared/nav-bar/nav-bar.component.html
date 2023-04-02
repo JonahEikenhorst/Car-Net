@@ -9,10 +9,14 @@
     </div>
   </div>
   <div class="flex items-center space-x-4">
+    <div class="bg-green-300 rounded-3xl"> 
+    <span *ngIf="(loggedOut === true)" class="text-xl font-bold ml-2 mr-2 text-center"><i class="bi bi-check2-circle font-bold"></i> Logged out succesful!</span> 
+    </div>
     <a routerLink="about" class="text-xl"><i class="bi bi-question-circle mr-2"></i>About</a>
     <a *ngIf="(loggedInUser$ | async) as user" routerLink="garage" class="text-xl"><i class="bi bi-door-open mr-2"></i>Your garage</a>
     <a *ngIf="!(loggedInUser$ | async)" routerLink="login" class="text-xl"><i class="bi bi-person-circle mr-2"></i>Login</a>
     <a *ngIf="(loggedInUser$ | async) as user" (click)="logout()" class="text-xl"><i class="bi bi-door-closed mr-2"></i>Logout</a>
   </div>
 </div>
+
 

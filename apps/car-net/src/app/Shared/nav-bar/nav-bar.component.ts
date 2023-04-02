@@ -12,6 +12,7 @@ import { IdentityInterface } from "@car-net/interfaces";
 export class NavBarComponent implements OnInit {
   loggedInUser$: BehaviorSubject<IdentityInterface | undefined> = new BehaviorSubject<IdentityInterface | undefined>(undefined);
   loggedin = false;
+  loggedOut = false;
 
   constructor(private authService: AuthService) {
   }
@@ -22,5 +23,10 @@ export class NavBarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    
+setTimeout(()=>{
+  this.loggedOut=false;
+  },5000) 
+  this.loggedOut=true;  
   }
 }
