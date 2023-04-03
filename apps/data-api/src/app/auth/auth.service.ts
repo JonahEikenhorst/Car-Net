@@ -22,7 +22,7 @@ export class AuthService {
     async createUser(username: string, email: string): Promise<User> {
         const user = new this.userModel({username, email});
         await user.save();
-        await this.neo4jService.write(`CREATE (u:User {userid: "${user['_id'].toString()}", username: "${user.username}"})`);
+        await this.neo4jService.write(`CREATE (u:User {userId: "${user['_id'].toString()}", username: "${user.username}"})`);
         return user;
       }
 
@@ -46,17 +46,18 @@ export class AuthService {
         await identity.save();
       }
 
-    async generateToken(email: string, hash: string): Promise<string> {
-      
-        const identity = await this.identityModel.findOne({email: email});
-        if (!identity || !(await compare(hash, identity.hash))) throw new Error("user not authorized");
-
-        const user = await this.userModel.findOne({email: email});
+      async generateToken(email: string, password: string): Promise<Identity> {
+        const identity = await this.identityModel.findOne({ email }, { __v: 0 });
+        if (!identity || !(await compare(password, identity.hash))) throw new Error("User is not authorized");
+    
+        const user = await this.userModel.findOne({ email });
+    
         return new Promise((resolve, reject) => {
-            sign({email, id: user.id}, process.env.JWT_SECRET, (err: Error, token: string) => {
-                if (err) reject(err);
-                else resolve(token);
-            });
-        })
-    }
+          sign({ id: user.id }, process.env.JWT_SECRET, (err: Error, token: string) => {
+            if (err) reject(err);
+            else identity.token = token;
+            resolve(identity);
+          });
+        });
+      }
 }

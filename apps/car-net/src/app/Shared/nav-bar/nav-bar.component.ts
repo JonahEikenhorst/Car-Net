@@ -11,7 +11,6 @@ import { IdentityInterface } from "@car-net/interfaces";
 })
 export class NavBarComponent implements OnInit {
   loggedInUser$: BehaviorSubject<IdentityInterface | undefined> = new BehaviorSubject<IdentityInterface | undefined>(undefined);
-  loggedin = false;
   loggedOut = false;
 
   constructor(private authService: AuthService) {
