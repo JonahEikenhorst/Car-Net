@@ -24,6 +24,9 @@ export class Identity {
         }
       })
       email: string;
+
+    @Prop({required: false })
+    token: string;
 }
 
 export const IdentitySchema = SchemaFactory.createForClass(Identity);

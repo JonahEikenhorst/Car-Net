@@ -14,16 +14,22 @@ export class AuthService {
   
     constructor(private http: HttpClient, private userService: UserService, private location: Location) {
       const currentUser = localStorage.getItem(this.CURRENT_USER);
+      const id = localStorage.getItem("id");
       if (currentUser) {
         this.currentUser$.next(JSON.parse(currentUser));
       }
     }
 
     login(credentials: UserCredentials): Observable<IdentityInterface> {
-        return this.http.post<IdentityInterface>("http://localhost:3333/api/login", credentials)
+        return this.http.post<any>("http://localhost:3333/api/login", credentials)
           .pipe(
             map((identity) => {
+              // Substract token due to typescript
+              const rawtoken = identity.token;
+              const id = rawtoken._id;
+
               localStorage.setItem(this.CURRENT_USER, JSON.stringify(identity));
+              localStorage.setItem("id", id);
               this.currentUser$.next(identity);
               return identity;
             }),
@@ -47,6 +53,7 @@ export class AuthService {
 
       logout(): void {
         localStorage.removeItem(this.CURRENT_USER);
+        localStorage.removeItem("id");
         this.currentUser$.next(undefined);
         this.location.back();
       }
