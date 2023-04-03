@@ -1,5 +1,5 @@
-export class UserInterface {
-    username = '';
-    email = '';
-    roles: string[] = [];
+export interface UserInterface {
+    username: string;
+    email: string;
+    roles: string[];
 }

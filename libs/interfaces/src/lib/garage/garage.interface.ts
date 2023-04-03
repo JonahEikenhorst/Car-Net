@@ -1,10 +1,16 @@
 
-export class GarageInterface {
-    garageName = '';
+import { UserInterface } from "../user/user.interface";
+import { CarInterface } from "../car/car.interface"; 
+
+export interface GarageInterface {
+    garageName: string;
+    owner?: UserInterface;
+    likes?: UserInterface[];
+    cars?: CarInterface[];
 
 
 }
 
-export class RelationGarageInterface extends GarageInterface {
-    userid = '';
+export interface RelationGarageInterface extends GarageInterface {
+    userid: string;
 }

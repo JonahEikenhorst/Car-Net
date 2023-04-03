@@ -16,10 +16,10 @@ export enum CarType {
 
 }
 
-export class CarModelInterface {
-    id?: number = 0;
-    name = '';
-    carType = CarType.Other;
-    // brand = '';
-    imageUrl = '';
+export interface CarModelInterface {
+    name: string;
+    carType: CarType;
+    imageUrl: string;
+    brand: string; // Index into Brand collection
 }
+
