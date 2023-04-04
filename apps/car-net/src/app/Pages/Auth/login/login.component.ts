@@ -12,6 +12,7 @@ import { catchError, map } from "rxjs";
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  loggedIn = false;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
   }

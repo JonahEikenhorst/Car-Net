@@ -12,14 +12,20 @@ import { BrandController } from './brand/brand.controller';
 import { CarModelController } from './carModel/carModel.controller';
 import { GarageController } from './garage/garage.controller';
 import { TokenMiddleware } from './auth/token.middleware';
-import { AuthController } from './auth/auth.controller';
 import { UserModule } from './user/user.module';
 import { UserController } from './user/user.controller';
-
+import { Neo4jModule } from 'nest-neo4j';
 
 
 @Module({
   imports: [
+    Neo4jModule.forRoot({
+      scheme: 'neo4j+s',
+      host: process.env.NEO4J_HOST,
+      port: 7687,
+      username: process.env.NEO4J_USERNAME,
+      password: process.env.NEO4J_PASSWORD,
+    }),
     MongooseModule.forRoot(process.env.MONGO_CONNECTION), 
     CarModule,
     BrandModule,

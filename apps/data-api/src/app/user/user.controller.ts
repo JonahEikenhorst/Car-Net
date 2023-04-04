@@ -1,9 +1,9 @@
 import { Controller, Get, Param } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { User } from "./user.schema";
-//  import { InjectToken, Token } from "../auth/token.decorator";
 import { isEmail } from "class-validator";
 import { InjectToken, Token } from "../auth/token.decorator";
+
 
 @Controller("users")
 export class UserController {
@@ -20,7 +20,6 @@ export class UserController {
     if (isEmail(identifier)) {
       return this.userService.findOneByEmail(identifier);
     }
-
     return this.userService.findOne(identifier);
   }
 }

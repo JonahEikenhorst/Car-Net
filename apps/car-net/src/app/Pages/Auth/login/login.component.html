@@ -26,6 +26,9 @@
               name="email"
               formControlName="email"
             />
+            <span *ngIf="email.invalid && (email.dirty || email.touched)">
+              <span class="text-error text-white" *ngIf="email.errors?.['required']"><i class="bi bi-exclamation-circle"></i> Email is required</span>
+            </span>
   
             <span
               class="absolute inset-y-0 right-0 grid place-content-center px-4"
@@ -59,7 +62,9 @@
               name="hash"
               formControlName="hash"
             />
-  
+            <span *ngIf="hash.invalid && (hash.dirty || hash.touched)">
+              <span class="text-error text-white" *ngIf="hash.errors?.['required']"><i class="bi bi-exclamation-circle"></i> Password is required</span>
+            </span>
             <span
               class="absolute inset-y-0 right-0 grid place-content-center px-4"
             >
@@ -100,6 +105,11 @@
           No account?
           <a routerLink="/register" class="underline">Sign up</a>
         </p>
+        <div *ngIf="loginForm.errors?.['invalidCredentials']" class="alert alert-error shadow-lg">
+          <div>
+            <span class="text-white pl-20 p-1"><i class="bi bi-shield-lock"></i> {{ loginForm.errors?.['message']}}</span>
+          </div>
+        </div>
       </form>
     </div>
   </div>

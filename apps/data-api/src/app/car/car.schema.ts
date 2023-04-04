@@ -1,23 +1,27 @@
-// import { Brand } from '@car-net/entity-ui/components';
-// import { Model } from '@car-net/entity-ui/components';
+
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { CarModel } from '../carModel/carModel.schema';
 
 export type CarDocument = Car & HydratedDocument<Car>;
 
 @Schema()
 export class Car {
-    @Prop({type: String, required: true})
+    @Prop({type: String, required: true, unique: true})
     numberPlate: string;
 
     @Prop({type: String, required: true})
     country: string;
 
-    // @Prop()
-    // brand: Brand;
+    @Prop({type: String, required: false})
+    brand: string; // Index into Brand collection
 
-    // @Prop()
-    // model: Model;
+    @Prop({ required: false })
+    year: number;
+
+    @Prop({type: CarModel, required: false})
+    carModel: CarModel;
+
 }
 
 export const CarSchema = SchemaFactory.createForClass(Car);

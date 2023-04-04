@@ -6,7 +6,8 @@ import { User, UserDocument } from "./user.schema";
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {
+  constructor(@InjectModel('User') private userModel: Model<UserDocument>) {
+  
   }
 
   async findOne(id: string): Promise<User> {
@@ -21,10 +22,11 @@ export class UserService {
     return this.userModel.find({ _id: { $ne: id } });
   }
 
-//   async addCar(id: string, carId: string): Promise<void> {
-//     return this.userModel.findByIdAndUpdate(id, { $push: { cars: carId } });
-//   }
+  async updateUser(id: string, changes: Partial<User>): Promise<User> {
+    return this.userModel.findOneAndUpdate({_id: id}, changes,{new:true});
+}
 
+  
 //   async findAllCar(id: string): Promise<Car[]> {
 //     const user = await this.userModel.findById(id).populate("cars");
 //     return user.cars;
@@ -34,4 +36,5 @@ export class UserService {
 //     return this.userModel.findByIdAndUpdate(userId, { $pull: { cars: carId } });
 //   }
 
+  
 }

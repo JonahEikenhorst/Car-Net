@@ -2,6 +2,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { BrandService } from "./brand.service";
 import { Brand } from "./brand.schema";
+import { CarModel } from "../carModel/carModel.schema";
 
 @Controller("brands")
 export class BrandController {
@@ -15,6 +16,11 @@ export class BrandController {
 
         return this.brandService.addBrand(brand);
 
+    }
+
+    @Get()
+    async findBrandByName(@Param("brand") brand: string): Promise<Brand> {
+        return this.brandService.getBrandByName(brand);
     }
 
     @Get()
@@ -39,4 +45,13 @@ export class BrandController {
         return this.brandService.deleteBrand(id);
     }
 
+    @Post(':brand/:carModel')
+    async addExistingCarModelToBrand(@Param("brand") brand: string, @Param("carModel") carModel: string) {
+        return this.brandService.addExistingCarModelToBrand(brand, carModel);
+    }
+
+    @Post(':brand/:carModel/new')
+    async addNewCarModelToBrand(@Param("brand") brand: string, @Param("carModel") carModel: Partial<CarModel>) {
+        return this.brandService.addNewCarModelToBrand(brand, carModel.name, carModel.carType, carModel.imageUrl, );
+    }
 }
