@@ -1,8 +1,9 @@
 <div *ngIf="user$ | async as user" class="mt-24">
   <h1 class="text-center text-5xl mt-24 font-bold text-white">
-    Welcome to your Personal Garage.
+
+    Welcome to your Personal Garage. {{ this.username }}
   </h1>
-</div>
+
 <div class="mx-auto max-w-7xl rounded-lg p-4 mt-24 shadow-lg bg-dark">
   <div>
     <p class="mt-4 max-w-md text-3xl text-white">My Vehicles</p>
