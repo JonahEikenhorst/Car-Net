@@ -13,7 +13,7 @@ export class CarModelService {
     }
 
     async getCarModelByName(carModel: string): Promise<CarModel> {
-        return this.carModelModel.findOne({carModel: carModel});
+        return this.carModelModel.findOne({name: carModel});
     }
 
     async findAll(): Promise<CarModel[]> {
