@@ -17,6 +17,7 @@ import { AuthModule } from './Pages/Auth/auth.module';
 import { Location } from '@angular/common';
 import { GarageModule } from './Pages/Garage/garage.module';
 import { GarageService } from './Pages/Garage/garage.service';
+import { HomeModule } from './Pages/Home/home.module';
 
 
 
@@ -24,6 +25,7 @@ import { GarageService } from './Pages/Garage/garage.service';
   declarations: [AppComponent, NavBarComponent, AboutComponent],
   imports: [
     BrowserModule,
+    HomeModule,
     BrandModule,
     HttpClientModule,
     FormsModule,

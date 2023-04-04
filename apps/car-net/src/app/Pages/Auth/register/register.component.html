@@ -22,7 +22,7 @@
                 formControlName="username"
               />
               <span *ngIf="username.invalid && (username.dirty || username.touched)">
-                <span class="text-error text-white" *ngIf="username.errors?.['required']">Username is required</span>
+                <span class="text-error text-white" *ngIf="username.errors?.['required']"><i class="bi bi-exclamation-circle"></i> Username is required</span>
               </span>
     
               <span
@@ -57,8 +57,8 @@
                 formControlName="email"
               />
               <span *ngIf="email.invalid && (email.dirty || email.touched)">
-                <span class="text-error text-white" *ngIf="email.errors?.['required']">Email is required</span>
-                <span class="text-error text-white" *ngIf="email.errors?.['email']">Provide a valid email</span>
+                <span class="text-error text-white" *ngIf="email.errors?.['required']"><i class="bi bi-exclamation-circle"></i> Email is required</span>
+                <span class="text-error text-white" *ngIf="email.errors?.['email']"><i class="bi bi-exclamation-circle"></i> Provide a valid email</span>
               </span>
               <span
                 class="absolute inset-y-0 right-0 grid place-content-center px-4"
@@ -93,8 +93,8 @@
                 formControlName="hash"
               />
               <span *ngIf="hash.invalid && (hash.dirty || hash.touched)">
-                <span class="text-error text-white" *ngIf="hash.errors?.['required']">Password is required</span>
-                <span class="text-error text-white" *ngIf="hash.errors?.['minlength']">Password must be 8 characters long</span>
+                <span class="text-error text-white" *ngIf="hash.errors?.['required']"><i class="bi bi-exclamation-circle"></i> Password is required</span>
+                <span class="text-error text-white" *ngIf="hash.errors?.['minlength']"><i class="bi bi-exclamation-circle"></i> Password must be 8 characters long</span>
               </span>
               <span
                 class="absolute inset-y-0 right-0 grid place-content-center px-4"
@@ -134,9 +134,9 @@
                 formControlName="repeatPassword"
               />
               <span *ngIf="repeatPassword.invalid && (repeatPassword.dirty || repeatPassword.touched)">
-                <span class="text-error text-white" *ngIf="repeatPassword.errors?.['required']">Please repeat your password for conformation</span>
+                <span class="text-error text-white" *ngIf="repeatPassword.errors?.['required']"><i class="bi bi-exclamation-circle"></i> Please repeat your password for conformation</span>
                <span class="text-error text-white"
-                     *ngIf="repeatPassword.errors?.['minlength']">Repeat Password must be 8 characters long</span>
+                     *ngIf="repeatPassword.errors?.['minlength']"><i class="bi bi-exclamation-circle"></i> Repeat Password must be 8 characters long</span>
               </span>
               <span
                 class="absolute inset-y-0 right-0 grid place-content-center px-4"
