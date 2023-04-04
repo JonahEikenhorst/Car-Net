@@ -5,6 +5,9 @@ import { CarService } from "../car/car.service";
 import { Garage } from "./garage.schema";
 import { Neo4jService } from "nest-neo4j/dist";
 import { UserService } from "../user/user.service";
+import { Headers } from "@nestjs/common";
+import { JwtPayload } from "jsonwebtoken";
+import { Car } from "../car/car.schema";
 
 @Injectable() 
 export class GarageService {
@@ -23,20 +26,25 @@ export class GarageService {
         return this.garageModel.findOne({_id: id});
     }
 
+    async findGarageByName(garageName: string): Promise<Garage> {
+        console.log(garageName);
+        return this.garageModel.findOne({garageName: garageName});
+    }
+
     async updateGarage(id: string, changes: Partial<Garage>): Promise<Garage> {
 
         return this.garageModel.findOneAndUpdate({_id: id}, changes,{new:true});
     }
 
     async deleteGarage(id: string) {
-        await this.neo4jService.write(`MATCH (p:Garage {id: "${id}"}) DETACH DELETE (p)`);
+        await this.neo4jService.write(`MATCH (p:Garage {garageId: "${id}"}) DETACH DELETE (p)`);
         return this.garageModel.deleteOne({_id: id});
     }
 
     async addGarage(garageName: string): Promise<Garage> {
         const newGarage = new this.garageModel({garageName: garageName});
         await newGarage.save();
-        await this.neo4jService.write(`CREATE (g:Garage {id: "${newGarage['_id']}", name: "${newGarage.garageName}"})`);
+        await this.neo4jService.write(`CREATE (g:Garage {garageId: "${newGarage['_id']}", name: "${newGarage.garageName}"})`);
         return newGarage.toObject({versionKey: false});
     }
 
@@ -58,7 +66,32 @@ export class GarageService {
     async assignGarageToUser(userId: string, garageId: string) {
         const garage = await this.findOne(garageId);
         garage.owner = await this.userService.findOne(userId);
-        await this.neo4jService.write(`MATCH (g:Garage {id: "${garage['_id']}"}) MATCH (u:User {id: "${userId}"}) CREATE (u)-[:OWNS]->(g)`);
+        await this.neo4jService.write(`MATCH (g:Garage {garageId: "${garage['_id']}"}), (u:User {userId: "${userId}"}) CREATE (u)-[:OWNS]->(g)`);
         await this.updateGarage(garage["_id"], garage);
     }
+
+    async likeGarage(userId: string, garageId: string): Promise<void> {
+        const garageToLike = this.findOne(garageId);
+        const userThatLikes = this.userService.findOne(userId);
+        await this.neo4jService.write(`MATCH (u:User {userId: "${userId}"}), (g:Garage {garageId: "${garageId}"}) CREATE (u)-[r:LIKES]->(g)`);
+        (await userThatLikes).likedGarages.push(await garageToLike);
+        await this.userService.updateUser(userId, await userThatLikes);
+      }
+
+    async findRecommendedGarages(userId: string): Promise<Garage[]> {
+        const user = await this.userService.findOne(userId);
+        const recommendedGarages = await this.neo4jService.read(`MATCH (u:User {userId: "${userId}"})-[:LIKES]->(g:Garage)<-[:LIKES]-(u2:User)-[:OWNS]->(g2:Garage) WHERE NOT (u)-[:OWNS]->(g2) RETURN g2 LIMIT 5`);
+        return recommendedGarages.records.map(record => record.get(0).properties);
+    }
+
+    async findMyCars(email: string): Promise<Car[]> {
+        const user = await this.userService.findOneByEmail(email);
+        const garage = await this.findGarageByName(user.garageName);
+        return garage.cars;
+    }
+
+
+
+
+        
 }

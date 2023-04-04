@@ -3,6 +3,8 @@ import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, 
 import { GarageService } from "./garage.service";
 import { Garage } from "./garage.schema";
 import { RelationGarageInterface } from "@car-net/interfaces";
+import { Headers } from "@nestjs/common";
+import { Car } from "../car/car.schema";
 
 @Controller("garages")
 export class GarageController {
@@ -17,6 +19,7 @@ export class GarageController {
         await this.garageService.assignGarageToUser(RelationGarage.userid, newGarage['_id']);
         return newGarage;
     }
+
 
     @Get()
     async findAllGarages(): Promise<Garage[]> {
@@ -52,6 +55,22 @@ export class GarageController {
             throw new HttpException('No garage id provided', HttpStatus.BAD_REQUEST);
           }
         return this.garageService.deleteGarage(id);
+    }
+
+    @Put(':id/:userid')
+    async likeGarage(@Param("id") id: string, @Param("userid") userid: string) {
+        if (!id) {
+            throw new HttpException('No garage id provided', HttpStatus.BAD_REQUEST);
+          }
+        else if (!userid) {
+            throw new HttpException('No user id provided', HttpStatus.BAD_REQUEST);
+          }
+        return this.garageService.likeGarage(userid, id);
+    }
+
+    @Get("/cars")
+    async findMyCars(email: string): Promise<Car[]> {
+        return this.garageService.findMyCars(email);
     }
 
 }

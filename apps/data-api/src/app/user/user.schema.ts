@@ -17,8 +17,11 @@ export class User {
   @Prop({ required: false, default:[] })
   roles: string[];
 
-  // @Prop({ required: false})
-  // garage: Garage;
+  @Prop({ required: false})
+  garageName: string;
+
+  @Prop({ required: false})
+  likedGarages: Garage[];
 
 }
 

@@ -27,9 +27,11 @@ export class AuthService {
               // Substract token due to typescript
               const rawtoken = identity.token;
               const id = rawtoken._id;
+              const email = rawtoken.email;
 
               localStorage.setItem(this.CURRENT_USER, JSON.stringify(identity));
               localStorage.setItem("id", id);
+              localStorage.setItem("email", email);
               this.currentUser$.next(identity);
               return identity;
             }),
