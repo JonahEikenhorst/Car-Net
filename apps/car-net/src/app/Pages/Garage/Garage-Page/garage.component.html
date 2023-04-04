@@ -14,7 +14,7 @@
     <p class="mt-4 mb-4 ml-28 max-w-md text-3xl text-white">Your Vehicles:</p>
   </div> 
 
-    <div id="cars" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto mb-96">
+    <div id="cars" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto pb-44 mb-96">
       <div *ngFor="let car of cars$ | async">
         <car-net-garagecar-card [car]="car"></car-net-garagecar-card>
       </div>
