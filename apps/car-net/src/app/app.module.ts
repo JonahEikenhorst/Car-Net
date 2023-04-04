@@ -18,6 +18,7 @@ import { Location } from '@angular/common';
 import { GarageModule } from './Pages/Garage/garage.module';
 import { GarageService } from './Pages/Garage/garage.service';
 import { HomeModule } from './Pages/Home/home.module';
+import { GaragesModule } from './Pages/Garages/garages.module';
 
 
 
@@ -25,6 +26,7 @@ import { HomeModule } from './Pages/Home/home.module';
   declarations: [AppComponent, NavBarComponent, AboutComponent],
   imports: [
     BrowserModule,
+    GaragesModule,
     HomeModule,
     BrandModule,
     HttpClientModule,

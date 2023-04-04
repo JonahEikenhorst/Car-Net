@@ -21,7 +21,7 @@ export class GarageService {
   }
 
   findMyCars(email: string | null): Observable<CarInterface[]> {
-    return this.http.get<CarInterface[]>(`http://localhost:3333/api/garages/cars`);
+    return this.http.get<CarInterface[]>(`http://localhost:3333/api/garages/cars/${email}`);
   }
   
 

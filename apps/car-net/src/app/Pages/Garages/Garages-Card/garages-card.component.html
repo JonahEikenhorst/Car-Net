@@ -1,0 +1,17 @@
+<div class="card bg-base-300 shadow-xl m-auto cursor-pointer">
+  <div class="card-body">
+    <div
+      class="flex flex-col items-center border border-red-300 rounded-lg shadow  md:max-w-xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+    >
+      <div class="flex flex-col justify-between p-4 leading-normal text-white">
+        <p class="badge badge-primary text-3xl">{{ garage.garageName }}</p>
+        <p class="badge badge-primary text-3xl">{{ numberOfLikes }}</p>
+        <p class="badge badge-primary text-3xl">{{ numberOfCarsInGarage }}</p>
+        <p class="badge badge-primary text-3xl">{{ firstCar.brand }} {{ firstCar.carModel.name }}</p>
+        <p class="badge badge-primary text-3xl">{{ secondCar.brand }} {{ secondCar.carModel.name }}</p>
+        <p class="badge badge-primary text-3xl">{{ thirdCar.brand }} {{ thirdCar.carModel.name }}</p>
+      </div>
+      <button class="btn btn-primary text-3xl border border-red-300 text-white pr-4 pl-4 pt-1 pb-2 mb-1 hover:bg-red-400 rounded-3xl">Like</button>
+    </div>
+  </div>
+</div>
