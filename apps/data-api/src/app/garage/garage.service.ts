@@ -5,8 +5,6 @@ import { CarService } from "../car/car.service";
 import { Garage } from "./garage.schema";
 import { Neo4jService } from "nest-neo4j/dist";
 import { UserService } from "../user/user.service";
-import { Headers } from "@nestjs/common";
-import { JwtPayload } from "jsonwebtoken";
 import { Car } from "../car/car.schema";
 
 @Injectable() 
@@ -27,7 +25,6 @@ export class GarageService {
     }
 
     async findGarageByName(garageName: string): Promise<Garage> {
-        console.log(garageName);
         return this.garageModel.findOne({garageName: garageName});
     }
 
@@ -48,11 +45,15 @@ export class GarageService {
         return newGarage.toObject({versionKey: false});
     }
 
-    async addCarToGarage(garageId: string, numberPlate: string) {
+    async addCarToGarage(garageId: string, numberPlate: string): Promise<Car> {
         const garageToUpdate = await this.findOne(garageId);
+        if (!garageToUpdate) {
+            throw new Error("Garage not found " + garageId);
+        }
         const carToAdd = await this.carService.getCarByNumberPlate(numberPlate);
         garageToUpdate.cars.push(carToAdd);
         await this.updateGarage(garageToUpdate["_id"], garageToUpdate);
+        return carToAdd;
 
     }
 
@@ -66,6 +67,10 @@ export class GarageService {
     async assignGarageToUser(userId: string, garageId: string) {
         const garage = await this.findOne(garageId);
         garage.owner = await this.userService.findOne(userId);
+        const user = await this.userService.findOne(userId);
+        user.garageName = garage.garageName;
+        await this.userService.updateUser(userId, user);
+
         await this.neo4jService.write(`MATCH (g:Garage {garageId: "${garage['_id']}"}), (u:User {userId: "${userId}"}) CREATE (u)-[:OWNS]->(g)`);
         await this.updateGarage(garage["_id"], garage);
     }
@@ -87,6 +92,10 @@ export class GarageService {
     async findMyCars(email: string): Promise<Car[]> {
         const user = await this.userService.findOneByEmail(email);
         const garage = await this.findGarageByName(user.garageName);
+        if (!garage) {
+            throw new Error("Garage not found " + user.garageName);
+        }
+        
         return garage.cars;
     }
 

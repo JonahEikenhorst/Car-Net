@@ -4,9 +4,9 @@ import { CarInterface } from "../car/car.interface";
 
 export interface GarageInterface {
     garageName: string;
-    owner?: UserInterface;
-    likes?: UserInterface[];
-    cars?: CarInterface[];
+    owner: UserInterface;
+    likes: UserInterface[];
+    cars: CarInterface[];
 
 
 }

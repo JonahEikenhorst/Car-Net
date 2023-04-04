@@ -2,7 +2,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from "@nestjs/common";
 import { GarageService } from "./garage.service";
 import { Garage } from "./garage.schema";
-import { RelationGarageInterface } from "@car-net/interfaces";
+import { CarInterface, RelationGarageInterface } from "@car-net/interfaces";
 import { Headers } from "@nestjs/common";
 import { Car } from "../car/car.schema";
 
@@ -68,9 +68,19 @@ export class GarageController {
         return this.garageService.likeGarage(userid, id);
     }
 
-    @Get("/cars")
-    async findMyCars(email: string): Promise<Car[]> {
+    @Get("/cars/:email")
+    async findMyCars(@Param("email") email: string): Promise<Car[]> {
         return this.garageService.findMyCars(email);
+    }
+
+    @Put("cars/add/:numberPlate/:garageId")
+    async addCarToGarage(@Param("numberPlate") numberPlate: string, @Param("garageId") garageId: string ): Promise<Car> {
+        return this.garageService.addCarToGarage(garageId, numberPlate);
+    }
+
+    @Put(":userId/:garageId")
+    async assignGarageToUser(@Param("userId") userId: string, @Param("garageId") garageId: string ) {
+        await this.garageService.assignGarageToUser(userId, garageId);
     }
 
 }

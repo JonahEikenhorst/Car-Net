@@ -23,7 +23,7 @@ export class GarageComponent implements OnInit {
 
   ngOnInit() {
     this.user$ = this.garageService.findOneUser(this.email);
-
+    
     this.cars$ = this.garageService.findMyCars(this.email);
     
     this.user$.subscribe((user) => { this.username = user.username;});

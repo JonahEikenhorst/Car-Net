@@ -1,9 +1,28 @@
 <div class="card bg-base-300 shadow-xl m-auto cursor-pointer">
   <div class="card-body">
-    <!-- <h2 class="card-title">{{ car.carModel }}</h2> -->
-    <div class="card-actions justify-end">
-      <div class="badge badge-primary">{{ car.brand }} kg</div>
-      <div class="badge badge-primary">{{ car.year }} prs</div>
+    <div
+      class="flex flex-col items-center border border-red-300 rounded-lg shadow  md:max-w-xl hover:bg-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+    >
+      <img
+        class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-96 md:rounded-none md:rounded-l-lg"
+        src="{{car.carModel.imageUrl}}"
+        alt=""
+      />
+      <div class="flex flex-col justify-between p-4 leading-normal text-white">
+        <p class="badge badge-primary">{{ car.year }}</p>
+        <h2 class="card-title text-3xl">
+          {{ car.brand }} {{ car.carModel.name }}
+        </h2>
+        <div class="card-actions justify-end">
+          <div class="badge badge-primary">
+            {{ car.numberPlate }}
+          </div>
+          <br />
+          <div class="badge badge-primary">
+            <i class="bi bi-caret-right"></i> {{ car.carModel.carType }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
