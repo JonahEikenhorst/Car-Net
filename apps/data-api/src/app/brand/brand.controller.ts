@@ -18,7 +18,7 @@ export class BrandController {
 
     }
 
-    @Get()
+    @Get(":brand")
     async findBrandByName(@Param("brand") brand: string): Promise<Brand> {
         return this.brandService.getBrandByName(brand);
     }
@@ -45,7 +45,7 @@ export class BrandController {
         return this.brandService.deleteBrand(id);
     }
 
-    @Post(':brand/:carModel')
+    @Put(':brand/:carModel')
     async addExistingCarModelToBrand(@Param("brand") brand: string, @Param("carModel") carModel: string) {
         return this.brandService.addExistingCarModelToBrand(brand, carModel);
     }
