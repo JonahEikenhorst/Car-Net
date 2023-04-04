@@ -1,12 +1,12 @@
 <div class="flex"> 
-  <p class="xl:text-9xl text-white mt-36 ml-72 md:ml-48 md:text-6xl">Welcome to <a class="xl:text-9xl md:text-6xl text-red-400 mr-3" routerLink="about">Car-Net</a></p>
+  <p class="xl:text-9xl text-white mt-36 ml-72 md:ml-48 md:text-6xl">Welcome to <a class="xl:text-9xl md:text-6xl text-red-400 mr-3" routerLink="/about">Car-Net</a></p>
 </div>
 <div class="flex">
-  <a routerlink="garages" class="text-6xl text-red-400 mr-3 ml-72 md:ml-48 underline">Your garage </a><p class="text-6xl text-white"> is waiting for you!</p>
+  <a routerLink="/garage" class="text-6xl text-red-400 mr-3 ml-72 md:ml-48 underline  ">Your garage </a><p class="text-6xl text-white"> is waiting for you!</p>
 </div>    
 <div class="-mb-48">
   <p class="text-xl mt-3 text-white ml-72 md:ml-48">Car-Net is a web application that allows you to manage your garage. Buy any car you can dream of and show them to your friends!</p>
-  <button class="border rounded-md mt-3 ml-72 md:ml-48 text-white pl-5 pt-1 pb-1 pr-5">Discover Catalog </button>
+  <button routerLink="/catalog" class="border rounded-md mt-3 ml-72 md:ml-48 text-white pl-5 pt-1 pb-1 pr-5">Discover Catalog </button>
 </div>
 
 <div class="spacer layer1">
@@ -15,3 +15,19 @@
     alt="Audi e-tron"
   />
 </div>
+
+<div class="mt-48 container m-auto">
+  <p class="text-7xl text-white text-center"> Buy a new car</p><p class="text-7xl text-white text-center underline">today!</p>
+  <div class="mt-24 h-72 border">
+    <p class="text-white ml-6 mt-6 text-4xl">Featured Cars</p>
+  </div>
+  <div class="mt-12 h-72 border">
+    <p class="text-white ml-6 mt-6 text-4xl">Featured Garages</p>
+  </div>
+  <div class="mt-12 h-72 border">
+    <p class="text-white ml-6 mt-6 text-4xl">Garages you liked</p>
+  </div>
+  <div class="mt-12 mb-12 h-72 border">
+    <p class="text-white ml-6 mt-6 text-4xl">Recommended Garages</p>
+  </div>
+</div> 

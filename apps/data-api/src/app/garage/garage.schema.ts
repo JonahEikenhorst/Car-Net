@@ -12,7 +12,7 @@ export class Garage {
   @Prop({ required: true, validate: isString })
   garageName: string;
 
-  @Prop({ required: false })
+  @Prop({ type: User, required: false })
   owner: User;
 
   @Prop({ required: false })

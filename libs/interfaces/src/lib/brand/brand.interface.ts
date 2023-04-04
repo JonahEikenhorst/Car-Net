@@ -1,12 +1,9 @@
+import { CarModelInterface } from "../carModel/carModel.interface";
 
-export class BrandInterface {
-    id?: number = 0;
-    name = '';
-    established = '';
-    countryOfOrigin = '';
-    // brands: brand[] = [];
-    // models: Model[] = [];
-    logoUrl = '';
+export interface BrandInterface {
+    name: string;
+    established: string;
+    countryOfOrigin: string;
+    carModels: CarModelInterface[];
+    logoUrl: string;
 }
-
-

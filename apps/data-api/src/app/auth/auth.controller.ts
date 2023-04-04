@@ -3,9 +3,8 @@ import {
   BadRequestException,
   Body,
   Controller,
-  HttpException,
-  HttpStatus,
   Post,
+  UnauthorizedException,
 } from '@nestjs/common';
 
 import { Token, UserCredentials } from '@car-net/interfaces';
@@ -47,7 +46,7 @@ export class AuthController {
         ),
       };
     } catch (e) {
-      throw new HttpException('Invalid credentials', e);
+      throw new UnauthorizedException('Invalid credentials, please try again', e);
       
     }
   }

@@ -1,6 +1,6 @@
 import { HydratedDocument } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { isNumber, isString } from "class-validator";
+import { isString } from "class-validator";
 import { CarModel } from "../carModel/carModel.schema";
 
 export type BrandDocument = Brand & HydratedDocument<Brand>;
@@ -19,8 +19,8 @@ export class Brand {
   @Prop({ required: true, validate: isString })
   logoUrl: string;
 
-  @Prop({ required: true })
-  CarModels: CarModel[];
+  @Prop({ required: false })
+  carModels: CarModel[];
 }
 
 export const BrandSchema = SchemaFactory.createForClass(Brand);
