@@ -3,7 +3,7 @@ import { AboutComponent } from './Pages/About/about.component';
 import { LoginComponent } from './Pages/Auth/login/login.component';
 import { RegisterComponent } from './Pages/Auth/register/register.component';
 import { GarageComponent } from './Pages/Garage/Garage-Page/garage.component';
-import { HomeComponent } from './Pages/Home/home.component';
+import { HomeComponent } from './Pages/Home/Home-Page/home.component';
 import { CatalogComponent } from './Pages/Catalog/Catalog-Page/catalog.component';
 import { GaragesComponent } from './Pages/Garages/Garages-Page/garages.component';
  
