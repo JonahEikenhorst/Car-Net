@@ -4,14 +4,19 @@
       class="flex flex-col items-center border border-red-300 rounded-lg shadow  md:max-w-xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
     >
       <div class="flex flex-col justify-between p-4 leading-normal text-white">
-        <p class="badge badge-primary text-3xl">{{ garage.garageName }}</p>
-        <p class="badge badge-primary text-3xl">{{ numberOfLikes }}</p>
-        <p class="badge badge-primary text-3xl">{{ numberOfCarsInGarage }}</p>
-        <p class="badge badge-primary text-3xl">{{ firstCar.brand }} {{ firstCar.carModel.name }}</p>
-        <p class="badge badge-primary text-3xl">{{ secondCar.brand }} {{ secondCar.carModel.name }}</p>
-        <p class="badge badge-primary text-3xl">{{ thirdCar.brand }} {{ thirdCar.carModel.name }}</p>
+        <p class="badge badge-primary text-3xl ml-20 font-bold mr-20">{{ garage.garageName }}</p>
+        <p class="badge badge-primary text-2xl italic ml-20 mr-20 mb-4 text-center">{{ garage.owner.username }}</p>
+
+        <div class="flex">
+        <!-- <p class="badge badge-primary text-2xl">Total number of cars: {{ numberOfCarsInGarage }}</p> -->
+        </div> 
+        <p class="text-2xl text-center">Featured cars:</p>
+        <p class="badge badge-primary text-1xl ml-10 mt-2"><i class="bi bi-1-circle-fill"></i> {{ firstCar.brand }} {{ firstCar.carModel.name }}</p>
+        <p class="badge badge-primary text-1xl ml-10"><i class="bi bi-2-circle-fill"></i> {{ secondCar.brand }} {{ secondCar.carModel.name }}</p>
+        <p class="badge badge-primary text-1xl ml-10"><i class="bi bi-3-circle-fill"></i> {{ thirdCar.brand }} {{ thirdCar.carModel.name }}</p>
       </div>
-      <button class="btn btn-primary text-3xl border border-red-300 text-white pr-4 pl-4 pt-1 pb-2 mb-1 hover:bg-red-400 rounded-3xl">Like</button>
+      <button (click)="likeGarage()" class="btn btn-primary text-3xl border border-red-300 text-white pr-4 pl-4 pt-1 pb-2 mb-1 hover:bg-red-400 rounded-3xl"><i class="bi bi-hand-thumbs-up-fill"></i> {{ numberOfLikes }}</button>
+      <span *ngIf="this.alreadyLiked === true" class="mb-1 text-white"><i class="bi bi-exclamation-circle"></i> You have already liked this garage!</span>
     </div>
   </div>
 </div>
