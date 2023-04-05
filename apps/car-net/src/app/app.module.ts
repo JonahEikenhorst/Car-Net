@@ -20,6 +20,8 @@ import { HomeModule } from './Pages/Home/home.module';
 import { GaragesModule } from './Pages/Garages/garages.module';
 import { GaragesService } from './Pages/Garages/garages.service';
 import { HomeService } from './Pages/Home/home.service';
+import { CatalogService } from './Pages/Catalog/catalog.service';
+import { CatalogModule } from './Pages/Catalog/catalog.module';
 
 
 
@@ -28,6 +30,7 @@ import { HomeService } from './Pages/Home/home.service';
   imports: [
     BrowserModule,
     GaragesModule,
+    CatalogModule,
     HomeModule,
     BrandModule,
     HttpClientModule,
@@ -38,7 +41,7 @@ import { HomeService } from './Pages/Home/home.service';
     TooltipModule.forRoot(),
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
   ],
-  providers: [AuthService, GarageService, GaragesService, Location, HomeService],
+  providers: [AuthService, GarageService, GaragesService, Location, HomeService, CatalogService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

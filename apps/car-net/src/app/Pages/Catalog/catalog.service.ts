@@ -40,6 +40,10 @@ export class CatalogService {
     return this.http.get<string>(`http://localhost:3333/api/garages/garageId/${garageName}`);
   }
 
+  getCars(): Observable<CarInterface[]> {
+    return this.http.get<CarInterface[]>("http://localhost:3333/api/cars");
+  }
+
 
 
 }
