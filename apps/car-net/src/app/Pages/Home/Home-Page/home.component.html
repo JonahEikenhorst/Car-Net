@@ -20,12 +20,33 @@
   <p class="text-7xl text-white text-center"> Buy a new car</p><p class="text-7xl text-white text-center underline">today!</p>
   <div class="mt-24 h-72 border">
     <p class="text-white ml-6 mt-6 text-4xl">Featured Cars</p>
+    <div id="cars" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto pb-44 mb-96">
+      <div *ngFor="let car of cars$ | async">
+        <car-net-homefcar-card [car]="car"></car-net-homefcar-card>
+      </div>
+    </div>
   </div>
   <div class="mt-12 h-72 border">
     <p class="text-white ml-6 mt-6 text-4xl">Featured Garages</p>
+    <div
+    id="garages"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto mb-96"
+  >
+    <div class="mb-96" *ngFor="let garage of garages$ | async">
+      <car-net-homefgarage-card [garage]="garage"></car-net-homefgarage-card>
+    </div>
+  </div>
   </div>
   <div class="mt-12 h-72 border">
     <p class="text-white ml-6 mt-6 text-4xl">Garages you liked</p>
+    <div
+    id="garages"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto mb-96"
+  >
+    <div class="mb-96" *ngFor="let likedGarage of likeddGarages">
+      <car-net-homefgarage-card [garage]="likedGarage"></car-net-homefgarage-card>
+    </div>
+  </div>
   </div>
   <div class="mt-12 mb-12 h-72 border">
     <p class="text-white ml-6 mt-6 text-4xl">Recommended Garages</p>
