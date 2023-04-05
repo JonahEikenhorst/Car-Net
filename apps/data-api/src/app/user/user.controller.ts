@@ -22,4 +22,9 @@ export class UserController {
     }
     return this.userService.findOne(identifier);
   }
+
+  @Get("/email/:email")
+  async findOneByEmail(@Param("email") email: string): Promise<User> {
+    return this.userService.findOneByEmail(email);
+  }
 }
