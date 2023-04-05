@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { CarInterface, GarageInterface, UserInterface } from "@car-net/interfaces";
 import { GaragesService } from "../garages.service";
 import { AuthService } from "../../Auth/auth.service";
-import { Observable, catchError } from "rxjs";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "car-net-garages-card",

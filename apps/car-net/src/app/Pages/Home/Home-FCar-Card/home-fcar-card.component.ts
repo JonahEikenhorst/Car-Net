@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { CarInterface, GarageInterface } from "@car-net/interfaces";
+import { CarInterface } from "@car-net/interfaces";
 import { AuthService } from "../../Auth/auth.service";
-import { Observable } from "rxjs";
 import { HomeService } from "../home.service";
 
 @Component({

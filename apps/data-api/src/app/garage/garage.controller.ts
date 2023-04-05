@@ -2,8 +2,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, MethodNotAllowedException, NotFoundException, Param, Post, Put } from "@nestjs/common";
 import { GarageService } from "./garage.service";
 import { Garage } from "./garage.schema";
-import { CarInterface, RelationGarageInterface } from "@car-net/interfaces";
-import { Headers } from "@nestjs/common";
+import { RelationGarageInterface } from "@car-net/interfaces";
 import { Car } from "../car/car.schema";
 import { User } from "../user/user.schema";
 
