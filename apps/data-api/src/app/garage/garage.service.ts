@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CarService } from "../car/car.service";
@@ -25,11 +25,22 @@ export class GarageService {
     }
 
     async findGarageByName(garageName: string): Promise<Garage> {
-        return this.garageModel.findOne({garageName: garageName});
+        if(!garageName) {
+            throw new NotFoundException('No garage name provided');
+        }
+        const garage = await this.garageModel.findOne({garageName: garageName});
+        if(!garage) {
+            throw new NotFoundException('Garage not found');
+        }
+        return garage;
+    }
+
+    async findGarageIdByName(garageName: string): Promise<string> {
+        const garage = await this.garageModel.findOne({garageName: garageName});
+        return garage["_id"].toString();
     }
 
     async updateGarage(id: string, changes: Partial<Garage>): Promise<Garage> {
-
         return this.garageModel.findOneAndUpdate({_id: id}, changes,{new:true});
     }
 
@@ -71,23 +82,40 @@ export class GarageService {
         user.garageName = garage.garageName;
         await this.userService.updateUser(userId, user);
 
-        await this.neo4jService.write(`MATCH (g:Garage {garageId: "${garage['_id']}"}), (u:User {userId: "${userId}"}) CREATE (u)-[:OWNS]->(g)`);
+        await this.neo4jService.write(`MATCH (g:Garage {garageId: "${garage['_id'].toString()}"}), (u:User {userId: "${userId}"}) CREATE (u)-[:OWNS]->(g)`);
         await this.updateGarage(garage["_id"], garage);
     }
 
-    async likeGarage(userId: string, garageId: string): Promise<void> {
-        const garageToLike = this.findOne(garageId);
-        const userThatLikes = this.userService.findOne(userId);
-        await this.neo4jService.write(`MATCH (u:User {userId: "${userId}"}), (g:Garage {garageId: "${garageId}"}) CREATE (u)-[r:LIKES]->(g)`);
-        (await userThatLikes).likedGarages.push(await garageToLike);
-        await this.userService.updateUser(userId, await userThatLikes);
+    async likeGarage(garageName: string, email: string): Promise<Garage> {
+        const garageToLike = await this.findGarageByName(garageName);
+        if (!garageToLike) {
+            throw new Error("Garage not found " + garageName);
+        }
+        const userThatLikes = await this.userService.findOneByEmail(email);
+        if (!userThatLikes) {
+            throw new Error("User not found " + email);
+        }
+        await this.neo4jService.write(`MATCH (u:User {userId: "${userThatLikes["_id"].toString()}"}), (g:Garage {garageName: "${garageName}"}) CREATE (u)-[r:LIKES]->(g)`);
+        userThatLikes.likedGarages.push(garageToLike.garageName);
+        garageToLike.likes.push(userThatLikes);
+
+        const garage = await this.updateGarage(garageToLike["_id"].toString(), garageToLike);
+        await this.userService.updateUser(userThatLikes["_id"].toString(), userThatLikes);
+        return garage;
       }
 
     async findRecommendedGarages(userId: string): Promise<Garage[]> {
-        const user = await this.userService.findOne(userId);
         const recommendedGarages = await this.neo4jService.read(`MATCH (u:User {userId: "${userId}"})-[:LIKES]->(g:Garage)<-[:LIKES]-(u2:User)-[:OWNS]->(g2:Garage) WHERE NOT (u)-[:OWNS]->(g2) RETURN g2 LIMIT 5`);
-        return recommendedGarages.records.map(record => record.get(0).properties);
-    }
+        
+        const listRecommendedGarages: Garage[] = [];
+        for (const garage of recommendedGarages.records.map(record => record.get(0).properties)) {
+            await this.findOne(garage.garageId).then(garage => { listRecommendedGarages.push(garage);
+        }).then(() => {
+                return listRecommendedGarages;
+            }); 
+        }
+            return listRecommendedGarages;
+        }
 
     async findMyCars(email: string): Promise<Car[]> {
         const user = await this.userService.findOneByEmail(email);
