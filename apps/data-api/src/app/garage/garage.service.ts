@@ -95,7 +95,8 @@ export class GarageService {
         if (!userThatLikes) {
             throw new Error("User not found " + email);
         }
-        await this.neo4jService.write(`MATCH (u:User {userId: "${userThatLikes["_id"].toString()}"}), (g:Garage {garageName: "${garageName}"}) CREATE (u)-[r:LIKES]->(g)`);
+        console.log(userThatLikes["_id"].toString() + garageName);
+        await this.neo4jService.write(`MATCH (u:User {userId: "${userThatLikes["_id"].toString()}"}), (g:Garage {name: "${garageName}"}) CREATE (u)-[r:LIKES]->(g)`);
         userThatLikes.likedGarages.push(garageToLike.garageName);
         garageToLike.likes.push(userThatLikes);
 
