@@ -11,9 +11,9 @@
         <!-- <p class="badge badge-primary text-2xl">Total number of cars: {{ numberOfCarsInGarage }}</p> -->
         </div> 
         <p class="text-2xl text-center">Featured cars:</p>
-        <p class="badge badge-primary text-1xl ml-10 mt-2"><i class="bi bi-1-circle-fill"></i> {{ firstCar.brand }} {{ firstCar.carModel.name }}</p>
-        <p class="badge badge-primary text-1xl ml-10"><i class="bi bi-2-circle-fill"></i> {{ secondCar.brand }} {{ secondCar.carModel.name }}</p>
-        <p class="badge badge-primary text-1xl ml-10"><i class="bi bi-3-circle-fill"></i> {{ thirdCar.brand }} {{ thirdCar.carModel.name }}</p>
+        <p class="badge badge-primary text-1xl ml-10 mt-2"><i class="bi bi-1-circle-fill"></i> {{ firstCar?.brand }} {{ firstCar?.carModel?.name }}</p>
+        <p class="badge badge-primary text-1xl ml-10"><i class="bi bi-2-circle-fill"></i> {{ secondCar?.brand }} {{ secondCar?.carModel?.name }}</p>
+        <p class="badge badge-primary text-1xl ml-10"><i class="bi bi-3-circle-fill"></i> {{ thirdCar?.brand }} {{ thirdCar?.carModel?.name }}</p>
       </div>
       <button (click)="likeGarage()" class="btn btn-primary text-3xl border border-red-300 text-white pr-4 pl-4 pt-1 pb-2 mb-1 hover:bg-red-400 rounded-3xl"><i class="bi bi-hand-thumbs-up-fill"></i> {{ numberOfLikes }}</button>
     </div>

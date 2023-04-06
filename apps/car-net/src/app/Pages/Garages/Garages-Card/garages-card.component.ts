@@ -16,9 +16,9 @@ export class GaragesCardComponent implements OnInit {
   
   @Input()
   garage: GarageInterface;
-  firstCar: CarInterface;
-  secondCar: CarInterface;
-  thirdCar: CarInterface;
+  firstCar: CarInterface | undefined;
+  secondCar: CarInterface | undefined;
+  thirdCar: CarInterface | undefined;
 
   user$: Observable<UserInterface> | undefined;
   like$: Observable<GarageInterface> | undefined;

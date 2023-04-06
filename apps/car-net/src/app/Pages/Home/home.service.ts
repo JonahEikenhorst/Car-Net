@@ -45,4 +45,8 @@ export class HomeService {
   findIdByName(garageName: string): Observable<string> {
     return this.http.get<string>(`http://localhost:3333/api/garages/garageId/${garageName}`);
   }
+
+  findRecommendedGarages(email: string | null): Observable<GarageInterface[]> {
+    return this.http.get<GarageInterface[]>(`http://localhost:3333/api/garages/recommendedGarages/${email}`);
+  }
 }

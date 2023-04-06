@@ -43,12 +43,20 @@
     id="garages"
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto mb-96"
   >
-    <div class="mb-96" *ngFor="let likedGarage of likeddGarages">
+    <div class="mb-96" *ngFor="let likedGarage of likedGarages">
       <car-net-homefgarage-card [garage]="likedGarage"></car-net-homefgarage-card>
     </div>
   </div>
   </div>
   <div class="mt-12 mb-12 h-72 border">
     <p class="text-white ml-6 mt-6 text-4xl">Recommended Garages</p>
+    <div
+    id="garages"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto mb-96"
+  >
+    <div class="mb-96" *ngFor="let recommended of recommendedGarages">
+      <car-net-homefgarage-card [garage]="recommended"></car-net-homefgarage-card>
+    </div>
+  </div>
   </div>
 </div> 

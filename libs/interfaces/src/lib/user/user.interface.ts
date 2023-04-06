@@ -5,5 +5,5 @@ export interface UserInterface {
     email: string;
     roles: string[];
     garageName: string;
-    likedGarages: GarageInterface[];
+    likedGarages: string[];
 }

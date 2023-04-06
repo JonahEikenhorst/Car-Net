@@ -52,6 +52,7 @@ export class GarageController {
             throw new HttpException('No garage name provided', HttpStatus.BAD_REQUEST);
           }
         const garage = await this.garageService.findGarageByName(garageName);
+        console.log(garageName);
         return garage;
     }
 
