@@ -1,3 +1,44 @@
 ul {
     background-color: transparent;
 }
+
+
+@font-face {
+    font-family: CustomFont;
+    src: url(../../Shared/assets/Codec-Cold-ExtraBold-trial.ttf);
+}
+a { 
+    font-family: CustomFont;
+}
+p{ 
+    font-family: CustomFont;
+}
+
+
+.spacer {
+    aspect-ratio: 16/6;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;  
+}
+    .layer1 {
+        background-image: url("../../Shared/assets/background.svg")
+    }
+
+    .erd {
+        background-image: url("../../Shared/assets/EigenCasus.png");
+        background-repeat: no-repeat;
+        border: none;
+    }
+    
+    .workflow {
+        background-image: url("../../Shared/assets/workflow.png");
+        background-repeat: no-repeat;
+        border: none;
+    }
+
+    button {
+        font-family: CustomFont;
+    }
