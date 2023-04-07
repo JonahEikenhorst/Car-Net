@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, Input, OnInit } from "@angular/core";
 import { CarInterface, GarageInterface, UserInterface } from "@car-net/interfaces";
 import { HomeService } from "../home.service";
@@ -24,8 +25,9 @@ export class HomeFGarageCardComponent implements OnInit {
 
   liked: string[];
   error: string;
-
+  liky = false;
   alreadyLiked: boolean;
+  loggedIn = false;
 
   constructor(private homeService: HomeService) {}
 
@@ -44,26 +46,40 @@ export class HomeFGarageCardComponent implements OnInit {
     }
     this.liked = [];
 
-    this.user$ = this.homeService.findUserByEmail(localStorage.getItem("email"));
+    if(localStorage.getItem('email') != null) {
+      this.loggedIn = true;
+    }
 
+    this.user$ = this.homeService.findUserByEmail(localStorage.getItem("email"));
+    if(localStorage.getItem('email') != null) {
+    const a = this.user$?.subscribe((user) => { if(user.likedGarages.includes(this.garage.garageName)) {this.liky = true;} });
+    }
   }
 
   likeGarage() {
-    const garageName = this.garage.garageName; 
-    this.user$?.subscribe((user) => { for(const garagee of user.likedGarages) {
-      this.liked.push(garagee.toString());
-    }});
-    
-    if(this.liked.includes(garageName)) {
-      console.log("You already liked this garage!");
-      this.alreadyLiked = true;
-    } else {
-      const email = localStorage.getItem("email");
-      const like$ = this.homeService.likeGarage(garageName, email).subscribe(()=>{}, (err) => { alert("Error: " + err.error.message + ""); if(!err) {
-        this.numberOfLikes++;
-      }});
-    }
+    const garageName = this.garage.garageName;
+    this.user$?.subscribe((user) => {
+      for (const garagee of user.likedGarages) {
+        this.liked.push(garagee.toString());
+      }
+    });
+    const email = localStorage.getItem('email');
 
+    if (this.liky) {
+      this.homeService.removeLike(garageName, email).subscribe();
+      this.numberOfLikes--;
+      this.liky = false;
+    }
+    else {
+    const like$ = this.homeService.likeGarage(garageName, email).subscribe(
+      () => {},
+      (err) => {
+        const a = this.homeService.removeLike(garageName, email).subscribe(); alert((err.error.message) + ': Login to like a garage or dont like your own garage'); if(err) this.numberOfLikes --;
+      }
+    );
+    this.liky = true;
+    this.numberOfLikes++;
+    }
   }
 
 }

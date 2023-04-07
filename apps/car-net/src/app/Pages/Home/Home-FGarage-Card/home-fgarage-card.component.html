@@ -1,4 +1,4 @@
-<div class="card bg-base-300 shadow-xl m-auto cursor-pointer">
+<div *ngIf="garage" class="card bg-base-300 shadow-xl m-auto cursor-pointer">
   <div class="card-body">
     <div
       class="flex flex-col items-center border border-red-300 w-96 rounded-lg shadow  md:max-w-xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
@@ -15,7 +15,8 @@
         <p class="badge badge-primary text-1xl ml-10"><i class="bi bi-2-circle-fill"></i> {{ secondCar?.brand }} {{ secondCar?.carModel?.name }}</p>
         <p class="badge badge-primary text-1xl ml-10"><i class="bi bi-3-circle-fill"></i> {{ thirdCar?.brand }} {{ thirdCar?.carModel?.name }}</p>
       </div>
-      <button (click)="likeGarage()" class="btn btn-primary text-3xl border border-red-300 text-white pr-4 pl-4 pt-1 pb-2 mb-1 hover:bg-red-400 rounded-3xl"><i class="bi bi-hand-thumbs-up-fill"></i> {{ numberOfLikes }}</button>
+      <button *ngIf="!this.liky" (click)="likeGarage()" class="btn btn-primary text-3xl border border-red-300 text-white pr-4 pl-4 pt-1 pb-2 mb-1 hover:bg-red-400 rounded-3xl"><i class="bi bi-hand-thumbs-up-fill"></i> {{ numberOfLikes }}</button>
+      <button *ngIf="this.liky" (click)="likeGarage()" class="btn btn-primary text-3xl border border-red-300 text-white pr-4 pl-4 pt-1 pb-2 mb-1 bg-red-400 hover:bg-dark rounded-3xl"><i class="bi bi-hand-thumbs-up-fill"></i> {{ numberOfLikes }}</button>
     </div>
   </div>
 </div>
