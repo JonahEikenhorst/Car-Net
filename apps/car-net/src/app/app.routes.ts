@@ -8,6 +8,7 @@ import { CatalogComponent } from './Pages/Catalog/Catalog-Page/catalog.component
 import { GaragesComponent } from './Pages/Garages/Garages-Page/garages.component';
 import { GarageCreateComponent } from './Pages/Garage/Garage-Create/garage-create.component';
 import { CatalogDetailComponent } from './Pages/Catalog/Catalog-Detail/catalog-detail.component';
+import { AuthorGuard } from './Pages/Auth/author.guard';
  
 export const appRoutes: Route[] = [
     { path: '', pathMatch: 'full', component: HomeComponent },
