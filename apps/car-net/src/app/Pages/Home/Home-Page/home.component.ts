@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, OnInit } from '@angular/core';
 import {
   CarInterface,
@@ -19,17 +20,23 @@ export class HomeComponent implements OnInit {
 
   likedGarages: GarageInterface[] | undefined = [];
 
-  recommendedGarages: GarageInterface[] = [];
+  recommendedGarages: GarageInterface[] | undefined = [];
   email: string | null;
+
+  loggedIn = false;
   constructor(private homeService: HomeService) {}
 
   ngOnInit() {
+
     this.cars$ = this.homeService.findAllCars();
     this.garages$ = this.homeService.findAll();
     this.email = localStorage.getItem('email');
-    this.user$ = this.homeService.findUserByEmail(
-     this.email
-    );
+    this.user$ = this.homeService.findUserByEmail(this.email);
+    if (localStorage.getItem('email') != null) {
+
+    if (localStorage.getItem('email') != null) {
+      this.loggedIn = true;
+    }
 
     this.user$.subscribe((user) => { 
       if (!user) {
@@ -42,11 +49,9 @@ export class HomeComponent implements OnInit {
           });
         }}});
       
-    
-
-    this.homeService.findRecommendedGarages(this.email).subscribe((garages) => {
+    const a = this.homeService.findRecommendedGarages(this.email).subscribe((garages) => {
       this.recommendedGarages = garages;
-      console.log(this.recommendedGarages[0])
     });
 }
+  }
 }

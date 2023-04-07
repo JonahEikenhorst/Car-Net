@@ -37,7 +37,7 @@
     </div>
   </div>
   </div>
-  <div class="mt-12 max-h-fit border">
+  <div *ngIf="loggedIn" class="mt-12 max-h-fit border">
     <p class="text-white ml-6 mt-6 text-4xl">Garages you liked</p>
     <div
     id="garages"
@@ -48,11 +48,11 @@
     </div>
   </div>
   </div>
-  <div class="mt-12 mb-12 max-h-fit border">
+  <div *ngIf="loggedIn" class="mt-12 mb-12 max-h-fit border">
     <p class="text-white ml-6 mt-6 text-4xl">Recommended Garages</p>
     <div
     id="garages"
-    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto mb-96"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-56 max-w-5xl m-auto pb-10 pt-10"
   >
     <div *ngFor="let recommended of recommendedGarages | slice:0:3">
       <car-net-homefgarage-card [garage]="recommended"></car-net-homefgarage-card>
