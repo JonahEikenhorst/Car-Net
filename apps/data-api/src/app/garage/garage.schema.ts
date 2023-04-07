@@ -9,7 +9,7 @@ export type GarageDocument = Garage & Document;
 
 @Schema()
 export class Garage {
-  @Prop({ required: true, validate: isString })
+  @Prop({ required: true, validate: isString, unique: true })
   garageName: string;
 
   @Prop({ type: User, required: false })
