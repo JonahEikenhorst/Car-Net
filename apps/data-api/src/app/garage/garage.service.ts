@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, MethodNotAllowedException, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CarService } from "../car/car.service";
@@ -59,8 +59,11 @@ export class GarageService {
     async addCarToGarage(email: string, numberPlate: string): Promise<Car> {
         const user = await this.userService.findOneByEmail(email);
         const garageToUpdate = await this.findGarageByName(user.garageName);
+        if(garageToUpdate.owner.email !== email) {
+            throw new MethodNotAllowedException("You are not the owner of this garage");
+        } 
         if (!garageToUpdate) {
-            throw new Error("Garage not found " + user.garageName);
+            throw new NotFoundException("Garage not found " + user.garageName);
         }
         const carToAdd = await this.carService.getCarByNumberPlate(numberPlate);
         garageToUpdate.cars.push(carToAdd);
@@ -72,6 +75,9 @@ export class GarageService {
     async removeCarFromGarage(email: string, numberPlate: string): Promise<Car> {
         const user = await this.userService.findOneByEmail(email);
         const garageToUpdate = await this.findGarageByName(user.garageName);
+        if(garageToUpdate.owner.email !== email) {
+            throw new MethodNotAllowedException("You are not the owner of this garage");
+        } 
         const carToRemove = await this.carService.getCarByNumberPlate(numberPlate);
         garageToUpdate.cars = garageToUpdate.cars.filter(car => car.numberPlate !== numberPlate);
         await this.updateGarage(garageToUpdate["_id"], garageToUpdate);
@@ -92,11 +98,11 @@ export class GarageService {
     async likeGarage(garageName: string, email: string): Promise<Garage> {
         const garageToLike = await this.findGarageByName(garageName);
         if (!garageToLike) {
-            throw new Error("Garage not found " + garageName);
+            throw new NotFoundException("Garage not found " + garageName);
         }
         const userThatLikes = await this.userService.findOneByEmail(email);
         if (!userThatLikes) {
-            throw new Error("User not found " + email);
+            throw new NotFoundException("User not found " + email);
         }
         await this.neo4jService.write(`MATCH (u:User {userId: "${userThatLikes["_id"].toString()}"}), (g:Garage {name: "${garageName}"}) CREATE (u)-[r:LIKES]->(g)`);
         userThatLikes.likedGarages.push(garageToLike.garageName);
@@ -107,13 +113,37 @@ export class GarageService {
         return garage;
       }
 
-    async findRecommendedGarages(userId: string): Promise<Garage[]> {
-        const recommendedGarages = await this.neo4jService.read(`MATCH (u:User {userId: "${userId}"})-[:LIKES]->(g:Garage)<-[:LIKES]-(u2:User)-[:OWNS]->(g2:Garage) WHERE NOT (u)-[:OWNS]->(g2) RETURN g2 LIMIT 5`);
+      async unlikeGarage(garageName: string, email: string): Promise<Garage> {
+        const garage1 = await this.findGarageByName(garageName);
+        const user1 = await this.userService.findOneByEmail(email);
+
+        if(!garage1) {
+            throw new NotFoundException("Garage not found " + garageName);
+        }
+        if(!user1) {
+            throw new NotFoundException("User not found " + email);
+        }
+        garage1.likes = garage1.likes.filter((user) => user.email !== email);
+        await this.updateGarage(garage1['_id'], garage1);
+        user1.likedGarages = user1.likedGarages.filter((garage) => garage !== garageName);
+        await this.userService.updateUser(user1['_id'], user1);
+        await this.neo4jService.write(`MATCH (u:User {userId: "${user1["_id"].toString()}"})-[:LIKES]->(g:Garage {name: "${garageName}"})
+        WITH u, g
+        LIMIT 1
+        MATCH (u)-[r:LIKES]->(g)
+        DELETE r
+        `);
+        return garage1;
+      }
+
+    async findRecommendedGarages(email: string): Promise<Garage[]> {
+        const user = await this.userService.findOneByEmail(email);
+        const recommendedGarages = await this.neo4jService.read(`MATCH (u:User {userId: "${user["_id"].toString()}"})-[:LIKES]->(g:Garage)<-[:LIKES]-(u2:User)-[:OWNS]->(g2:Garage) WHERE NOT (u)-[:OWNS]->(g2) RETURN g2 LIMIT 5`);
         
         const listRecommendedGarages: Garage[] = [];
         for (const garage of recommendedGarages.records.map(record => record.get(0).properties)) {
-            await this.findOne(garage.garageId).then(garage => { listRecommendedGarages.push(garage);
-        }).then(() => {
+            await this.findOne(garage.garageId).then(garage => { if(!user.likedGarages.includes(garage.garageName)) {listRecommendedGarages.push(garage);}} 
+        ).then(() => {
                 return listRecommendedGarages;
             }); 
         }
@@ -124,7 +154,7 @@ export class GarageService {
         const user = await this.userService.findOneByEmail(email);
         const garage = await this.findGarageByName(user.garageName);
         if (!garage) {
-            throw new Error("Garage not found " + user.garageName);
+            throw new NotFoundException("Garage not found " + user.garageName);
         }
         
         return garage.cars;
