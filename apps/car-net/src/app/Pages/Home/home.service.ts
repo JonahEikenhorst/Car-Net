@@ -36,6 +36,11 @@ export class HomeService {
     return this.http.get<GarageInterface>(`http://localhost:3333/api/garages/like/${garageName}/${email}`);
   }
 
+  removeLike(garageName: string | null, email: string | null): Observable<GarageInterface> {
+    return this.http.get<GarageInterface>(`http://localhost:3333/api/garages/unlike/${garageName}/${email}`);
+  }
+
+
   findGarageByName(garageName: string): Observable<GarageInterface> {
     return this.http.get<GarageInterface>(`http://localhost:3333/api/garages/name/${garageName}`);
   }

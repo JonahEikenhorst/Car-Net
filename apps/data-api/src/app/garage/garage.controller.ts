@@ -37,6 +37,10 @@ export class GarageController {
         return garage;
     }
 
+    @Get('/unlike/:garageName/:email')
+    async unlikeGarage(@Param("garageName") garageName: string, @Param("email") email: string): Promise<Garage> {
+        return this.garageService.unlikeGarage(garageName, email);
+    }
 
     @Post()
     async createGarage(@Body() garageRelation: Partial<RelationGarageInterface>): Promise<Garage> {
