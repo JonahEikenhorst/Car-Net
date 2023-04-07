@@ -6,10 +6,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { CatalogService } from './catalog.service';
+import { CatalogCardComponent } from './Catalog-Card/catalog-card.component';
+import { CatalogComponent } from './Catalog-Page/catalog.component';
+import { CatalogDetailComponent } from './Catalog-Detail/catalog-detail.component';
 
 
 @NgModule({
   declarations: [
+    CatalogCardComponent,
+    CatalogComponent,
+    CatalogDetailComponent
   ],
   imports: [
     CommonModule,
@@ -23,9 +30,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ReactiveFormsModule,
     RouterLink
   ],
-  exports: [
+  exports: [ CatalogCardComponent, CatalogComponent, CatalogDetailComponent
   ],
-  providers: [
+  providers: [ CatalogService
   ]
 })
-export class GarageModule {}
+export class CatalogModule {}

@@ -1,0 +1,27 @@
+<div class="spacer layer1">
+      <div class="flex justify-center">
+      <h1 class="text-center text-5xl mt-24 font-bold text-white">
+    
+        Welcome to the CarNet Catalog
+        </h1>
+        <h1 class="text-center ml-3 text-5xl mt-24 font-bold text-red-400">  !
+      </h1>
+      </div>
+      <div class="flex">
+      <a routerLink="/home" class="text-5xl ml-28 -mr-44"><i class="bi bi-arrow-return-left text-red-400"></i></a>
+      <h1 class="text-center text-2xl mt-4 text-white mx-auto">
+        Here you can find all the cars we have available for you to add to your own garage!
+        </h1>
+      </div>
+    
+    <div class="mx-auto max-w-7xl rounded-lg p-4 mt-24 bg-dark">
+      <div>
+        <p class="mt-4 mb-4 ml-28 max-w-md text-3xl text-white">Available Vehicles:</p>
+      </div> 
+    
+        <div id="cars" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto pb-44 mb-96">
+          <div *ngFor="let car of cars$ | async">
+            <car-net-catalogcar-card [car]="car"></car-net-catalogcar-card>
+          </div>
+        </div>
+    </div>

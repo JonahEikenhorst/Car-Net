@@ -21,7 +21,7 @@ export class User {
   garageName: string;
 
   @Prop({ required: false})
-  likedGarages: Garage[];
+  likedGarages: string[];
 
 }
 
