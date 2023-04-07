@@ -8,8 +8,11 @@ import { CarInterface } from "@car-net/interfaces";
   styleUrls: ["./garage-card.component.css"]
 })
 export class GarageCardComponent implements OnInit {
+
+
   @Input()
   car: CarInterface;
+
   constructor(private router: Router) {}
   ngOnInit() {
   }
