@@ -9,12 +9,14 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CatalogService } from './catalog.service';
 import { CatalogCardComponent } from './Catalog-Card/catalog-card.component';
 import { CatalogComponent } from './Catalog-Page/catalog.component';
+import { CatalogDetailComponent } from './Catalog-Detail/catalog-detail.component';
 
 
 @NgModule({
   declarations: [
     CatalogCardComponent,
-    CatalogComponent
+    CatalogComponent,
+    CatalogDetailComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,7 @@ import { CatalogComponent } from './Catalog-Page/catalog.component';
     ReactiveFormsModule,
     RouterLink
   ],
-  exports: [ CatalogCardComponent, CatalogComponent
+  exports: [ CatalogCardComponent, CatalogComponent, CatalogDetailComponent
   ],
   providers: [ CatalogService
   ]

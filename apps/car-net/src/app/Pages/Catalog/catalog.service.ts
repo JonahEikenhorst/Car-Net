@@ -44,6 +44,15 @@ export class CatalogService {
     return this.http.get<CarInterface[]>("http://localhost:3333/api/cars");
   }
 
+  findCarByNumberPlate(numberPlate: string): Observable<CarInterface> {
+    return this.http.get<CarInterface>(`http://localhost:3333/api/cars/numberPlate/${numberPlate}`);
+  }
 
+  addCarToGarage(email: string | null, numberPlate: string | null): Observable<GarageInterface> {
+    return this.http.get<GarageInterface>(`http://localhost:3333/api/garages/cars/add/${numberPlate}/${email}`);
+  }
 
+  removeCarFromGarage(email: string | null, numberPlate: string | null): Observable<GarageInterface> {
+    return this.http.get<GarageInterface>(`http://localhost:3333/api/garages/cars/remove/${numberPlate}/${email}`);
+  }
 }
