@@ -12,5 +12,5 @@ export interface GarageInterface {
 }
 
 export interface RelationGarageInterface extends GarageInterface {
-    userid: string;
+    email: string;
 }

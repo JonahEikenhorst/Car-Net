@@ -1,11 +1,9 @@
 
 @font-face {
     font-family: CustomFont;
-    src: url(./Codec-Cold-ExtraBold-trial.ttf);
+    src: url(../../../Shared/assets/Codec-Cold-ExtraBold-trial.ttf);
 }
-a { 
-    font-family: CustomFont;
-}
+
 p{ 
     font-family: CustomFont;
 }
@@ -20,7 +18,7 @@ p{
     background-size: cover;  
 }
     .layer1 {
-        background-image: url("./background.svg")
+        background-image: url("../../../Shared/assets/background.svg")
     }
 
 

@@ -1,29 +1,106 @@
-<div class="about">
-<h1 class="text-white">Car-Net</h1>
-<h5 class="ml-5 text-white"> by Jonah Eikenhorst | 2191148</h5>
-<br>
-<h5 class="text-white">Casus beschrijving:</h5>
-<p class="text-white">
-De Car-Net webapplicatie is een platform voor gebruikers een garage willen beheren met daarin verschillende auto’s. Deze auto’s hebben ook verschillende eigenschappen die de gebruikers uit kunnen kiezen om zo hun gewenste auto te kunnen bestellen en toe te voegen aan hun garage. 
+<div class="spacer layer1 mt-28 ">
+  <p class="text-red-400 text-center text-5xl">Car-Net</p>
+  <h5 class="ml-5 text-white text-2xl italic font-bold text-center">
+    by Jonah Eikenhorst | 2191148
+  </h5>
+  <div class="flex justify-center">
+    <div class="flex-row max-w-xl mt-48 text-center">
+      <p class="text-white text-2xl">About the page</p>
+      <p class="text-red-400 text-3xl">The Car-Network webapplication</p>
+      <h5 class="text-white italic font-semibold">
+        ..is a platform for user to create their own garage with different cars.
+        These cars have different properties that can be viewed when clicked on
+        a car. The users can add and remove any car they'd like to or from their
+        garage. It is also possible to like another person's garage and get
+        recommended garages based on the likes you've given.
+        <br />
+        <br />
+        To enjoy the full experience of the application, you can create an
+        account and login to your own garage.
+      </h5>
+    </div>
+    <img
+    class="object-cover w-2/6 h-2/6"
+    src="https://cdn-09.imagin.studio/getImage?&customer=nljonaheikenhorstcompany&make=audi&modelFamily=e-tron&modelRange=e-tron&modelVariant=od&modelYear=2019&powerTrain=electric&transmission=0&bodySize=5&trim=eu&paintId=pspc0004sspc0199&angle=51"
+    alt="Audi e-tron"
+    width="500"
+    height="500"
+  />
+  </div>
+  <div class="h-96 w-full border-0">
+      <img class="erd mx-auto border-0" alt=" " width="1200" height="500" />
+    </div>
+    <!-- <div>
+      <h5 class="text-white">User journeys:</h5>
+      <ul>
+        <li class="text-white">
+          S.1: Een gebruiker bevindt zich op de homepagina. Hij/zij wilt graag
+          een andere gebruikers garage bezoeken en klikt op de naam van een
+          gebruiker. De gebruiker krijgt de inhoud van de garage te zien en wilt
+          graag een like achter laten. Hiervoor klikt hij/zij op de “upvote”
+          knop. Hierna keer de gebruiker terug naar de homepagina waar hij een
+          aantal aanbevolen garages te zien krijgt. Dit is op basis van de like
+          die hij heeft gegeven.
+        </li>
+        <li class="text-white">
+          S.2: Een nieuwe gebruiker komt voor het eerst op de homepagina. Hij
+          krijgt een lijst te zien van aanbevolen garages gebaseerd op het
+          aantal likes deze hebben. (Meest gelikte garages bijvoorbeeld)
+        </li>
+        <li class="text-white">
+          S.3: Een gebruiker logt in met zijn of haar inloggegevens. De
+          gebruiker gaat naar zijn of haar eigen garage en bekijkt de inhoud.
+          Vervolgens kiest hij of zij er voor om een specifieke wagen te
+          verkopen waardoor deze verwijderd wordt uit de garage.
+        </li>
+        <li class="text-white">
+          S.4: Een gebruiker wilt een nieuwe auto kopen en deze toevoegen aan
+          zijn of haar garage. Hij navigeert naar de catalogus en kiest het
+          gewenste merk. Vervolgens stelt hij de rest van de eigenschappen en
+          koopt de auto. Hij krijgt een soort bon “Purchase” en de auto wordt
+          bij de garage van de gebruiker toegevoegd.
+        </li>
+      </ul>
+    </div> -->
+    <div class="flex justify-center mt-48">
+        <img
+        class="object-cover w-1/4 h-2/6 mb-96 workflow"
+        alt=" "
+        width="200"
+        height="300"
+      />
+        <div class="flex-row max-w-1xl text-center">
+          <p class="text-white text-2xl">Use Cases</p>
+          <p class="text-red-400 text-3xl">Path from user to system to user</p>
+          <h5 class="text-white italic font-semibold">
+            UJ.100A: As a user, I want to be able to open my own garage, so that I can see my own cars.
+            <br>
+            UJ.100B: As a user, I want to be able to add cars to my garage, so I can fill up my garage.
+            <br>
+            UJ.100C: As a user, I want to be able to remove cars from my garage, so I can sell my cars.
+            <br>
+            <br>
+            UJ.101A: As a user, I want to be able to see other users garages, so I can see what cars they have.
+            <br>
+            UJ.101B: As a user, I want to be able to like other users garages, so I can show my appreciation.
+            <br>
+            UJ.101C: As a user, I want to be able to see recommended garages, so I can see what cars other users have.
+            <br>
+            <br>
+            UJ.102A: As a user, I want to be able to see the catalog, so I can see what cars are available.
+            <br>
+            UJ.102B: As a user, I want to be able to buy cars from the catalog, so I can add them to my garage.
+            <br>
+            UJ.102C: As a user, I want to be able to see the details of a car, so I can see what the car looks like.
+            <br>
+            <br>
+            UJ.103A: As a user, I want to be able to login, so I can access my own garage.
+            <br>
+            UJ.103B: As a user, I want to be able to register, so I can create my own garage.
 
-Er zijn twee type gebruikers; de eerste type, user, is de normale gebruiker. Je kan als gebruiker je eigen garage beheren door bijvoorbeeld auto’s toe te voegen of juist te verwijderen. Om een auto toe te voegen moet de gebruiker deze kopen via een fijn UI op de webapplicatie. Hier kan de gebruiker deze zelf naar wens samenstellen en eventueel op bepaalde factoren filteren. Denk hieraan bijvoorbeeld filteren op cartype; SUV, Hatchback, Station etc. Een auto heeft uiteraard een merk, dit merk kan andere merken bezitten als het hoofdmerk. 
-Daarnaast heb je de twee type gebruiker: Admin, deze gebruiker kan verschillende merken, modellen en wielen toevoegen of verwijderen aan de applicatie. En verder kan een admin hetzelfde als de normale gebruiker.
+          </h5>
+        </div>
 
-Ook is het mogelijk om de garages van andere gebruikers te bezoeken. Hier kan je hun opgeslagen auto’s zien maar niet aanpassen. Ook kan je een garage van een ander persoon “Liken”. Op basis van deze likes krijgt de gebruiker andere garages aanbevolen.
-</p>
-<br>
-<h5 class="text-white">User journeys:</h5>
-
-<ul>
-    <li class="text-white">S.1: Een gebruiker bevindt zich op de homepagina. Hij/zij wilt graag een andere gebruikers garage bezoeken en klikt op de naam van een gebruiker. De gebruiker krijgt de inhoud van de garage te zien en wilt graag een like achter laten. Hiervoor klikt hij/zij op de “upvote” knop. Hierna keer de gebruiker terug naar de homepagina waar hij een aantal aanbevolen garages te zien krijgt. Dit is op basis van de like die hij heeft gegeven. </li>
-    <li class="text-white">S.2: Een nieuwe gebruiker komt voor het eerst op de homepagina. Hij krijgt een lijst te zien van aanbevolen garages gebaseerd op het aantal likes deze hebben. (Meest gelikte garages bijvoorbeeld)</li>
-    <li class="text-white">S.3: Een gebruiker logt in met zijn of haar inloggegevens. De gebruiker gaat naar zijn of haar eigen garage en bekijkt de inhoud. Vervolgens kiest hij of zij er voor om een specifieke wagen te verkopen waardoor deze verwijderd wordt uit de garage.</li>
-    <li class="text-white">S.4: Een gebruiker wilt een nieuwe auto kopen en deze toevoegen aan zijn of haar garage. Hij navigeert naar de catalogus en kiest het gewenste merk. Vervolgens stelt hij de rest van de eigenschappen en koopt de auto. Hij krijgt een soort bon “Purchase” en de auto wordt bij de garage van de gebruiker toegevoegd.</li>
-</ul>
-    
-</div>
-
-
-
-
+      </div>
+    </div>
 

@@ -23,6 +23,10 @@ export class GarageService {
   findMyCars(email: string | null): Observable<CarInterface[]> {
     return this.http.get<CarInterface[]>(`http://localhost:3333/api/garages/cars/${email}`);
   }
+
+  createGarage(garageName: string | null, email: string | null): Observable<GarageInterface> {
+    return this.http.post<GarageInterface>("http://localhost:3333/api/garages", { garageName, email });
+  }
   
 
 }

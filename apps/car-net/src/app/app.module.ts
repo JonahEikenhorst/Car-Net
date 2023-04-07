@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { NavBarComponent } from './Shared/nav-bar/nav-bar.component';
-// import { ModelModule } from './Components/model/model.module';
  import { BrandModule } from './Components/brand/brand.module';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AboutComponent } from './Pages/About/about.component';
@@ -19,6 +18,10 @@ import { GarageModule } from './Pages/Garage/garage.module';
 import { GarageService } from './Pages/Garage/garage.service';
 import { HomeModule } from './Pages/Home/home.module';
 import { GaragesModule } from './Pages/Garages/garages.module';
+import { GaragesService } from './Pages/Garages/garages.service';
+import { HomeService } from './Pages/Home/home.service';
+import { CatalogService } from './Pages/Catalog/catalog.service';
+import { CatalogModule } from './Pages/Catalog/catalog.module';
 
 
 
@@ -27,6 +30,7 @@ import { GaragesModule } from './Pages/Garages/garages.module';
   imports: [
     BrowserModule,
     GaragesModule,
+    CatalogModule,
     HomeModule,
     BrandModule,
     HttpClientModule,
@@ -37,7 +41,7 @@ import { GaragesModule } from './Pages/Garages/garages.module';
     TooltipModule.forRoot(),
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
   ],
-  providers: [AuthService, GarageService, Location],
+  providers: [AuthService, GarageService, GaragesService, Location, HomeService, CatalogService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
