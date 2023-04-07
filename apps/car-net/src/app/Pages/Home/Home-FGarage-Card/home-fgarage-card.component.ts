@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { CarInterface, GarageInterface } from "@car-net/interfaces";
+import { CarInterface, GarageInterface, UserInterface } from "@car-net/interfaces";
 import { HomeService } from "../home.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "car-net-homefgarage-card",
@@ -18,6 +19,13 @@ export class HomeFGarageCardComponent implements OnInit {
   secondCar: CarInterface | undefined;
   thirdCar: CarInterface | undefined;
   garageIdd: string;
+  user$: Observable<UserInterface> | undefined;
+  like$: Observable<GarageInterface> | undefined;
+
+  liked: string[];
+  error: string;
+
+  alreadyLiked: boolean;
 
   constructor(private homeService: HomeService) {}
 
@@ -34,15 +42,27 @@ export class HomeFGarageCardComponent implements OnInit {
     if (this.garage.cars.length >= 3) {
       this.thirdCar = this.garage.cars[2];
     }
+    this.liked = [];
 
+    this.user$ = this.homeService.findUserByEmail(localStorage.getItem("email"));
 
   }
 
   likeGarage() {
-    const email = localStorage.getItem("email");
     const garageName = this.garage.garageName; 
-    this.homeService.likeGarage(garageName, email);
-
+    this.user$?.subscribe((user) => { for(const garagee of user.likedGarages) {
+      this.liked.push(garagee.toString());
+    }});
+    
+    if(this.liked.includes(garageName)) {
+      console.log("You already liked this garage!");
+      this.alreadyLiked = true;
+    } else {
+      const email = localStorage.getItem("email");
+      const like$ = this.homeService.likeGarage(garageName, email).subscribe(()=>{}, (err) => { alert("Error: " + err.error.message + ""); if(!err) {
+        this.numberOfLikes++;
+      }});
+    }
 
   }
 
