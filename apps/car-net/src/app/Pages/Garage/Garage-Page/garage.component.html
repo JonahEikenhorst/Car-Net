@@ -11,7 +11,11 @@
 
 <div class="mx-auto max-w-7xl rounded-lg p-4 mt-24 bg-dark">
   <div>
-    <p class="mt-4 mb-4 ml-28 max-w-md text-3xl text-white">Your Vehicles:</p>
+    <p *ngIf="this.hasGarage === true" class="mt-4 mb-4 ml-28 max-w-md text-3xl text-white">Your Vehicles:</p>
+    <h2 *ngIf="this.hasCars === false" class="mt-4 mb-2 ml-28 max-w-md text-xl text-white font-normal italic">You have no vehicles in your garage yet.</h2>	
+    <h2 *ngIf="this.hasCars === false" class="mb-4 ml-28 max-w-md text-xl text-white font-normal italic">Buy a car <a routerLink="/catalog" class="underline">by visiting the catalog</a></h2>	
+    <p *ngIf="this.hasGarage === false" class="mt-4 mb-4 ml-96 max-w-md text-3xl text-white italic">Uh oh, it looks like you have not opened your garage yet.</p>
+    <button *ngIf="this.hasGarage === false" class="ml-96 mt-4 mb-4 bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full" (click)="openGarage()">Open Garage</button>
   </div> 
 
     <div id="cars" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto pb-44 mb-96">

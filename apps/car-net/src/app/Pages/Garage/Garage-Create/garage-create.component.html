@@ -1,0 +1,42 @@
+<div class="spacer layer1 flex flex-col justify-center items-center">
+    <h1 class="text-center text-5xl font-bold text-white">
+      Welcome to your Personal Garage,
+    </h1>
+    <h2 class="text-center text-white mt-10 text-3xl"> What name would you like to give your garage?</h2>
+    <form [formGroup]="garageCreateForm" (ngSubmit)="createGarage()"
+          class="mt-6 mb-0 space-y-4 rounded-lg p-4 sm:p-6 lg:p-8 mx-auto"
+        >
+        
+        <div>
+          <label for="garageName" class="sr-only">garageName</label>
+  
+          <div class="relative ml-auto">
+            <input
+              type="text"
+              class="w-80 rounded-lg border-gray-200 p-3 pr-12 text-sm mb-2"
+              placeholder="Enter garage name"
+              name="garageName"
+              formControlName="garageName"
+            />
+            <div>
+            <span *ngIf="garageName.invalid && (garageName.dirty || garageName.touched)">
+              <span class="text-error text-white mx-auto" *ngIf="garageName.errors?.['required']"><i class="bi bi-exclamation-circle"></i> garageName is required</span>
+            </span>
+          </div>
+            <span
+              class="absolute inset-y-0 right-0 grid place-content-center px-4"
+            >
+            </span>
+          </div>
+        </div>
+        <button
+            type="submit"
+            [disabled]="garageCreateForm.invalid"
+            class="block m-auto w-48 rounded-lg bg-red-400 px-5 py-3 text-sm font-medium text-white"
+            id="createGarage"
+          >
+            Open garage
+          </button>
+    </form>
+  </div>
+  

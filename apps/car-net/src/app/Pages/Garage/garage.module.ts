@@ -11,11 +11,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AuthService } from '../Auth/auth.service';
 import { GarageService } from './garage.service';
+import { GarageCreateComponent } from './Garage-Create/garage-create.component';
 
 @NgModule({
   declarations: [
     GarageComponent,
     GarageCardComponent,
+    GarageCreateComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import { GarageService } from './garage.service';
     RouterLink
   ],
   exports: [
+    GarageCreateComponent,
     GarageCardComponent
   ],
   providers: [
