@@ -6,6 +6,8 @@ import { GarageComponent } from './Pages/Garage/Garage-Page/garage.component';
 import { HomeComponent } from './Pages/Home/Home-Page/home.component';
 import { CatalogComponent } from './Pages/Catalog/Catalog-Page/catalog.component';
 import { GaragesComponent } from './Pages/Garages/Garages-Page/garages.component';
+import { GarageCreateComponent } from './Pages/Garage/Garage-Create/garage-create.component';
+import { CatalogDetailComponent } from './Pages/Catalog/Catalog-Detail/catalog-detail.component';
  
 export const appRoutes: Route[] = [
     { path: '', pathMatch: 'full', component: HomeComponent },
@@ -15,7 +17,9 @@ export const appRoutes: Route[] = [
     { path: 'register', pathMatch: 'full', component: RegisterComponent },
     { path: 'garage', pathMatch: 'full', component: GarageComponent },
     { path: 'catalog', pathMatch: 'full', component: CatalogComponent },
+    { path: 'catalog/:numberPlate', pathMatch: 'full', component: CatalogDetailComponent},
     { path: 'garages', pathMatch: 'full', component: GaragesComponent },
+    { path: 'garagecreate', pathMatch : 'full', component: GarageCreateComponent },
     { path: 'garage', loadChildren: () => import ('./Pages/Garage/garage.module').then(m => m.GarageModule) },
     { path: 'brands', loadChildren: () => import ('./Components/brand/brand.module').then(m => m.BrandModule) },
 ];

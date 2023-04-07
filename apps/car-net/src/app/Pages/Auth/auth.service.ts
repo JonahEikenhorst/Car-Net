@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { UserService } from "@car-net/interfaces";
 import { IdentityInterface } from "@car-net/interfaces";
 import { Location } from "@angular/common";
+import { Router } from "@angular/router";
 
 
 @Injectable()
@@ -12,7 +13,7 @@ export class AuthService {
     public currentUser$ = new BehaviorSubject<IdentityInterface | undefined>(undefined);
     private readonly CURRENT_USER = "currentUser";
   
-    constructor(private http: HttpClient, private userService: UserService, private location: Location) {
+    constructor(private http: HttpClient, private userService: UserService, private location: Location, private router: Router) {
       const currentUser = localStorage.getItem(this.CURRENT_USER);
       const id = localStorage.getItem("id");
       if (currentUser) {
@@ -58,7 +59,7 @@ export class AuthService {
         localStorage.removeItem("id");
         localStorage.removeItem("email");
         this.currentUser$.next(undefined);
-        this.location.back();
+        this.router.navigateByUrl("/login");
       }
     
       get currentUser(): Observable<UserInterface | undefined> {
