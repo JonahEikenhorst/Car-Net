@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 import { Component, OnInit } from '@angular/core';
-import { CarInterface, GarageInterface, UserInterface } from '@car-net/interfaces';
-import { Observable } from 'rxjs';
-import { AuthService } from '../../Auth/auth.service';
 import { GarageService } from '../garage.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
