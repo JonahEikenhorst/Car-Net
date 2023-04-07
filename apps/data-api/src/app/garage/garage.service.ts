@@ -56,10 +56,11 @@ export class GarageService {
         return newGarage.toObject({versionKey: false});
     }
 
-    async addCarToGarage(garageId: string, numberPlate: string): Promise<Car> {
-        const garageToUpdate = await this.findOne(garageId);
+    async addCarToGarage(email: string, numberPlate: string): Promise<Car> {
+        const user = await this.userService.findOneByEmail(email);
+        const garageToUpdate = await this.findGarageByName(user.garageName);
         if (!garageToUpdate) {
-            throw new Error("Garage not found " + garageId);
+            throw new Error("Garage not found " + user.garageName);
         }
         const carToAdd = await this.carService.getCarByNumberPlate(numberPlate);
         garageToUpdate.cars.push(carToAdd);
@@ -68,21 +69,23 @@ export class GarageService {
 
     }
 
-    async removeCarFromGarage(garageId: string, numberPlate: string) {
-        const garageToUpdate = await this.findOne(garageId);
+    async removeCarFromGarage(email: string, numberPlate: string): Promise<Car> {
+        const user = await this.userService.findOneByEmail(email);
+        const garageToUpdate = await this.findGarageByName(user.garageName);
         const carToRemove = await this.carService.getCarByNumberPlate(numberPlate);
-        garageToUpdate.cars = garageToUpdate.cars.filter(car => car["_id"] !== carToRemove["_id"]);
+        garageToUpdate.cars = garageToUpdate.cars.filter(car => car.numberPlate !== numberPlate);
         await this.updateGarage(garageToUpdate["_id"], garageToUpdate);
+        return carToRemove;
     }
 
-    async assignGarageToUser(userId: string, garageId: string) {
+    async assignGarageToUser(email: string, garageId: string) {
         const garage = await this.findOne(garageId);
-        garage.owner = await this.userService.findOne(userId);
-        const user = await this.userService.findOne(userId);
+        garage.owner = await this.userService.findOneByEmail(email);
+        const user = await this.userService.findOneByEmail(email);
         user.garageName = garage.garageName;
-        await this.userService.updateUser(userId, user);
+        await this.userService.updateUser(user["_id"], user);
 
-        await this.neo4jService.write(`MATCH (g:Garage {garageId: "${garage['_id'].toString()}"}), (u:User {userId: "${userId}"}) CREATE (u)-[:OWNS]->(g)`);
+        await this.neo4jService.write(`MATCH (g:Garage {garageId: "${garage['_id'].toString()}"}), (u:User {userId: "${user["_id"]}"}) CREATE (u)-[:OWNS]->(g)`);
         await this.updateGarage(garage["_id"], garage);
     }
 
@@ -95,7 +98,6 @@ export class GarageService {
         if (!userThatLikes) {
             throw new Error("User not found " + email);
         }
-        console.log(userThatLikes["_id"].toString() + garageName);
         await this.neo4jService.write(`MATCH (u:User {userId: "${userThatLikes["_id"].toString()}"}), (g:Garage {name: "${garageName}"}) CREATE (u)-[r:LIKES]->(g)`);
         userThatLikes.likedGarages.push(garageToLike.garageName);
         garageToLike.likes.push(userThatLikes);

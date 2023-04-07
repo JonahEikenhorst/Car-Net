@@ -39,10 +39,10 @@ export class GarageController {
 
 
     @Post()
-    async createGarage(@Body() RelationGarage: Partial<RelationGarageInterface>): Promise<Garage> {
-
-        const newGarage = await this.garageService.addGarage(RelationGarage.garageName);
-        await this.garageService.assignGarageToUser(RelationGarage.userid, newGarage['_id']);
+    async createGarage(@Body() garageRelation: Partial<RelationGarageInterface>): Promise<Garage> {
+        console.log(garageRelation.garageName);
+        const newGarage = await this.garageService.addGarage(garageRelation.garageName);
+        await this.garageService.assignGarageToUser(garageRelation.email, newGarage['_id']);
         return newGarage;
     }
 
@@ -52,7 +52,6 @@ export class GarageController {
             throw new HttpException('No garage name provided', HttpStatus.BAD_REQUEST);
           }
         const garage = await this.garageService.findGarageByName(garageName);
-        console.log(garageName);
         return garage;
     }
 
@@ -102,14 +101,19 @@ export class GarageController {
         return this.garageService.findMyCars(email);
     }
 
-    @Put("cars/add/:numberPlate/:garageId")
-    async addCarToGarage(@Param("numberPlate") numberPlate: string, @Param("garageId") garageId: string ): Promise<Car> {
-        return this.garageService.addCarToGarage(garageId, numberPlate);
+    @Get("cars/add/:numberPlate/:email")
+    async addCarToGarage(@Param("numberPlate") numberPlate: string, @Param("email") email: string ): Promise<Car> {
+        return this.garageService.addCarToGarage(email, numberPlate);
     }
 
-    @Put(":userId/:garageId")
-    async assignGarageToUser(@Param("userId") userId: string, @Param("garageId") garageId: string ) {
-        await this.garageService.assignGarageToUser(userId, garageId);
+    @Get("cars/remove/:numberPlate/:email")
+    async removeCarFromGarage(@Param("numberPlate") numberPlate: string, @Param("email") email: string ): Promise<Car> {
+        return this.garageService.removeCarFromGarage(email, numberPlate);
+    }
+
+    @Put(":email/:garageId")
+    async assignGarageToUser(@Param("email") email: string, @Param("garageId") garageId: string ) {
+        await this.garageService.assignGarageToUser(email, garageId);
     }
 
     @Get("/recommendedGarages/:email")
