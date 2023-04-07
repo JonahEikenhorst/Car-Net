@@ -17,7 +17,7 @@ export class CatalogDetailComponent implements OnInit {
   user$: Observable<UserInterface>;
   garageName: string | null;
   owned = false;
-
+  email = localStorage.getItem('email')!;
   constructor(
     private router: Router,
     private catalogService: CatalogService,
@@ -28,8 +28,8 @@ export class CatalogDetailComponent implements OnInit {
     const car$ = this.catalogService.findCarByNumberPlate(
       this.numberPlate ? this.numberPlate : ''
     );
-    const email = localStorage.getItem('email')!;
-    this.user$ = this.catalogService.findUserByEmail(email);
+
+    this.user$ = this.catalogService.findUserByEmail(this.email);
 
     this.user$.subscribe((user) => {
       this.catalogService
