@@ -39,6 +39,10 @@ export class CarController {
         return this.carService.deleteCar(id);
     }
 
+    @Get('numberPlate/:numberPlate')
+    async findCarByNumberPlate(@Param("numberPlate") numberPlate: string): Promise<Car> {
+        return this.carService.getCarByNumberPlate(numberPlate);
+    }
 }
 
 
