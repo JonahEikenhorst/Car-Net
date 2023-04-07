@@ -1,4 +1,4 @@
-<div class="flex spacer layer1">
+<div *ngIf="car" class="flex spacer layer1">
   <div class="flex-col">
     <img class="ml-40 mt-36" src="{{ car.carModel.imageUrl }}" alt="" />
   </div>
@@ -17,6 +17,10 @@
       </div>
       <button *ngIf="this.garageName !== null && this.owned === false;" class="mt-3 bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full" (click)="addCar()">Add Car</button>
       <button *ngIf="this.owned === true" class="mt-3 bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full" (click)="removeCar()">Remove Car</button>
+      <p *ngIf="this.succes === true" class="text-green-400 text-xl"><i class="bi bi-check-circle-fill"></i> Succes: Car added to garage</p>
+      <p *ngIf="this.succes === true" class="italic text-lg"> You will now be redirected to your personal garage. </p>
+      <p *ngIf="this.removeSuccess === true" class="text-red-400 text-xl"><i class="bi bi-trash-fill"></i> Warning: Car has been removed from garage</p>
+      <p *ngIf="this.removeSuccess === true" class="italic text-lg"> You will now be redirected to your personal garage. </p>
       <hr class="w-72 h-2 bg-gray-100 border-0 rounded md:my-5 dark:bg-gray-700">
     </div>
   </div>

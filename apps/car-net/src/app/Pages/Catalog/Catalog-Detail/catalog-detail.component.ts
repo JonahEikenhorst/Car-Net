@@ -18,11 +18,15 @@ export class CatalogDetailComponent implements OnInit {
   garageName: string | null;
   owned = false;
   email = localStorage.getItem('email')!;
+
+  succes = false;
+  removeSuccess = false;
   constructor(
     private router: Router,
     private catalogService: CatalogService,
     private route: ActivatedRoute
   ) {}
+
   ngOnInit() {
     this.numberPlate = this.route.snapshot.paramMap.get('numberPlate');
     const car$ = this.catalogService.findCarByNumberPlate(
@@ -33,17 +37,16 @@ export class CatalogDetailComponent implements OnInit {
 
     this.user$.subscribe((user) => {
       this.catalogService
-      .findGarageByName(user.garageName)
-      .subscribe((garage) => {
-        for (const car of garage.cars) {
-          if (car.numberPlate == this.numberPlate) {
-            this.owned = true;
+        .findGarageByName(user.garageName)
+        .subscribe((garage) => {
+          for (const car of garage.cars) {
+            if (car.numberPlate == this.numberPlate) {
+              this.owned = true;
+            }
           }
-        }
-      });
+        });
     });
 
-    
     car$.subscribe((car) => {
       this.car = car;
     });
@@ -58,7 +61,10 @@ export class CatalogDetailComponent implements OnInit {
     const boughtCar = this.catalogService
       .addCarToGarage(localStorage.getItem('email'), this.car.numberPlate)
       .subscribe();
-    this.router.navigateByUrl('/home');
+    this.succes = true;
+    setTimeout(() => {
+      this.router.navigateByUrl('/garage');
+    }, 3000);
   }
 
   removeCar() {
@@ -66,6 +72,9 @@ export class CatalogDetailComponent implements OnInit {
     const boughtCar = this.catalogService
       .removeCarFromGarage(localStorage.getItem('email'), this.car.numberPlate)
       .subscribe();
-    this.router.navigateByUrl('/home');
+      this.removeSuccess = true;
+      setTimeout(() => {
+        this.router.navigateByUrl('/garage');
+      }, 3000);
   }
 }
