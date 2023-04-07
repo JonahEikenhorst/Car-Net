@@ -33,12 +33,10 @@ export class HomeService {
   }
 
   likeGarage(garageName: string | null, email: string | null): Observable<GarageInterface> {
-    console.log(garageName, email);
     return this.http.get<GarageInterface>(`http://localhost:3333/api/garages/like/${garageName}/${email}`);
   }
 
   findGarageByName(garageName: string): Observable<GarageInterface> {
-    console.log(garageName);
     return this.http.get<GarageInterface>(`http://localhost:3333/api/garages/name/${garageName}`);
   }
   

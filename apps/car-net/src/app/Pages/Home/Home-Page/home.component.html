@@ -6,7 +6,7 @@
 </div>    
 <div class="-mb-48">
   <p class="text-xl mt-3 text-white ml-72 md:ml-48">Car-Net is a web application that allows you to manage your garage. Buy any car you can dream of and show them to your friends!</p>
-  <button routerLink="/catalog" class="border rounded-md mt-3 ml-72 md:ml-48 text-white pl-5 pt-1 pb-1 pr-5">Discover Catalog </button>
+  <button routerLink="/catalog" class="border rounded-md mt-3 ml-72 md:ml-48 text-white pl-5 pt-1 pb-1 pr-5 hover:bg-gray-600">Discover Catalog </button>
 </div>
 
 <div class="spacer layer1">
@@ -18,43 +18,43 @@
 
 <div class="mt-48 container m-auto">
   <p class="text-7xl text-white text-center"> Buy a new car</p><p class="text-7xl text-white text-center underline">today!</p>
-  <div class="mt-24 h-72 border">
+  <div class="mt-24 max-h-fit border">
     <p class="text-white ml-6 mt-6 text-4xl">Featured Cars</p>
-    <div id="cars" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto pb-44 mb-96">
-      <div *ngFor="let car of cars$ | async">
+    <div id="cars" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto pt-10 pb-10">
+      <div *ngFor="let car of cars$ | async | slice:0:3">
         <car-net-homefcar-card [car]="car"></car-net-homefcar-card>
       </div>
     </div>
   </div>
-  <div class="mt-12 h-72 border">
+  <div class="mt-12 max-h-fit border">
     <p class="text-white ml-6 mt-6 text-4xl">Featured Garages</p>
     <div
     id="garages"
-    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto mb-96"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-56 max-w-5xl m-auto pb-10 pt-10"
   >
-    <div class="mb-96" *ngFor="let garage of garages$ | async">
+    <div *ngFor="let garage of garages$ | async | slice:0:3">
       <car-net-homefgarage-card [garage]="garage"></car-net-homefgarage-card>
     </div>
   </div>
   </div>
-  <div class="mt-12 h-72 border">
+  <div class="mt-12 max-h-fit border">
     <p class="text-white ml-6 mt-6 text-4xl">Garages you liked</p>
     <div
     id="garages"
-    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto mb-96"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-56 max-w-5xl m-auto pb-10 pt-10"
   >
-    <div class="mb-96" *ngFor="let likedGarage of likedGarages">
+    <div *ngFor="let likedGarage of likedGarages | slice:0:3">
       <car-net-homefgarage-card [garage]="likedGarage"></car-net-homefgarage-card>
     </div>
   </div>
   </div>
-  <div class="mt-12 mb-12 h-72 border">
+  <div class="mt-12 mb-12 max-h-fit border">
     <p class="text-white ml-6 mt-6 text-4xl">Recommended Garages</p>
     <div
     id="garages"
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-4 max-w-5xl m-auto mb-96"
   >
-    <div class="mb-96" *ngFor="let recommended of recommendedGarages">
+    <div *ngFor="let recommended of recommendedGarages | slice:0:3">
       <car-net-homefgarage-card [garage]="recommended"></car-net-homefgarage-card>
     </div>
   </div>
