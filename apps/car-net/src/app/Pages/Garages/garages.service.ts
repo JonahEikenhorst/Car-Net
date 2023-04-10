@@ -13,35 +13,35 @@ export class GaragesService {
   }
 
   findAll(): Observable<GarageInterface[]> {
-    return this.http.get<GarageInterface[]>("https://car-net.up.railway.app/api/garages");
+    return this.http.get<GarageInterface[]>("http://localhost:3333/api/garages");
   }
 
   findUserByEmail(email: string | null): Observable<UserInterface> {
-    return this.http.get<UserInterface>(`https://car-net.up.railway.app/api/users/email/${email}`);
+    return this.http.get<UserInterface>(`http://localhost:3333/api/users/email/${email}`);
   }
   
   findOneUser(id: string | null): Observable<UserInterface> {
-    return this.http.get<UserInterface>(`https://car-net.up.railway.app/api/users/${id}`);
+    return this.http.get<UserInterface>(`http://localhost:3333/api/users/${id}`);
   }
 
   findMyCars(email: string | null): Observable<CarInterface[]> {
-    return this.http.get<CarInterface[]>(`https://car-net.up.railway.app/api/garages/cars/${email}`);
+    return this.http.get<CarInterface[]>(`http://localhost:3333/api/garages/cars/${email}`);
   }
 
   likeGarage(garageName: string | null, email: string | null): Observable<GarageInterface> {
-    return this.http.get<GarageInterface>(`https://car-net.up.railway.app/api/garages/like/${garageName}/${email}`);
+    return this.http.get<GarageInterface>(`http://localhost:3333/api/garages/like/${garageName}/${email}`);
   }
 
   removeLike(garageName: string | null, email: string | null): Observable<GarageInterface> {
-    return this.http.get<GarageInterface>(`https://car-net.up.railway.app/api/garages/unlike/${garageName}/${email}`);
+    return this.http.get<GarageInterface>(`http://localhost:3333/api/garages/unlike/${garageName}/${email}`);
   }
 
   findGarageByName(garageName: string): Observable<GarageInterface> {
-    return this.http.get<GarageInterface>(`https://car-net.up.railway.app/api/garages/name/${garageName}`);
+    return this.http.get<GarageInterface>(`http://localhost:3333/api/garages/name/${garageName}`);
   }
   
   findIdByName(garageName: string): Observable<string> {
-    return this.http.get<string>(`https://car-net.up.railway.app/api/garages/garageId/${garageName}`);
+    return this.http.get<string>(`http://localhost:3333/api/garages/garageId/${garageName}`);
   }
 
 
