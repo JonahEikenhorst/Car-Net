@@ -21,6 +21,5 @@ export const appRoutes: Route[] = [
     { path: 'catalog/:numberPlate', pathMatch: 'full', component: CatalogDetailComponent},
     { path: 'garages', pathMatch: 'full', component: GaragesComponent },
     { path: 'garagecreate', pathMatch : 'full', component: GarageCreateComponent },
-    { path: 'garage', loadChildren: () => import ('./Pages/Garage/garage.module').then(m => m.GarageModule) },
     { path: 'brands', loadChildren: () => import ('./Components/brand/brand.module').then(m => m.BrandModule) },
 ];

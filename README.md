@@ -10,7 +10,7 @@ Avans University | Computer Science | Client-Side Webframeworks
 ## Tech Stack
 
 **Web:** 
-Angular, TailwindCSS 
+Angular, TailwindCSS, Bootstrap
 
 **Server API, databases:** 
 NestJS, MongoDB, Neo4j

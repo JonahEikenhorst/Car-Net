@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "cypress:open": "cypress open"
   },
   "private": true,
   "devDependencies": {
@@ -31,9 +32,10 @@
     "@types/jest": "28.1.1",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "18.7.1",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
-    "cypress": "^11.0.0",
+    "cypress": "^11.2.0",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-cypress": "^2.10.3",
@@ -75,6 +77,7 @@
     "password-hash-and-salt": "^0.1.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.5.0",
+    "supertest": "^6.3.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   }

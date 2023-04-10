@@ -12,8 +12,6 @@ export class BrandController {
 
     @Post()
     async createBrand(@Body() brand: Partial<Brand>): Promise<Brand> {
-        console.log("Creating Brand: " + brand);
-
         return this.brandService.addBrand(brand);
 
     }

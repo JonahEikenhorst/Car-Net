@@ -1,15 +1,21 @@
-// import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 // import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 // import { catchError, Observable, of, Subscription, switchMap, tap } from 'rxjs';
 // import { Brand } from 'apps/data-api/src/app/brand/brand.schema';
 // import { BrandService } from 'apps/data-api/src/app/brand/brand.service';
 
-// @Component({
-//   selector: 'car-net-brand-edit',
-//   templateUrl: './brand-edit.component.html',
-//   styleUrls: ['./brand-edit.component.css'],
-// })
-// export class BrandEditComponent implements OnInit, OnDestroy {
+@Component({
+  selector: 'car-net-brand-edit',
+  templateUrl: './brand-edit.component.html',
+  styleUrls: ['./brand-edit.component.css'],
+})
+export class BrandEditComponent implements OnInit, OnDestroy {
+    ngOnInit(): void {
+        throw new Error('Method not implemented.');
+    }
+    ngOnDestroy(): void {
+        throw new Error('Method not implemented.');
+    }
 //   subscriptionParams?: Subscription;
 //   brand = new Brand();
 //   brand$?: Observable<Brand>;
@@ -20,7 +26,7 @@
 //     private router: Router,
 //     private brandService: BrandService,
 
-//   ) {}
+ } 
 
 //   ngOnInit(): void {
 //     // Haal de brand op voor edit

@@ -11,8 +11,6 @@ export class CarController {
 
     @Post()
     async createCar(@Body() car: {numberPlate: string, country: string, brand: string, carModel: string }): Promise<Car> {
-        console.log("Creating car: " + car);
-
         return this.carService.addCar(car);
 
     }

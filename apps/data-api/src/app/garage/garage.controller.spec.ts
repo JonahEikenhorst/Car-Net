@@ -3,7 +3,7 @@ import { GarageController } from './garage.controller';
 import { GarageService } from './garage.service';
 import { Garage } from './garage.schema';
 import { User } from '../user/user.schema';
-import { HttpException } from '@nestjs/common';
+import { HttpException, NotFoundException } from '@nestjs/common';
 
 describe('GarageController', () => {
   let controller: GarageController;
@@ -119,6 +119,94 @@ describe('GarageController', () => {
         expect(error).toBeInstanceOf(HttpException);
         expect(error.status).toBe(400);
         expect(error.message).toBe('No garage id provided');
+      }
+    });
+  });
+
+  describe("Assign a garage to a user", () => {
+    it("should return http status 400 if no garage id is provided", async () => {
+      const garageId = "";
+      const userId = "2";
+
+      try {
+        await controller.assignGarageToUser(garageId, userId);
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error.status).toBe(400);
+        expect(error.message).toBe("No garage id provided");
+      }
+    });
+
+    it("should return http status 400 if no user id is provided", async () => {
+      const garageId = "1";
+      const userId = "";
+
+      try {
+        await controller.assignGarageToUser(garageId, userId);
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+        expect(error.status).toBe(400);
+        expect(error.message).toBe("No user id provided");
+      }
+    });
+  }
+  );
+
+  // describe("like a garage", () => {
+  //   it("should return http status 400 if no garage name is provided", async () => {
+  //     const garageName = "";
+  //     const email = "test@gmail.com" 
+  //     jest.spyOn(service, 'findGarageByName').mockImplementation(async() => { return { { NotFoundException}  }});
+  //     try {
+  //       await controller.likeGarage(garageName, email);
+  //     } catch (error) {
+  //       expect(error.message).toBe("No garage name provided");
+  //     }
+  //   });
+  //   it("should return http status 400 if no email is provided", async () => {
+  //     const garageName = "Test Garage";
+  //     const email = "" 
+
+  //     try {
+  //       await controller.likeGarage(garageName, email);
+  //     } catch (error) {
+  //       expect(error.message).toBe("No email provided");
+  //     }
+  //   });
+  // });
+
+//   describe("unlike a garage", () => {
+//     it("should return http status 400 if no garage name is provided", async () => {
+//       const garageName = "";
+//       const email = "";
+
+//       jest.spyOn(service, 'unlikeGarage').mockImplementation(async() => { return { _id: "djijsisijj" , garageName: 'Test Garage', owner: testUser, likes: [], cars: [] }}
+//       try {
+//         await controller.unlikeGarage(garageName, email);
+//       } catch (error) {
+//         expect(error.message).toBe("No garage name provided");
+//       }
+//     });
+//     it("should return http status 400 if no email is provided", async () => {
+//       const garageName = "Test Garage";
+//       const email = "";
+
+//       try {
+//         await controller.unlikeGarage(garageName, email);
+//       } catch (error) {
+//         expect(error.message).toBe("No email provided");
+//       }
+//     });
+// });
+
+  describe("get garage by name", () => {
+    it("should return http status 400 if no garage name is provided", async () => {
+      const garageName = "";
+
+      try {
+        await controller.findGarageByName(garageName);
+      } catch (error) {
+        expect(error.message).toBe("No garage name provided");
       }
     });
   });

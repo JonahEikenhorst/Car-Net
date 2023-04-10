@@ -44,7 +44,6 @@ export class GarageController {
 
     @Post()
     async createGarage(@Body() garageRelation: Partial<RelationGarageInterface>): Promise<Garage> {
-        console.log(garageRelation.garageName);
         const newGarage = await this.garageService.addGarage(garageRelation.garageName);
         await this.garageService.assignGarageToUser(garageRelation.email, newGarage['_id']);
         return newGarage;
