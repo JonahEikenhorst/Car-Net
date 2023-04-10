@@ -22,7 +22,7 @@ export class AuthService {
     }
 
     login(credentials: UserCredentials): Observable<IdentityInterface> {
-        return this.http.post<any>("http://localhost:3333/api/login", credentials)
+        return this.http.post<any>("https://car-net.up.railway.app/api/login", credentials)
           .pipe(
             map((identity) => {
               // Substract token due to typescript
@@ -43,7 +43,7 @@ export class AuthService {
       }
 
       register(credentials: UserRegistration): Observable<UserInterface> {
-        return this.http.post<UserInterface>("http://localhost:3333/api/register", credentials)
+        return this.http.post<UserInterface>("https://car-net.up.railway.app/api/register", credentials)
           .pipe(
             map((user) => {
               return user;
