@@ -11,8 +11,6 @@ export class CarModelController {
 
     @Post()
     async createCarModel(@Body() carModel: Partial<CarModel>): Promise<CarModel> {
-        console.log("Creating CarModel: " + carModel);
-
         return this.carModelService.addCarModel(carModel);
 
     }
