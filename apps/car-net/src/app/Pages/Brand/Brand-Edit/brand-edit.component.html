@@ -1,0 +1,90 @@
+<div class="spacer layer1">
+    <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 mt-8">
+      <a routerLink="/brand" class="text-5xl ml-32 mt-32"><i class="bi bi-arrow-return-left text-red-400"></i></a>
+        <div class="mx-auto max-w-lg rounded-lg p-4 shadow-lg bg-dark">
+          <h1 class="text-center text-2xl font-bold text-red-400 sm:text-3xl">
+            Create or Edit a Brand
+          </h1>
+      
+          <form
+          [formGroup]="brandForm" (ngSubmit)="onSubmit()"
+            class="mt-6 mb-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
+          >
+            <p class="text-center text-white text-lg font-medium">Please fill in the form in order to create or edit a brand</p>
+            <div>
+              <label for="name" class="sr-only">Name</label>
+      
+              <div class="relative">
+                <input
+                  type="name"
+                  class="w-full rounded-lg border-gray-200 p-3 pr-12 text-sm shadow-sm"
+                  placeholder="Enter a name for your brand: e.g. BMW"
+                  name="name"
+                  formControlName="name"
+                />
+                <span *ngIf="name.invalid && (name.dirty || name.touched)">
+                  <span class="text-error text-white" *ngIf="name.errors?.['required']"><i class="bi bi-exclamation-circle"></i> Name is required</span>
+                </span>
+              </div>
+            </div>
+            <div>
+              <label for="established" class="sr-only">Established</label>
+      
+              <div class="relative">
+                <input
+                  type="date"
+                  class="w-full rounded-lg border-gray-200 p-3 pr-12 text-sm shadow-sm"
+                  placeholder="Enter the date of establishedment"
+                  name="established"	
+                  formControlName="established"
+                />
+                <span *ngIf="established.invalid && (established.dirty || established.touched)">
+                  <span class="text-error text-white" *ngIf="established.errors?.['required']"><i class="bi bi-exclamation-circle"></i> Established is required</span>
+                  <span class="text-error text-white" *ngIf="established.errors?.['established']"><i class="bi bi-exclamation-circle"></i> Provide a valid established</span>
+                  <span class="text-error text-white" *ngIf="established.errors?.['invalidDate']"><i class="bi bi-exclamation-circle"></i> The date cannot be in the future!</span>
+                </span>
+              </div>
+            </div>
+      
+            <div>
+              <label for="countryOfOrigin" class="sr-only">Country of Origin</label>
+      
+              <div class="relative">
+                <input
+                  type="text"
+                  class="w-full rounded-lg border-gray-200 p-3 pr-12 text-sm shadow-sm"
+                  placeholder="Enter the country of origin: e.g. Germany"
+                  name="countryOfOrigin"
+                  formControlName="countryOfOrigin"
+                />
+                <span *ngIf="countryOfOrigin.invalid && (countryOfOrigin.dirty || countryOfOrigin.touched)">
+                  <span class="text-error text-white" *ngIf="countryOfOrigin.errors?.['required']"><i class="bi bi-exclamation-circle"></i> Country of Origin is required</span>
+                  <span class="text-error text-white" *ngIf="countryOfOrigin.errors?.['minlength']"><i class="bi bi-exclamation-circle"></i> Country of Origin must be 2 characters long</span>
+                </span>
+              </div>
+            </div>
+            <div>
+              <label for="logoUrl" class="sr-only">Logo URL</label>
+      
+              <div class="relative">
+                <input
+                  type="text"
+                  class="w-full rounded-lg border-gray-200 p-3 pr-12 text-sm shadow-sm"
+                  placeholder="Url of logo e.g. https://www.img.com/logo.png"
+                  name="logoUrl"
+                  formControlName="logoUrl"
+                />
+              </div>
+            </div>
+      
+            <button
+              type="submit"
+              [disabled]="brandForm.invalid"
+              class="block w-full rounded-lg bg-red-400 px-5 py-3 text-sm font-medium text-white"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
