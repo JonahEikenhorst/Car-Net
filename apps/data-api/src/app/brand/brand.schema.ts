@@ -18,9 +18,6 @@ export class Brand {
 
   @Prop({ required: true, validate: isString })
   logoUrl: string;
-
-  @Prop({ required: false })
-  carModels: CarModel[];
 }
 
 export const BrandSchema = SchemaFactory.createForClass(Brand);

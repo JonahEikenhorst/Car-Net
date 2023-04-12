@@ -36,11 +36,23 @@ export class BrandController {
         return this.brandService.updateBrand(id, changes);
     }
 
+    @Put("/edit/:brand")
+    async updateBrandByName(
+    @Param("brand") brand: string,
+    @Body() changes: Partial<Brand>): Promise<Brand> {
+        return this.brandService.updateBrandByName(brand, changes);
+    }
+
     @Delete(':id')
     async deleteBrand(@Param("id") id: string) {
         console.log("Deleting brand with id: " + id);
 
         return this.brandService.deleteBrand(id);
+    }
+
+    @Delete('/name/:brand')
+    async deleteBrandByName(@Param("brand") brand: string) {
+        return this.brandService.removeBrandByName(brand);
     }
 
     @Put(':brand/:carModel')
