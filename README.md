@@ -1,5 +1,5 @@
 # Car-Net
-![alt text](https://user-images.githubusercontent.com/94384379/230992002-a4a6970c-4edf-46fb-a0d2-8e6325be9721.png)
+![alt text](https://user-images.githubusercontent.com/94384379/231447402-8e5bf03e-086b-4a29-b3fd-4328348f6dbc.png)
 Are you a car enthousiast and have always dreamed of filling up your personal garage with your favorite cars?
 Join the Car-Network and start building your own garage!
 Add friends and visit their garages!
