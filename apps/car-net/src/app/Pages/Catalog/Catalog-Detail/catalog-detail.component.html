@@ -16,7 +16,8 @@
       <div class="badge badge-primary text-3xl">
         <i class="bi bi-caret-right"></i> {{ car.carModel.carType }}
       </div>
-      <button *ngIf="this.garageName !== null && this.owned === false;" class="mt-3 bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full" (click)="addCar()">Add Car</button>
+      <button *ngIf="this.garageName !== null && this.owned === false" class="mt-3 bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full" (click)="addCar()">Add Car</button>
+      <button *ngIf="this.admin === true" class="mt-3 ml-5 bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full" (click)="editCar()">Edit Car</button>
       <button *ngIf="this.owned === true" class="mt-3 bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full" (click)="removeCar()">Remove Car</button>
       <p *ngIf="this.succes === true" class="text-green-400 text-xl"><i class="bi bi-check-circle-fill"></i> Succes: Car added to garage</p>
       <p *ngIf="this.succes === true" class="italic text-lg"> You will now be redirected to your personal garage. </p>

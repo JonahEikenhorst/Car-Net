@@ -30,6 +30,13 @@ export class CarController {
         return this.carService.updateCar(id, changes);
     }
 
+    @Put('edit/:numberPlate')
+    async updateCarByNumberPlate(
+    @Param("numberPlate") numberPlate: string,
+    @Body() changes: Partial<Car>): Promise<Car> {
+        return this.carService.updateCarByNumberPlate(numberPlate, changes);
+    }
+
     @Delete(':id')
     async deleteCar(@Param("id") id: string) {
         console.log("Deleting car with id: " + id);
