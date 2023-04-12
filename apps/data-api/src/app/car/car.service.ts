@@ -25,6 +25,10 @@ export class CarService {
         return this.carModel.findOneAndUpdate({_id: id}, changes,{new:true});
     }
 
+    async updateCarByNumberPlate(numberPlate: string, changes: Partial<Car>): Promise<Car> {
+        return this.carModel.findOneAndUpdate({numberPlate: numberPlate}, changes,{new:true});
+    }
+
     async deleteCar(id: string) {
         return this.carModel.deleteOne({_id: id});
     }
