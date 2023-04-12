@@ -4,7 +4,6 @@ import { AuthService } from "../../Auth/auth.service";
 import { BrandService } from "../brand.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { catchError, map } from "rxjs";
 import { BrandInterface } from "@car-net/interfaces";
 import * as moment from 'moment';
 

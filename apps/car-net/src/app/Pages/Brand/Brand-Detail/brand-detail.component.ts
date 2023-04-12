@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BrandInterface, CarInterface, UserInterface } from '@car-net/interfaces';
+import { BrandInterface, UserInterface } from '@car-net/interfaces';
 import { Observable } from 'rxjs';
 import { BrandService } from '../brand.service';
 

@@ -57,10 +57,10 @@ export class CatalogService {
   }
 
   createCar(car: Partial<CarInterface>): Observable<CarInterface> {
-    return this.http.post<CarInterface>("http://localhost:3333/api/cars", car);
+    return this.http.post<CarInterface>("https://car-net.up.railway.app/api/cars", car);
   }
 
   updateCar(car: Partial<CarInterface>, numberPlate: string): Observable<CarInterface> {
-    return this.http.put<CarInterface>(`http://localhost:3333/api/cars/edit/${numberPlate}`, car);
+    return this.http.put<CarInterface>(`https://car-net.up.railway.app/api/cars/edit/${numberPlate}`, car);
   }
 }
