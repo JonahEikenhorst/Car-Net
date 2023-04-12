@@ -5,6 +5,7 @@
     <div class="flex items-center space-x-4">
       <a routerLink="catalog" class="text-xl"><i class="bi bi-car-front-fill mr-2"></i>Catalog</a>
       <a routerLink="garages" class="text-xl"><i class="bi bi-building mr-2"></i>Garages</a>
+      <a *ngIf="($admin | async) === true" routerLink="brand" class="text-xl"><i class="bi bi-caret-right mr-2"></i>Brands</a>
 
     </div>
   </div>
