@@ -1,0 +1,74 @@
+<div class="spacer layer1">
+    <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 mt-8">
+      <a routerLink="/catalog" class="text-5xl ml-32 mt-32"><i class="bi bi-arrow-return-left text-red-400"></i></a>
+        <div class="mx-auto max-w-lg rounded-lg p-4 shadow-lg bg-dark">
+          <h1 class="text-center text-2xl font-bold text-red-400 sm:text-3xl">
+            Create or Edit a Car
+          </h1>
+      
+          <form
+          [formGroup]="carForm" (ngSubmit)="onSubmit()"
+            class="mt-6 mb-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
+          >
+            <p class="text-center text-white text-lg font-medium">Please fill in the form in order to create or edit a car</p>
+            <div>
+              <label for="brand" class="sr-only">Brand</label>
+      
+              <div class="relative">
+                <input
+                  type="text"
+                  class="w-full rounded-lg border-gray-200 p-3 pr-12 text-sm shadow-sm"
+                  placeholder="Enter the brand: e.g. BMW"
+                  name="brand"
+                  formControlName="brand"
+                />
+                <span *ngIf="brand.invalid && (brand.dirty || brand.touched)">
+                  <span class="text-error text-white" *ngIf="brand.errors?.['required']"><i class="bi bi-exclamation-circle"></i> Brand is required</span>
+                </span>
+              </div>
+            </div>
+            <div>
+              <label for="country" class="sr-only">Country</label>
+      
+              <div class="relative">
+                <input
+                  type="text"
+                  class="w-full rounded-lg border-gray-200 p-3 pr-12 text-sm shadow-sm"
+                  placeholder="Enter the licensed country: e.g. Germany"
+                  name="country"	
+                  formControlName="country"
+                />
+                <span *ngIf="country.invalid && (country.dirty || country.touched)">
+                  <span class="text-error text-white" *ngIf="country.errors?.['required']"><i class="bi bi-exclamation-circle"></i> Country is required</span>
+                </span>
+              </div>
+            </div>
+      
+            <div>
+              <label for="year" class="sr-only">Year</label>
+      
+              <div class="relative">
+                <input
+                  type="number"
+                  class="w-full rounded-lg border-gray-200 p-3 pr-12 text-sm shadow-sm"
+                  placeholder="Enter the year: e.g. 2021"
+                  name="year"
+                  formControlName="year"
+                />
+                <span *ngIf="year.invalid && (year.dirty || year.touched)">
+                  <span class="text-error text-white" *ngIf="year.errors?.['required']"><i class="bi bi-exclamation-circle"></i> year is required</span>
+                  <span class="text-error text-white" *ngIf="year.errors?.['minlength']"><i class="bi bi-exclamation-circle"></i> year must be 2 characters long</span>
+                </span>
+              </div>
+            </div>
+            <button
+              type="submit"
+              [disabled]="carForm.invalid"
+              class="block w-full rounded-lg bg-red-400 px-5 py-3 text-sm font-medium text-white"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>

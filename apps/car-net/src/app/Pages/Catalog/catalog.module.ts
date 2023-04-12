@@ -10,13 +10,15 @@ import { CatalogService } from './catalog.service';
 import { CatalogCardComponent } from './Catalog-Card/catalog-card.component';
 import { CatalogComponent } from './Catalog-Page/catalog.component';
 import { CatalogDetailComponent } from './Catalog-Detail/catalog-detail.component';
+import { CarEditComponent } from './Catalog-Edit/catalog-edit.component';
 
 
 @NgModule({
   declarations: [
     CatalogCardComponent,
     CatalogComponent,
-    CatalogDetailComponent
+    CatalogDetailComponent,
+    CarEditComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,7 @@ import { CatalogDetailComponent } from './Catalog-Detail/catalog-detail.componen
     ReactiveFormsModule,
     RouterLink
   ],
-  exports: [ CatalogCardComponent, CatalogComponent, CatalogDetailComponent
+  exports: [ CatalogCardComponent, CatalogComponent, CatalogDetailComponent, CarEditComponent
   ],
   providers: [ CatalogService
   ]
