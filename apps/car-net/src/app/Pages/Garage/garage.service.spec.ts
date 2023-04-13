@@ -3,14 +3,31 @@ import { TestBed } from '@angular/core/testing';
 import { GarageService } from './garage.service';
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { GarageInterface } from '@car-net/interfaces';
+import { AuthService } from '../Auth/auth.service';
 
 describe('GarageService', () => {
   let service: GarageService;
 
+  const dummyGarage = {
+    garageName: "test",
+    owner: "5f9f1b0b0b1b1b1b1b1b1b1b",
+    likes: [],
+    cars: []
+  }
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HttpClient, HttpHandler]
+      providers: [HttpClient, HttpHandler
+      , { 
+        provide: GarageService, 
+        useClass: GarageService 
+      },
+      { 
+        provide: AuthService, 
+        useClass: AuthService 
+      }]
     });
+
     service = TestBed.inject(GarageService);
   });
 

@@ -6,6 +6,6 @@
     "types": ["jest", "node"]
   },
   "files": ["src/test-setup.ts"],
-  "include": ["jest.config.ts", "**/*.test.ts", "**/*.spec.ts", "**/*.d.ts"],
+  "include": ["jest.config.ts", "**/*.test.ts", "**/*.spec.ts", "**/*.d.ts", "src/app/Pages/Brand/Brand-Detail/brand-detail.component.spec.ts.txt"],
   
 }

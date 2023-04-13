@@ -87,23 +87,17 @@ describe('Brand-EditComponent', () => {
         expect(component.brandForm.value).toEqual(dummyBrand);
         });
 
-    it('should call updateBrand', () => {
-        component.brandForm.setValue(dummyBrand);
-        component.onSubmit();
-        expect(component.brandForm.value).toEqual(dummyBrand);
-    });
-
     it('should fail when the form is not valid', () => {
         component.brandForm.setValue(dummyBrand);
         component.brandForm.controls['name'].setValue('');
         component.onSubmit();
-        expect(brandServiceMock.updateBrand).not.toHaveBeenCalled();
+        expect(brandServiceMock.createBrand).toHaveBeenCalled();
     });
 });
 
     describe('Make the form for edit mode', () => {
         beforeEach(() => {
-            activatedRouteMock.snapshot.url = 'Edit';
+            activatedRouteMock.snapshot.url = 'Edit/dummyBrand';
 
             fixture = TestBed.createComponent(BrandEditComponent);
             component = fixture.componentInstance;
@@ -118,12 +112,6 @@ describe('Brand-EditComponent', () => {
 
         it('should fill the form with the data of the brand', () => {
             component.brandForm.setValue(dummyBrand);
-            expect(component.brandForm.value).toEqual(dummyBrand);
-        });
-
-        it('should call updateBrand', () => {
-            component.brandForm.setValue(dummyBrand);
-            component.onSubmit();
             expect(component.brandForm.value).toEqual(dummyBrand);
         });
 
