@@ -7,11 +7,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
-import { Token, UserCredentials } from '@car-net/interfaces';
-
 import { AuthService } from './auth.service';
 import { Identity } from './identity.schema';
-import { User } from '../user/user.schema';
+
 
 @Controller()
 export class AuthController {
